@@ -1,0 +1,50 @@
+{
+  "manifest_version": 3,
+  "name": "AnkiLingoFlash",
+  "version": "0.3.4",
+  "description": "__MSG_extensionDescription__",
+  "permissions": [
+    "contextMenus",
+    "activeTab",
+    "tabs",
+    "storage",
+    "identity",
+    "scripting",
+    "alarms"
+  ],
+  "host_permissions": [
+    "http://localhost/*",
+    "https://api.openai.com/*",
+    "https://anki-lingo-flash.piriouvictor.workers.dev/*",
+    "https://accounts.google.com/*",
+    "https://*/*"
+  ],
+  "action": {
+    "default_popup": "popup.html"
+  },
+  "icons": {
+    "16": "icons/icon_16.png",
+    "32": "icons/icon_32.png",
+    "64": "icons/icon_64.png",
+    "128": "icons/icon_128.png",
+    "256": "icons/icon_256.png",
+    "512": "icons/icon_512.png"
+  },
+  "web_accessible_resources": [
+    {
+      "resources": [
+        "icons/refresh_logo.svg",
+        "config.js",
+        "style.css",
+        "franc/data.js",
+        "franc/expressions.js",
+        "franc/index.js"
+      ],
+      "matches": [
+        "http://*/*",
+        "https://*/*"
+      ]
+    }
+  ],
+  "default_locale": "en"
+}

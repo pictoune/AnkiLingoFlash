@@ -1,0 +1,656 @@
+{
+  "networkResponseError": {
+    "message": "The network response was not correct"
+  },
+  "unexpectedFieldsError": {
+    "message": "The response contains an unexpected number of fields"
+  },
+  "pleaseLogInForFreeTrial": {
+    "message": "Log in with Google to use the free trial mode."
+  },
+  "missingErrorField": {
+    "message": "The response does not contain the required error field"
+  },
+  "missingResultField": {
+    "message": "The response does not contain the required result field"
+  },
+  "ankiConnectionFailed": {
+    "message": "Connection to Anki failed. Please make sure Anki is running."
+  },
+  "Definition": {
+    "message": "Definition"
+  },
+  "Selection": {
+    "message": "Selection"
+  },
+  "Mnemonic": {
+    "message": "Mnemonic"
+  },
+  "regeneratingDefinition": {
+    "message": "Regenerating definition"
+  },
+  "regeneratingMnemonic": {
+    "message": "Regenerating mnemonic"
+  },
+  "helpfulAssistantDefinition": {
+    "message": "You are a helpful assistant capable of generating concise and accurate definitions in $1 for various terms or expressions. Always respond in JSON format with a 'definition' key. For example: {\"definition\": \"Your definition here\"}.",
+    "placeholders": {
+      "1": {
+        "content": "$1"
+      }
+    }
+  },
+  "creativeAssistantMnemonic": {
+    "message": "You are a creative assistant specialized in generating effective mnemonics in $1 to remember the definition of words or expressions. Always respond in JSON format with a 'mnemonic' key. For example: {\"mnemonic\": \"Your mnemonic here\"}.",
+    "placeholders": {
+      "1": {
+        "content": "$1"
+      }
+    }
+  },
+  "generateDefinition": {
+    "message": "Provide a concise and clear definition in $1 for the term/expression: [$2]. The response should be a JSON containing only the definition without mentioning the term/expression. Format: {\"definition\": \"Your definition here\"}.",
+    "placeholders": {
+      "1": {
+        "content": "$1"
+      },
+      "2": {
+        "content": "$2"
+      }
+    }
+  },
+  "generateMnemonic": {
+    "message": "Generate a concise mnemonic in $1 to help remember the term/expression: [$2]. The response should be a JSON containing only the mnemonic. Format: {\"mnemonic\": \"Your mnemonic here\"}.",
+    "placeholders": {
+      "1": {
+        "content": "$1"
+      },
+      "2": {
+        "content": "$2"
+      }
+    }
+  },
+  "errorRegeneratingDefinition": {
+    "message": "Error regenerating definition. Please try again."
+  },
+  "errorRegeneratingMnemonic": {
+    "message": "Error regenerating mnemonic. Please try again."
+  },
+  "creatingFlashcard": {
+    "message": "Creating flashcard"
+  },
+  "duplicateSelectionError": {
+    "message": "A card with the same selected text already exists in this deck."
+  },
+  "generateFlashcardInstructions": {
+    "message": "You are a helpful and creative assistant specialized in generating flashcards for various words or expressions. Provide a clear definition, a mnemonic to help remember the term, and a direct translation. The definition should explain the concept without explicitly mentioning the original term/expression. Always respond in the language specified in the user's prompt."
+  },
+  "generateFlashcardPrompt": {
+    "message": "Generate a flashcard in $1 for the following term/expression in brackets: [$2].",
+    "placeholders": {
+      "1": {
+        "content": "$1"
+      },
+      "2": {
+        "content": "$2"
+      }
+    }
+  },
+  "generateFlashcard": {
+    "message": "Generate a flashcard"
+  },
+  "errorCreatingFlashcard": {
+    "message": "An error occurred while creating the flashcard. Please try again. If the problem persists, check your connection."
+  },
+  "failedToConnectToOpenAI": {
+    "message": "Failed to connect to OpenAI. Please check your internet connection and try again."
+  },
+  "errorGeneratingFlashcardLocally": {
+    "message": "Error generating flashcard locally."
+  },
+  "localServerConnectionFailed": {
+    "message": "Connection to local server failed."
+  },
+  "reviewFlashcard": {
+    "message": "Review flashcard"
+  },
+  "front": {
+    "message": "Front"
+  },
+  "back": {
+    "message": "Back"
+  },
+  "selectedText": {
+    "message": "Selected text"
+  },
+  "validate": {
+    "message": "Validate"
+  },
+  "error": {
+    "message": "Error"
+  },
+  "cancel": {
+    "message": "Cancel"
+  },
+  "tryAgain": {
+    "message": "Try Again"
+  },
+  "pleaseEnsureAnkiOpen": {
+    "message": "Please make sure Anki is open and Anki-Connect is installed and configured correctly. For more information on installing Anki-Connect, click <a href='https://ankilingoflash.com/install-anki-connect.html' target='_blank'>here</a>. Then, try again."
+  },
+  "selectTheDeck": {
+    "message": "Select the Anki deck to add this card to"
+  },
+  "cannotAddNote": {
+    "message": "Cannot add note: it may be a duplicate or invalid."
+  },
+  "flashcardAddedToDeck": {
+    "message": "Flashcard added to Anki deck \"$1\"",
+    "placeholders": {
+      "1": {
+        "content": "$1"
+      }
+    }
+  },
+  "errorAddingFlashcard": {
+    "message": "Error adding flashcard. Please make sure Anki is open and try again."
+  },
+  "flashcardCreationCanceled": {
+    "message": "Flashcard creation canceled"
+  },
+  "settingsTitle": {
+    "message": "<span class=\"duo-color\">Settings for </span><span class=\"highlight\">AnkiLingoFlash</span>"
+  },
+  "aiModelToggle": {
+    "message": "Do you want AnkiFlash to be based on an AI model running on your device or on a remote server like ChatGPT?"
+  },
+  "enterOpenAIApiKey": {
+    "message": "Enter your OpenAI API key:"
+  },
+  "saveSettings": {
+    "message": "Save"
+  },
+  "loadedSettings": {
+    "message": "Loaded settings:"
+  },
+  "errorFetchingModels": {
+    "message": "Error fetching models. Please check your API key and try again."
+  },
+  "errorLoadingPopup": {
+    "message": "Error loading popup.html:"
+  },
+  "customModelCreated": {
+    "message": "Custom model created or already existing."
+  },
+  "errorCheckingCreatingModel": {
+    "message": "Error checking/creating model:"
+  },
+  "ankiConnectNotAvailable": {
+    "message": "AnkiConnect not available."
+  },
+  "noActiveTab": {
+    "message": "No active tab available to send the message."
+  },
+  "unexpectedError": {
+    "message": "Unexpected error:"
+  },
+  "defaultSettingsSet": {
+    "message": "Default settings set."
+  },
+  "apiKeyValidated": {
+    "message": "API key successfully validated!"
+  },
+  "invalidApiKey": {
+    "message": "Invalid API key. Please try again."
+  },
+  "pleaseEnterApiKey": {
+    "message": "Please enter a valid API key."
+  },
+  "apiKeyMissing": {
+    "message": "API key missing"
+  },
+  "failedToDecryptApiKey": {
+    "message": "Failed to decrypt API key."
+  },
+  "apiKeyMissingOrNotEncrypted": {
+    "message": "API key missing or not properly encrypted."
+  },
+  "countersReset": {
+    "message": "Counters reset for development purposes."
+  },
+  "settingsSaved": {
+    "message": "Settings saved:"
+  },
+  "pleaseEnterValidApiKey": {
+    "message": "Please enter a valid OpenAI API key."
+  },
+  "noGptModelsFound": {
+    "message": "No GPT models found in the API response."
+  },
+  "useLocalOrRemoteModel": {
+    "message": "Use a local model or a remote model?"
+  },
+  "local": {
+    "message": "Local"
+  },
+  "remote": {
+    "message": "Remote"
+  },
+  "chooseLanguage": {
+    "message": "Choose the language for definitions and mnemonics:"
+  },
+  "instruct_en_us": {
+    "message": "English (US)"
+  },
+  "instruct_en_uk": {
+      "message": "English (UK)"
+  },
+  "instruct_en_au": {
+      "message": "English (Australia)"
+  },
+  "instruct_en_ca": {
+      "message": "English (Canada)"
+  },
+  "instruct_es_es": {
+      "message": "Spanish (Spain)"
+  },
+  "instruct_es_latam": {
+      "message": "Spanish (Latin America)"
+  },
+  "instruct_fr_fr": {
+      "message": "French (France)"
+  },
+  "instruct_fr_ca": {
+      "message": "French (Canada)"
+  },
+  "instruct_de_de": {
+      "message": "German (Germany)"
+  },
+  "instruct_de_ch": {
+      "message": "German (Switzerland)"
+  },
+  "instruct_it_it": {
+      "message": "Italian (Italy)"
+  },
+  "instruct_it_ch": {
+      "message": "Italian (Switzerland)"
+  },
+  "instruct_nl_nl": {
+      "message": "Dutch (Netherlands)"
+  },
+  "instruct_nl_be": {
+      "message": "Dutch (Belgium)"
+  },
+  "instruct_pt_pt": {
+      "message": "Portuguese (Portugal)"
+  },
+  "instruct_pt_br": {
+      "message": "Portuguese (Brazil)"
+  },
+  "instruct_ru": {
+      "message": "Russian"
+  },
+  "instruct_mandarin_simplified": {
+      "message": "Mandarin (Simplified)"
+  },
+  "instruct_mandarin_traditional": {
+      "message": "Mandarin (Traditional)"
+  },
+  "instruct_cantonese": {
+      "message": "Cantonese"
+  },
+  "instruct_japanese": {
+      "message": "Japanese"
+  },
+  "instruct_arabic_standard": {
+      "message": "Arabic (Standard)"
+  },
+  "instruct_arabic_eg": {
+      "message": "Arabic (Egypt)"
+  },
+  "instruct_korean": {
+      "message": "Korean"
+  },
+  "instruct_hindi": {
+      "message": "Hindi"
+  },
+  "english_us": {
+    "message": "English (US)"
+  },
+  "english_uk": {
+      "message": "English (UK)"
+  },
+  "english_au": {
+      "message": "English (Australia)"
+  },
+  "english_ca": {
+      "message": "English (Canada)"
+  },
+  "spanish_es": {
+      "message": "Spanish (Spain)"
+  },
+  "spanish_latam": {
+      "message": "Spanish (Latin America)"
+  },
+  "french_fr": {
+      "message": "French (France)"
+  },
+  "french_ca": {
+      "message": "French (Canada)"
+  },
+  "german_de": {
+      "message": "German (Germany)"
+  },
+  "german_ch": {
+      "message": "German (Switzerland)"
+  },
+  "italian_it": {
+      "message": "Italian (Italy)"
+  },
+  "italian_ch": {
+      "message": "Italian (Switzerland)"
+  },
+  "dutch_nl": {
+      "message": "Dutch (Netherlands)"
+  },
+  "dutch_be": {
+      "message": "Dutch (Belgium)"
+  },
+  "portuguese_pt": {
+      "message": "Portuguese (Portugal)"
+  },
+  "portuguese_br": {
+      "message": "Portuguese (Brazil)"
+  },
+  "russian": {
+      "message": "Russian"
+  },
+  "mandarin_simplified": {
+      "message": "Mandarin (Simplified)"
+  },
+  "mandarin_traditional": {
+      "message": "Mandarin (Traditional)"
+  },
+  "cantonese": {
+      "message": "Cantonese"
+  },
+  "japanese": {
+      "message": "Japanese"
+  },
+  "arabic_standard": {
+      "message": "Arabic (Standard)"
+  },
+  "arabic_eg": {
+      "message": "Arabic (Egypt)"
+  },
+  "korean": {
+      "message": "Korean"
+  },
+  "hindi": {
+      "message": "Hindi"
+  },
+  "ownCreditsOrFreeTrial": {
+    "message": "Would you prefer to try AnkiLingoFlash for free or use your own credits?"
+  },
+  "freeTrial": {
+    "message": "Free trial"
+  },
+  "ownCredits": {
+    "message": "Own credits"
+  },
+  "enterOpenAIKey": {
+    "message": "Enter your OpenAI API key:"
+  },
+  "chooseChatGPTModel": {
+    "message": "Choose the ChatGPT model:"
+  },
+  "pleaseSignIn": {
+    "message": "Sign in with Google to enjoy the free trial:"
+  },
+  "signInWithGoogle": {
+    "message": "Sign in with Google"
+  },
+  "notAvailableYet": {
+    "message": "Not available yet!"
+  },
+  "welcome": {
+    "message": "Welcome,"
+  },
+  "loggedInMessage": {
+    "message": "You are now logged in."
+  },
+  "freeFlashcardsLeft": {
+    "message": "Number of free flashcards remaining: "
+  },
+  "signOut": {
+    "message": "Sign Out"
+  },
+  "resetCounterDevOnly": {
+    "message": "Reset counter (Development only)"
+  },
+  "contentJsLoaded": {
+    "message": "content.js is loaded"
+  },
+  "flashcardNotFound": {
+    "message": "Flashcard not found"
+  },
+  "defRegenerationLimitReached": {
+    "message": "You have reached the limit of $LIMIT$ regenerations for the definition of this flashcard.",
+    "placeholders": {
+      "LIMIT": {
+        "content": "$1"
+      }
+    }
+  },
+  "mneRegenerationLimitReached": {
+    "message": "You have reached the limit of $LIMIT$ regenerations for the mnemonic of this flashcard.",
+    "placeholders": {
+      "LIMIT": {
+        "content": "$1"
+      }
+    }
+  },
+  "enterValidApiKey": {
+    "message": "Please enter a valid API key to generate flashcards."
+  },
+  "flashcardLimitReached": {
+    "message": "You have reached the limit of $LIMIT$ flashcards in free trial mode.",
+    "placeholders": {
+      "LIMIT": {
+        "content": "$1"
+      }
+    }
+  },
+  "unexpectedApiResponse": {
+    "message": "Unexpected API response format"
+  },
+  "apiError": {
+    "message": "API Error:"
+  },
+  "localServerError": {
+    "message": "Local server error:"
+  },
+  "showingAnkiNotOpenModal": {
+    "message": "Displaying Anki not open modal"
+  },
+  "extensionDescription": {
+    "message": "Automatically generate Anki flashcards with pronunciation guide and mnemonic for language learning."
+  },
+  "frontDefBackSelectionMnemonic": {
+    "message": "Front: definition; Back: selection and mnemonic"
+  },
+  "refreshLogoSet": {
+    "message": "Refresh logo set for button:"
+  },
+  "usingRemoteModel": {
+    "message": "Using remote model"
+  },
+  "flashcardCreated": {
+    "message": "Flashcard created:"
+  },
+  "errorLoadingSettings": {
+    "message": "Error loading settings:"
+  },
+  "userNotAuthenticated": {
+    "message": "User not authenticated in free trial mode"
+  },
+  "errorFetchingDecks": {
+    "message": "Error fetching decks:"
+  },
+  "errorOccurred": {
+    "message": "An error occurred. Try again."
+  },
+  "welcomeTitle": {
+    "message": "<span class=\"duo-color\">Welcome to</span> <span class=\"highlight\">AnkiLingoFlash</span>"
+  },
+  "welcomeMessage": {
+    "message": "Thank you for installing AnkiLingoFlash. Before you can use this extension, please follow these five steps:"
+  },
+  "installAnkiConnect": {
+    "message": "1. Install and configure Anki-Connect"
+  },
+  "ankiConnectInstructions": {
+    "message": "<li>Open Anki and go to <i><strong>Tools > Add-ons > Get Add-ons...</strong></i></li><li>Enter the code <i><strong>2055492159</strong></i> then click <i><strong>OK</strong></i>. A message prompting you to restart Anki should appear; close it by clicking <i><strong>OK</strong></i>.</li><li>Double-click on <i><strong>AnkiConnect</strong></i> in the add-ons list. Replace all the text in the configuration area with the following: <pre><code>{\n  \"apiKey\": null,\n  \"apiLogPath\": null,\n  \"ignoreOriginList\": [],\n  \"webBindAddress\": \"127.0.0.1\",\n  \"webBindPort\": 8765,\n  \"webCorsOriginList\": [\n    \"chrome-extension://hicnjnfcmjfnomdfmekhigghmlkmachb\",\n    \"http://localhost/*\",\n    \"https://*/*\"\n  ]\n}</code></pre> then click <i><strong>OK</strong></i>.</li>"
+  },
+  "installAwesomeTTS": {
+    "message": "2. Install the AwesomeTTS text-to-speech tool"
+  },
+  "awesomeTTSInstructions": {
+    "message": "<li>Go back to <i><strong>Get Add-ons...</strong></i></li><li>Enter the code <i><strong>1436550454</strong></i>, then click <i><strong>OK</strong></i>, and click <i><strong>OK</strong></i> to dismiss the message.</li><li>Restart Anki after installation.</li>"
+  },
+  "configureAnkiLingoFlash": {
+    "message": "3. Configure AnkiLingoFlash"
+  },
+  "generateFirstFlashcard": {
+    "message": "4. Generate and add your first flashcard to Anki"
+  },
+  "generateFirstFlashcardInstructions": {
+    "message": "<li>Select a word or phrase on a recently loaded web page.</li><li>Right-click on the selection.</li><li>Click on <i><strong>Generate a flashcard</strong></i> in the context menu.</li><li>Follow the on-screen instructions to create and add the flashcard to an Anki deck.</li>"
+  },
+  "configureTTSTool": {
+    "message": "5. Configure the text-to-speech tool for your target language"
+  },
+  "configureTTSToolInstructions": {
+    "message": "<li>If you've generated your first flashcard as indicated, then by going to <i><strong>Tools > Manage Note Types</strong></i> you should see the flashcard type corresponding to the language of the word or phrase you selected. For example, if the selected term is in <SELECTED_LANGUAGE> then select the card type <i><strong>AnkiLingoFlash_<SELECTED_LANGUAGE> [1 note]</strong></i> before clicking on <i><strong>Cards</strong></i>.</li><li>Check <i><strong>Back Template</strong></i>, then click on <i><strong>Add TTS</strong></i>. Select the service you want to use for text-to-speech. For example, for English, you can choose the free local service <i><strong>Youdao Dictionary</strong></i> with the voice <i><strong>English, American [default]</strong></i>, and click on <i><strong>Save</strong></i>, then on <i><strong>OK</strong></i>. For the <i><strong>Field</strong></i> field, select <i><strong>Selection</strong></i> and for the <i><strong>Language</strong></i> field, select the desired language for text-to-speech. Click on <i><strong>Insert into Back Template</strong></i>, then close the message that appears by clicking on <i><strong>OK</strong></i>, and substitute the line <i><strong><MOVE_LINE_HERE></strong></i> with the last one that was just added, and finally click on <i><strong>Save</strong></i>.</li><br> You will need to repeat this fifth and final step for each of the languages you wish to learn.<br><br><br><strong><span class=\"blue-title2\">Congratulations, you have completely finished setting up </span><span class=\"highlight\">AnkiLingoFlash </span><span class=\"blue-title2\">and can now review the first word or phrase you added to Anki in step 3, or continue to add other flashcards.</span></strong>"
+  },
+  "moveLineHere": {
+    "message": "[Pronunciation guide not yet installed and/or configured. To install, click <a href='https://ankilingoflash.com/install-awesome-tts.html' target='_blank'>here</a>. To configure, click <a href='https://ankilingoflash.com/configure-tts-tool.html' target='_blank'>here</a>.]"
+  },
+  "selectLanguage": {
+    "message": "Select the language for pronunciation of the selected term"
+  },
+  "invalidSelectionError": {
+    "message": "The selection does not contain valid text to generate a flashcard."
+  },
+  "directTranslation": {
+    "message": "Direct translation"
+  },
+  "bengali": {
+    "message": "Bengali"
+  },
+  "indonesian": {
+    "message": "Indonesian"
+  },
+  "javanese": {
+    "message": "Javanese"
+  },
+  "telugu": {
+    "message": "Telugu"
+  },
+  "vietnamese": {
+    "message": "Vietnamese"
+  },
+  "marathi": {
+    "message": "Marathi"
+  },
+  "tamil": {
+    "message": "Tamil"
+  },
+  "turkish": {
+    "message": "Turkish"
+  },
+  "urdu": {
+    "message": "Urdu"
+  },
+  "gujarati": {
+    "message": "Gujarati"
+  },
+  "polish": {
+    "message": "Polish"
+  },
+  "ukrainian": {
+    "message": "Ukrainian"
+  },
+  "kannada": {
+    "message": "Kannada"
+  },
+  "maithili": {
+    "message": "Maithili"
+  },
+  "malayalam": {
+    "message": "Malayalam"
+  },
+  "burmese": {
+    "message": "Burmese"
+  },
+  "punjabi": {
+    "message": "Punjabi"
+  },
+  "romanian": {
+    "message": "Romanian"
+  },
+  "croatian": {
+    "message": "Croatian"
+  },
+  "thai": {
+    "message": "Thai"
+  },
+  "swahili": {
+    "message": "Swahili"
+  },
+  "amharic": {
+    "message": "Amharic"
+  },
+  "oromo": {
+    "message": "Oromo"
+  },
+  "uzbek": {
+    "message": "Uzbek"
+  },
+  "azerbaijani": {
+    "message": "Azerbaijani"
+  },
+  "georgian": {
+    "message": "Georgian"
+  },
+  "czech": {
+    "message": "Czech"
+  },
+  "hungarian": {
+    "message": "Hungarian"
+  },
+  "greek": {
+    "message": "Greek"
+  },
+  "swedish": {
+    "message": "Swedish"
+  },
+  "hebrew": {
+    "message": "Hebrew"
+  },
+  "malay": {
+    "message": "Malay"
+  },
+  "danish": {
+    "message": "Danish"
+  },
+  "finnish": {
+    "message": "Finnish"
+  },
+  "norwegian": {
+    "message": "Norwegian"
+  },
+  "slovak": {
+    "message": "Slovak"
+  }
+}

@@ -1,0 +1,1011 @@
+.anki-lingo-flash-container {
+    --primary-color: #45a049;
+    --danger-color: #f44336;
+    --background-color: #f9f9f9;
+    --modal-background: rgba(245, 245, 245, 0.95);
+    --text-color: #333;
+    --border-color: transparent;
+
+    font-family: Arial, sans-serif;
+}
+
+.anki-lingo-flash-container #freeTrialOption {
+    text-align: center;
+}
+
+.anki-lingo-flash-container #localModelMessage {
+    text-align: center;
+}
+
+.anki-lingo-flash-container body {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    background-color: var(--background-color);
+}
+
+.anki-lingo-flash-container .gsi-material-button {
+    -moz-user-select: none;
+    -webkit-user-select: none;
+    -ms-user-select: none;
+    -webkit-appearance: none;
+    background-color: WHITE;
+    background-image: none;
+    border: 1px solid #747775;
+    border-radius: 20px;
+    box-sizing: border-box;
+    color: #1f1f1f;
+    cursor: pointer;
+    font-family: 'Roboto', arial, sans-serif;
+    font-size: 14px;
+    height: 40px;
+    letter-spacing: 0.25px;
+    outline: none;
+    overflow: hidden;
+    padding: 0 12px;
+    position: relative;
+    text-align: center;
+    transition: background-color 0.218s, border-color 0.218s, box-shadow 0.218s;
+    vertical-align: middle;
+    white-space: nowrap;
+    width: auto;
+    max-width: 400px;
+    min-width: min-content;
+}
+
+.anki-lingo-flash-container .gsi-material-button .gsi-material-button-icon {
+    height: 20px;
+    margin-right: 12px;
+    min-width: 20px;
+    width: 20px;
+}
+
+.anki-lingo-flash-container .gsi-material-button .gsi-material-button-content-wrapper {
+    align-items: center;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    height: 100%;
+    justify-content: space-between;
+    position: relative;
+    width: 100%;
+}
+
+.anki-lingo-flash-container .gsi-material-button .gsi-material-button-contents {
+    flex-grow: 1;
+    font-family: Arial, sans-serif;
+    font-size: 14px;
+    font-weight: normal;
+    color: #333333;
+    letter-spacing: normal;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    vertical-align: top;
+}
+
+.anki-lingo-flash-container .gsi-material-button .gsi-material-button-state {
+    display: none;
+}
+
+.anki-lingo-flash-container .gsi-material-button:hover {
+    box-shadow: 0 1px 2px 0 rgba(60, 64, 67, .30), 0 1px 3px 1px rgba(60, 64, 67, .15);
+}
+
+.anki-lingo-flash-container .gsi-material-button:active {
+    background-color: #f2f2f2;
+}
+
+.anki-lingo-flash-container .gsi-material-button:disabled {
+    cursor: default;
+    background-color: #ffffff61;
+    border-color: #1f1f1f1f;
+}
+
+.anki-lingo-flash-container .gsi-material-button:disabled .gsi-material-button-contents,
+.anki-lingo-flash-container .gsi-material-button:disabled .gsi-material-button-icon {
+    opacity: 38%;
+}
+
+.anki-lingo-flash-container .container {
+    width: 500px;
+    padding: 20px;
+    background-color: var(--modal-background);
+    border-radius: 3px;
+    border: 1px solid transparent;
+    backdrop-filter: blur(4px);
+    text-align: center;
+    overflow: hidden;
+}
+
+.anki-lingo-flash-container h1,
+.anki-lingo-flash-container h2,
+.anki-lingo-flash-container h3,
+.anki-lingo-flash-container h4 {
+    color: var(--text-color);
+    margin: 0 0 10px 0;
+    text-align: center;
+}
+
+.anki-lingo-flash-container h1 {
+    font-size: 18px;
+    margin-bottom: 20px;
+    color: var(--text-color);
+}
+
+.anki-lingo-flash-container .form-group {
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+.anki-lingo-flash-container label {
+    display: block;
+    margin-bottom: 10px;
+    color: var(--text-color);
+    font-size: 14px;
+}
+
+.anki-lingo-flash-container input,
+.anki-lingo-flash-container select,
+.anki-lingo-flash-container textarea {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 20px;
+    border: 1px solid var(--border-color);
+    border-radius: 4px;
+    box-sizing: border-box;
+    font-size: 16px;
+    text-align: center;
+}
+
+.anki-lingo-flash-container .btn:not(.gsi-material-button) {
+    background-color: var(--primary-color);
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 2px;
+    cursor: pointer;
+    border-radius: 4px;
+    transition: background-color 0.3s, transform 0.3s;
+}
+
+.anki-lingo-flash-container .btn:not(.gsi-material-button):hover {
+    background-color: #3a893e;
+    transform: scale(1.05);
+}
+
+.anki-lingo-flash-container .toggle-switch {
+    position: relative;
+    display: inline-block;
+    width: 227px;
+    height: 34px;
+    margin-bottom: 20px;
+}
+
+.anki-lingo-flash-container .toggle-switch input {
+    display: none;
+}
+
+.anki-lingo-flash-container .slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #ccc;
+    transition: .4s;
+    border-radius: 34px;
+    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.anki-lingo-flash-container .slider:before {
+    position: absolute;
+    content: "";
+    height: 30px;
+    width: 30px;
+    left: 2px;
+    background-color: white;
+    transition: .4s;
+    border-radius: 50%;
+}
+
+.anki-lingo-flash-container input:checked+.slider {
+    background-color: #2196F3;
+}
+
+.anki-lingo-flash-container input:checked+.slider:before {
+    transform: translateX(193px);
+}
+
+.anki-lingo-flash-container .slider::after {
+    content: attr(data-off);
+    color: white;
+    font-size: 14px;
+    font-weight: bold;
+}
+
+.anki-lingo-flash-container input:checked+.slider::after {
+    content: attr(data-on);
+}
+
+.anki-lingo-flash-container .toggle-label {
+    position: absolute;
+    color: white;
+    font-size: 14px;
+    font-weight: bold;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    transition: opacity 0.3s;
+    width: 100%;
+    text-align: center;
+}
+
+.anki-lingo-flash-container .toggle-label[data-state="on"] {
+    opacity: 0;
+}
+
+.anki-lingo-flash-container input:checked+.slider .toggle-label[data-state="on"] {
+    opacity: 1;
+}
+
+.anki-lingo-flash-container input:checked+.slider .toggle-label[data-state="off"] {
+    opacity: 0;
+}
+
+.anki-lingo-flash-container #login-button:not(.gsi-material-button),
+.anki-lingo-flash-container #logout-button:not(.gsi-material-button) {
+    width: 80%;
+    margin: 10px auto;
+}
+
+.anki-lingo-flash-container #user-info {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+}
+
+.anki-lingo-flash-container #apiKeyInput {
+    margin-top: 20px;
+}
+
+.anki-lingo-flash-container #apiKey {
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    padding: 10px;
+    width: 100%;
+    box-sizing: border-box;
+    margin-bottom: 10px;
+}
+
+.anki-lingo-flash-container .error-message {
+    color: #f44336;
+    font-size: 14px;
+    margin-top: 5px;
+    margin-bottom: 10px;
+    display: none;
+    text-align: center;
+}
+
+.anki-lingo-flash-container #apiKey.invalid {
+    border-color: #f44336;
+    border-width: 2px;
+    border-style: solid;
+}
+
+.anki-lingo-flash-container #apiKey.valid {
+    border-color: #45a049;
+    border-width: 2px;
+    border-style: solid;
+}
+
+.anki-lingo-flash-container #apiKey:focus {
+    border-color: #2196F3;
+    outline: none;
+}
+
+.anki-lingo-flash-container button:not(.gsi-material-button),
+.anki-lingo-flash-container .btn:not(.gsi-material-button) {
+    background-color: var(--primary-color);
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    text-align: center;
+    text-decoration: none;
+    display: block;
+    font-size: 14px;
+    margin: 10px auto;
+    cursor: pointer;
+    border-radius: 4px;
+    transition: background-color 0.3s, transform 0.3s;
+    width: 130px;
+}
+
+/* Add or modify these styles in your style.css file */
+
+#popup-container {
+    min-width: 250px;
+    /* Adjust the width as needed */
+    min-height: auto;
+    /* Adjust the width as needed */
+    overflow: auto;
+    /* Ensure content within the popup is scrollable if necessary */
+}
+
+.anki-lingo-flash-container .popup-container {
+    text-align: center;
+    min-width: 400px;
+}
+
+.anki-lingo-flash-container button:not(.gsi-material-button):hover {
+    background-color: #45a049;
+    transform: scale(1.05);
+}
+
+.anki-lingo-flash-container #saveSettings:not(.gsi-material-button),
+.anki-lingo-flash-container #login-button:not(.gsi-material-button) {
+    background-color: #45a049;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    text-align: center;
+    text-decoration: none;
+    display: block !important;
+    font-size: 16px;
+    margin: 20px auto;
+    cursor: pointer;
+    border-radius: 4px;
+    transition: background-color 0.3s, transform 0.3s;
+    opacity: 1 !important;
+    visibility: visible !important;
+    width: 200px;
+    position: static !important;
+}
+
+.anki-lingo-flash-container #saveSettings:not(.gsi-material-button):hover,
+.anki-lingo-flash-container #login-button:not(.gsi-material-button):hover {
+    background-color: #45a049;
+    transform: scale(1.05);
+}
+
+.anki-lingo-flash-container #logout-button:not(.gsi-material-button) {
+    background-color: transparent;
+    color: #5f6367;
+    border: none;
+    padding: 10px 20px 10px 40px;
+    /* Augmenter le padding à gauche pour l'icône */
+    text-align: center;
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    font-size: 16px;
+    margin: 20px auto;
+    cursor: pointer;
+    border-radius: 4px;
+    transition: background-color 0.3s, transform 0.3s;
+    position: relative;
+    justify-content: center;
+    align-items: center;
+}
+
+.anki-lingo-flash-container #logout-button:not(.gsi-material-button)::before {
+    content: '';
+    position: absolute;
+    left: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 24px;
+    height: 24px;
+    background-image: url('icons/logout_logo.svg');
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+.anki-lingo-flash-container #logout-button:not(.gsi-material-button):hover {
+    background-color: transparent;
+}
+
+.anki-lingo-flash-container .modal-button:not(.gsi-material-button) {
+    background-color: var(--primary-color);
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.3s;
+    margin: 0;
+    width: 122px;
+}
+
+.anki-lingo-flash-container .modal-button:not(.gsi-material-button):hover {
+    transform: scale(1.05);
+}
+
+.anki-lingo-flash-container .section,
+.anki-lingo-flash-container .sub-section {
+    text-align: center;
+    margin-bottom: 10px;
+}
+
+.anki-lingo-flash-container .section h3,
+.anki-lingo-flash-container .sub-section h4 {
+    margin: 0;
+    font-size: 18px;
+}
+
+.anki-lingo-flash-container .sub-section h4 {
+    color: grey;
+    margin-bottom: 0;
+    margin-top: 0;
+}
+
+.anki-lingo-flash-container .sub-section-content {
+    width: 100%;
+    margin-top: 0;
+    margin-bottom: 0;
+    text-align: center;
+    min-height: 40px;
+}
+
+#anki-lingo-flash-anki-not-open-modal,
+#anki-lingo-flash-deck-selection-modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    backdrop-filter: blur(5px);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 9999;
+}
+
+#anki-lingo-flash-anki-not-open-modal #ankiNotOpenModal,
+#anki-lingo-flash-deck-selection-modal #flashcardModal {
+    background-color: rgba(255, 255, 255, 0.95);
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1), 0 1px 3px rgba(0, 0, 0, 0.08);
+    border-radius: 12px;
+    padding: 24px;
+    max-width: 600px;
+    width: 90%;
+    max-height: 90vh;
+    overflow-y: auto;
+}
+
+.anki-lingo-flash-container #reviewModal,
+.anki-lingo-flash-container #flashcardModal,
+.anki-lingo-flash-container #ankiNotOpenModal {
+    position: fixed;
+    z-index: 1000;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    width: 90%;
+    max-width: 600px;
+    max-height: 90vh;
+    background-color: var(--modal-background);
+    color: var(--text-color);
+    text-align: center;
+    border-radius: 8px;
+    padding: 20px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    backdrop-filter: blur(4px);
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+}
+
+.anki-lingo-flash-container .modal-content {
+    flex: 1;
+    overflow-y: auto;
+    padding-right: 10px;
+}
+
+.anki-lingo-flash-container .button-container {
+    margin-top: 10px;
+    padding-top: 10px;
+    border-top: 1px solid var(--border-color);
+    background-color: transparent;
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+}
+
+.anki-lingo-flash-container #cancelButton:not(.gsi-material-button),
+.anki-lingo-flash-container #cancelReviewButton:not(.gsi-material-button) {
+    background-color: #cccccc;
+}
+
+.anki-lingo-flash-container #validateButton:not(.gsi-material-button),
+.anki-lingo-flash-container #retryButton:not(.gsi-material-button) {
+    background-color: var(--primary-color);
+}
+
+.anki-lingo-flash-container #validateApiKey:not(.gsi-material-button) {
+    background-color: #45a049;
+    color: white;
+    opacity: 1;
+    visibility: visible;
+    display: inline-block;
+    width: auto;
+    margin-top: 10px;
+    max-width: 120px;
+}
+
+.anki-lingo-flash-container #validateApiKey:not(.gsi-material-button):hover {
+    background-color: #45a049;
+}
+
+.anki-lingo-flash-container #ownCreditsOption {
+    display: block;
+}
+
+.anki-lingo-flash-container #ownCreditsOption {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.anki-lingo-flash-container #ownCreditsOption input,
+.anki-lingo-flash-container #ownCreditsOption button:not(.gsi-material-button) {
+    width: 100%;
+    max-width: 300px;
+}
+
+.anki-lingo-flash-container .input-with-button {
+    display: flex;
+    align-items: flex-start;
+    width: 100%;
+}
+
+.anki-lingo-flash-container .editable {
+    flex-grow: 1;
+    margin-right: 10px;
+    width: calc(100% - 50px);
+    padding: 5px;
+    margin-bottom: 10px;
+    border: 1px solid var(--border-color);
+    border-radius: 4px;
+    font-size: 14px;
+    resize: none;
+    overflow-y: auto;
+    min-height: 20px;
+    max-height: 150px;
+    transition: height 0.2s;
+    box-sizing: border-box;
+}
+
+.anki-lingo-flash-container .spacer {
+    width: 40px;
+    height: 40px;
+    flex-shrink: 0;
+    margin-left: 10px;
+}
+
+#anki-lingo-flash-review-modal .regenerate-button:hover {
+    transform: scale(1.1);
+    background-color: transparent;
+}
+
+.anki-lingo-flash-container #modelChoice {
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    padding: 5px;
+    width: 100%;
+    background-color: white;
+}
+
+.anki-lingo-flash-container #modelChoice:focus {
+    border-color: #4CAF50;
+    outline: none;
+}
+
+.anki-lingo-flash-container select {
+    appearance: auto;
+    background-color: white;
+    border: 1px solid var(--border-color);
+    padding: 10px;
+    border-radius: 4px;
+    width: 100%;
+    font-size: 16px;
+    color: var(--text-color);
+    cursor: pointer;
+    outline: none;
+}
+
+.anki-lingo-flash-container select:focus {
+    border-color: var(--primary-color);
+}
+
+.anki-lingo-flash-container #languageSelect {
+    border: 1px solid #ccc;
+    box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.1);
+}
+
+@media screen and (max-width: 768px) {
+    .anki-lingo-flash-container .editable {
+        width: 100%;
+        margin-right: 0;
+        margin-bottom: 5px;
+    }
+
+    .anki-lingo-flash-container .regenerate-button {
+        align-self: flex-end;
+    }
+}
+
+@media screen and (max-height: 720px) {
+    .anki-lingo-flash-container #reviewModal {
+        max-height: 80vh;
+    }
+
+    .anki-lingo-flash-container .modal-content {
+        max-height: calc(80vh - 120px);
+    }
+}
+
+@media screen and (max-height: 540px) {
+    .anki-lingo-flash-container #reviewModal {
+        max-height: 95vh;
+    }
+
+    .anki-lingo-flash-container .modal-content {
+        max-height: calc(95vh - 120px);
+    }
+
+    .anki-lingo-flash-container .button-container {
+        position: sticky;
+        bottom: 0;
+    }
+}
+
+@media screen and (max-width: 480px) {
+    .anki-lingo-flash-container .container {
+        padding: 10px;
+    }
+
+    .anki-lingo-flash-container h1 {
+        font-size: 18px;
+    }
+
+    .anki-lingo-flash-container label,
+    .anki-lingo-flash-container input,
+    .anki-lingo-flash-container button:not(.gsi-material-button),
+    .anki-lingo-flash-container select {
+        font-size: 12px;
+    }
+
+    .anki-lingo-flash-container #flashcardModal,
+    .anki-lingo-flash-container #reviewModal,
+    .anki-lingo-flash-container #ankiNotOpenModal {
+        padding: 10px;
+    }
+
+    .anki-lingo-flash-container .modal-button:not(.gsi-material-button) {
+        padding: 6px 12px;
+        font-size: 12px;
+        width: 80px;
+    }
+
+    .anki-lingo-flash-container .button-container {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .anki-lingo-flash-container .modal-button:not(.gsi-material-button) {
+        margin-bottom: 10px;
+        width: 100%;
+    }
+}
+
+/* Styles for elements that should be outside the container */
+#toast-container {
+    font-family: Arial, sans-serif;
+    position: fixed;
+    z-index: 10000;
+    top: 20px;
+    right: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.toast {
+    font-family: Arial, sans-serif;
+    display: inline-block;
+    background-color: rgba(245, 245, 245, 0.95);
+    color: #333;
+    text-align: center;
+    border-radius: 8px;
+    padding: 16px;
+    margin-top: 10px;
+    font-size: 16px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    backdrop-filter: blur(4px);
+    opacity: 0;
+    overflow: hidden;
+    white-space: nowrap;
+    transition: opacity 0.3s;
+}
+
+.toast.show {
+    opacity: 1;
+}
+
+@keyframes ellipsis {
+    0% {
+        content: "";
+    }
+
+    33% {
+        content: ".";
+    }
+
+    66% {
+        content: "..";
+    }
+
+    100% {
+        content: "...";
+    }
+}
+
+.toast .ellipsis::after {
+    content: "";
+    animation: ellipsis 1s steps(3, end) infinite;
+    display: inline-block;
+    width: 1em;
+    text-align: left;
+}
+
+#anki-lingo-flash-review-modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    backdrop-filter: blur(5px);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 9999;
+}
+
+#anki-lingo-flash-review-modal #reviewModal {
+    background-color: rgba(255, 255, 255, 0.95);
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1), 0 1px 3px rgba(0, 0, 0, 0.08);
+    border-radius: 12px;
+    padding: 24px;
+    max-width: 600px;
+    width: 90%;
+    max-height: 90vh;
+    overflow-y: auto;
+}
+
+#anki-lingo-flash-review-modal h2,
+#anki-lingo-flash-review-modal h3,
+#anki-lingo-flash-review-modal h4 {
+    color: #333;
+    margin-bottom: 10px;
+}
+
+#anki-lingo-flash-review-modal .modal-content {
+    margin-bottom: 20px;
+}
+
+#anki-lingo-flash-review-modal .section {
+    margin-bottom: 15px;
+}
+
+#anki-lingo-flash-review-modal .input-with-button {
+    display: flex;
+    align-items: flex-start;
+}
+
+#anki-lingo-flash-review-modal .editable {
+    flex-grow: 1;
+    margin-right: 10px;
+    padding: 5px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+#anki-lingo-flash-review-modal .regenerate-button {
+    width: 30px;
+    height: 30px;
+    background-color: transparent;
+    background-size: 20px 20px;
+    background-repeat: no-repeat;
+    background-position: center;
+    border: none;
+    cursor: pointer;
+    flex-shrink: 0;
+    transition: transform 0.3s;
+    display: inline-block !important;
+    visibility: visible !important;
+    opacity: 1 !important;
+    margin-left: 10px;
+}
+
+#anki-lingo-flash-review-modal .button-container {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+}
+
+#anki-lingo-flash-review-modal .modal-button:not(.gsi-material-button) {
+    padding: 8px 16px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+#anki-lingo-flash-review-modal #cancelReviewButton:not(.gsi-material-button),
+#anki-lingo-flash-review-modal #cancelButton:not(.gsi-material-button) {
+    background-color: #cccccc;
+    color: white;
+}
+
+#anki-lingo-flash-review-modal #validateButton:not(.gsi-material-button),
+#anki-lingo-flash-review-modal #retryButton:not(.gsi-material-button) {
+    background-color: #45a049;
+    color: white;
+}
+
+#anki-lingo-flash-review-modal #cancelReviewButton:not(.gsi-material-button):hover,
+#anki-lingo-flash-review-modal #cancelButton:not(.gsi-material-button):hover {
+    background-color: #cccccc;
+}
+
+#anki-lingo-flash-review-modal #validateButton:not(.gsi-material-button):hover,
+#anki-lingo-flash-review-modal #retryButton:not(.gsi-material-button):hover {
+    background-color: #45a049;
+}
+
+@media (max-width: 600px) {
+
+    #anki-lingo-flash-review-modal #reviewModal,
+    #anki-lingo-flash-review-modal #flashcardModal {
+        width: 95%;
+        padding: 15px;
+    }
+
+    #anki-lingo-flash-review-modal h2,
+    #anki-lingo-flash-review-modal h2 {
+        font-size: 20px;
+    }
+
+    #anki-lingo-flash-review-modal h3,
+    #anki-lingo-flash-review-modal h3 {
+        font-size: 16px;
+    }
+
+    #anki-lingo-flash-review-modal .editable {
+        font-size: 14px;
+    }
+
+    #anki-lingo-flash-review-modal .modal-button:not(.gsi-material-button),
+    #anki-lingo-flash-review-modal .modal-button:not(.gsi-material-button) {
+        font-size: 14px;
+        padding: 8px 16px;
+    }
+}
+
+.anki-lingo-flash-container .api-key-label {
+    display: block;
+    text-align: center;
+    margin-bottom: 10px;
+}
+
+/* Pour s'assurer que le champ de saisie est également centré */
+.anki-lingo-flash-container #ownCreditsOption {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.anki-lingo-flash-container #ownCreditsOption input,
+.anki-lingo-flash-container #ownCreditsOption button:not(.gsi-material-button) {
+    width: 100%;
+    max-width: 300px;
+}
+
+.highlight {
+    color: rgb(255, 204, 92);
+    font-weight: bold;
+    background: none;
+    text-shadow: none;
+}
+
+.duo-color {
+    color: rgb(125, 198, 7);
+}
+
+.blue-title2 {
+    color: rgb(105, 170, 255) !important;
+}
+
+
+#ownCreditsOption,
+#user-info {
+    width: 100%;
+    max-width: 300px;
+    /* Adjust this value as needed */
+    margin: 0 auto;
+    display: block;
+}
+
+#ownCreditsOption,
+#user-info {
+    text-align: center;
+}
+
+#ownCreditsOption input,
+#ownCreditsOption button,
+#user-info button {
+    width: 100%;
+    max-width: 300px;
+    /* Adjust this value as needed */
+    margin: 10px auto;
+}
+
+.anki-lingo-flash-container .language-selection {
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
+.anki-lingo-flash-container .language-selection label {
+    display: block;
+    margin-bottom: 5px;
+}
+
+.anki-lingo-flash-container .language-selection select {
+    width: 100%;
+    padding: 5px;
+    font-size: 16px;
+}
+
+#anki-lingo-flash-deck-selection-modal .form-group {
+    margin-bottom: 15px;
+}
+
+#anki-lingo-flash-deck-selection-modal select {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 16px;
+    box-sizing: border-box;
+}
+
+.anki-lingo-flash-container #ankiNotOpenModal a {
+    color: #0000EE;
+    text-decoration: underline;
+}
+
+.anki-lingo-flash-container #ankiNotOpenModal a:hover {
+    text-decoration: none;
+}
+
+#anki-lingo-flash-review-modal .sub-section h4 {
+    color: #888;
+    margin-bottom: 5px;
+}

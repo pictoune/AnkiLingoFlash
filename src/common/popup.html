@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <!-- Title of the extension, using internationalization -->
+    <title data-i18n="extensionDescription"></title>
+    <!-- Link to the stylesheet -->
+    <link rel="stylesheet" type="text/css" href="style.css">
+</head>
+
+<body>
+    <!-- Main container for the popup -->
+    <div id="popup-container" class="anki-lingo-flash-container">
+        <!-- Main title of the settings page, using internationalization -->
+        <h1 data-i18n="settingsTitle"></h1>
+
+        <!-- Toggle switch for AI model selection (local/remote) -->
+        <div class="form-group">
+            <label for="modelToggle" data-i18n="aiModelToggle"></label>
+            <label class="toggle-switch">
+                <input type="checkbox" id="modelToggle">
+                <span class="slider">
+                    <span class="toggle-label" data-state="off" data-i18n="local"></span>
+                    <span class="toggle-label" data-state="on" data-i18n="remote"></span>
+                </span>
+            </label>
+        </div>
+
+        <!-- Remote settings section, initially hidden -->
+        <div id="remoteSettings" style="display: none;">
+            <!-- Language selection dropdown -->
+            <div class="form-group">
+                <label for="languageSelect" data-i18n="chooseLanguage"></label>
+                <select id="languageSelect">
+                    <!-- Options for various languages, each using internationalization -->
+                    <option value="english_us" data-i18n="english_us"></option>
+                    <option value="english_uk" data-i18n="english_uk"></option>
+                    <option value="english_au" data-i18n="english_au"></option>
+                    <option value="english_ca" data-i18n="english_ca"></option>
+                    <option value="spanish_es" data-i18n="spanish_es"></option>
+                    <option value="spanish_latam" data-i18n="spanish_latam"></option>
+                    <option value="french_fr" data-i18n="french_fr"></option>
+                    <option value="french_ca" data-i18n="french_ca"></option>
+                    <option value="german_de" data-i18n="german_de"></option>
+                    <option value="german_ch" data-i18n="german_ch"></option>
+                    <option value="italian_it" data-i18n="italian_it"></option>
+                    <option value="italian_ch" data-i18n="italian_ch"></option>
+                    <option value="dutch_nl" data-i18n="dutch_nl"></option>
+                    <option value="dutch_be" data-i18n="dutch_be"></option>
+                    <option value="portuguese_pt" data-i18n="portuguese_pt"></option>
+                    <option value="portuguese_br" data-i18n="portuguese_br"></option>
+                    <option value="russian" data-i18n="russian"></option>
+                    <option value="mandarin_simplified" data-i18n="mandarin_simplified"></option>
+                    <option value="mandarin_traditional" data-i18n="mandarin_traditional"></option>
+                    <option value="cantonese" data-i18n="cantonese"></option>
+                    <option value="japanese" data-i18n="japanese"></option>
+                    <option value="arabic_standard" data-i18n="arabic_standard"></option>
+                    <option value="arabic_eg" data-i18n="arabic_eg"></option>
+                    <option value="korean" data-i18n="korean"></option>
+                    <option value="hindi" data-i18n="hindi"></option>
+                </select>
+            </div>
+
+            <!-- Toggle switch for own credits or free trial -->
+            <div class="form-group">
+                <label data-i18n="ownCreditsOrFreeTrial"></label>
+                <label class="toggle-switch">
+                    <input type="checkbox" id="useOwnApiKeyToggle">
+                    <span class="slider">
+                        <span class="toggle-label" data-state="off" data-i18n="freeTrial"></span>
+                        <span class="toggle-label" data-state="on" data-i18n="ownCredits"></span>
+                    </span>
+                </label>
+            </div>
+
+            <!-- Own credits option, initially hidden -->
+            <div id="ownCreditsOption" style="display: none;">
+                <label for="apiKey" data-i18n="enterOpenAIKey" class="api-key-label"></label>
+                <input type="password" id="apiKey">
+                <div id="apiKeyError" class="error-message" style="display: none;"></div>
+                <button id="validateApiKey" class="btn" data-i18n="validate"></button>
+            </div>
+
+            <!-- Model choice section, for development mode -->
+            <div id="modelChoiceSection" style="display: none;" data-dev-mode="true">
+                <br>
+                <div class="form-group">
+                    <label for="modelChoice" data-i18n="chooseChatGPTModel"></label>
+                    <select id="modelChoice"></select>
+                </div>
+            </div>
+
+            <!-- Free trial option, initially hidden -->
+            <div id="freeTrialOption" style="display: none;">
+                <p data-i18n="pleaseSignIn"></p>
+                <!-- Google Sign-In button -->
+                <button id="login-button" class="gsi-material-button">
+                    <div class="gsi-material-button-state"></div>
+                    <div class="gsi-material-button-content-wrapper">
+                        <div class="gsi-material-button-icon">
+                            <!-- SVG for Google logo -->
+                            <svg version="1.1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48"
+                                xmlns:xlink="http://www.w3.org/1999/xlink" style="display: block;">
+                                <path fill="#EA4335"
+                                    d="M24 9.5c3.54 0 6.71 1.22 9.21 3.6l6.85-6.85C35.9 2.38 30.47 0 24 0 14.62 0 6.51 5.38 2.56 13.22l7.98 6.19C12.43 13.72 17.74 9.5 24 9.5z">
+                                </path>
+                                <path fill="#4285F4"
+                                    d="M46.98 24.55c0-1.57-.15-3.09-.38-4.55H24v9.02h12.94c-.58 2.96-2.26 5.48-4.78 7.18l7.73 6c4.51-4.18 7.09-10.36 7.09-17.65z">
+                                </path>
+                                <path fill="#FBBC05"
+                                    d="M10.53 28.59c-.48-1.45-.76-2.99-.76-4.59s.27-3.14.76-4.59l-7.98-6.19C.92 16.46 0 20.12 0 24c0 3.88.92 7.54 2.56 10.78l7.97-6.19z">
+                                </path>
+                                <path fill="#34A853"
+                                    d="M24 48c6.48 0 11.93-2.13 15.89-5.81l-7.73-6c-2.15 1.45-4.92 2.3-8.16 2.3-6.26 0-11.57-4.22-13.47-9.91l-7.98 6.19C6.51 42.62 14.62 48 24 48z">
+                                </path>
+                                <path fill="none" d="M0 0h48v48H0z"></path>
+                            </svg>
+                        </div>
+                        <span class="gsi-material-button-contents" data-i18n="signInWithGoogle"></span>
+                        <span style="display: none;" data-i18n="signInWithGoogle"></span>
+                    </div>
+                </button>
+            </div>
+        </div>
+
+        <!-- Message for local model, initially hidden -->
+        <div id="localModelMessage" style="display: none;" data-i18n="notAvailableYet"></div>
+
+        <!-- User info section, initially hidden -->
+        <div id="user-info" style="display: none;">
+            <h2 data-i18n="welcome"></h2>
+            <p data-i18n="loggedInMessage"></p>
+            <p id="flashcard-counter" data-i18n="freeFlashcardsLeft"></p>
+            <button id="logout-button" class="btn" data-i18n="signOut"></button>
+        </div>
+    </div>
+    <!-- Link to the JavaScript file for popup functionality -->
+    <script src="popup.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,20 @@
+{
+  "browser_specific_settings": {
+    "gecko": {
+      "id": "support@ankilingoflash.com"
+    }
+  },
+  "background": {
+    "scripts": [
+      "background.js"
+    ],
+    "type": "module"
+  },
+  "oauth2": {
+    "client_id": "706870995843-6k7f794unql07itpakp1f6gav4p10em1.apps.googleusercontent.com",
+    "scopes": [
+      "https://www.googleapis.com/auth/userinfo.email",
+      "https://www.googleapis.com/auth/userinfo.profile"
+    ]
+  }
+}

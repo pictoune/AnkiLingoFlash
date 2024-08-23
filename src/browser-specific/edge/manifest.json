@@ -1,0 +1,13 @@
+{
+  "oauth2": {
+    "client_id": "706870995843-8ppfg159j0g5ulbr5j5agp3hriibvsbp.apps.googleusercontent.com",
+    "scopes": [
+      "https://www.googleapis.com/auth/userinfo.email",
+      "https://www.googleapis.com/auth/userinfo.profile"
+    ]
+  },
+  "background": {
+    "service_worker": "background.js",
+    "type": "module"
+  }
+}

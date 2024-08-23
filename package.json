@@ -1,0 +1,24 @@
+{
+  "name": "ankilingoflash",
+  "version": "0.3.4",
+  "description": "A browser extension for automated Anki flashcard creation",
+  "main": "src/index.js",
+  "scripts": {
+    "build": "./build.sh",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/pictoune/AnkiLingoFlash.git"
+  },
+  "keywords": ["Anki", "flashcards", "language-learning", "browser-extension"],
+  "author": "Victor Piriou",
+  "license": "GPL-3.0",
+  "bugs": {
+    "url": "https://github.com/pictoune/AnkiLingoFlash/issues"
+  },
+  "homepage": "https://ankilingoflash.com",
+  "devDependencies": {
+    "purgecss": "^6.0.0"
+  }
+}
