@@ -1,7 +1,4 @@
-<h1 style="display: flex; align-items: center;">
-  <span style="color: rgb(255, 204, 92);">AnkiLingoFlash</span>
-  <img src="icons/icon_svg.svg" alt="AnkiLingoFlash icon" style="height: 1em; margin-left: 10px;">
-</h1>
+<img src="./title_for_readme.png" alt="AnkiLingoFlash" width="300" />
 
 AnkiLingoFlash is a powerful browser extension that automates the creation of Anki flashcards for language learning. Currently available for Chrome and Firefox, with Edge support coming soon, it seamlessly integrates with your browsing experience to enhance your language acquisition process.
 
