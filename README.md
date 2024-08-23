@@ -53,7 +53,7 @@ Visit the [installation page](https://ankilingoflash.com/installation.html) for 
 
 ## ⚙️ Initial Setup
 
-After installation, it's crucial to configure AnkiLingoFlash properly. Follow the [quick tutorial](https://ankilingoflash.com/quick-tutorial.html) to set up the extension. This one-time process takes less than 5 minutes and ensures optimal functionality.
+After installation, it's crucial to configure AnkiLingoFlash properly. Follow the [quick tutorial](https://ankilingoflash.com/quick-tutorial.html) to set up the extension. This one-time process, which takes less than 5 minutes, is required for the extension to function properly.
 
 ## 🖱️ Usage
 
@@ -76,7 +76,7 @@ To contribute:
 4. Push to the branch (`git push origin feature/AmazingFeature`)
 5. Open a Pull Request
 
-For major changes or ideas, please open an issue first to discuss what you would like to change. If you prefer, you can also reach out to me directly—my contact information is available on the [About page](https://ankilingoflash.com/about.html#-get-in-touch).
+For major changes or ideas, please open an issue first to discuss what you would like to change. If you prefer, you can also reach out to me directly—my contact information is available on the [about page](https://ankilingoflash.com/about.html#-get-in-touch).
 
 ### 🗂️ Project Structure
 
@@ -124,7 +124,11 @@ This project is licensed under the [GNU General Public License v3.0 (GPLv3)](LIC
 
 ## 🙏 Acknowledgements
 
-- [Anki](https://apps.ankiweb.net/) for their excellent spaced repetition software
-- [OpenAI](https://openai.com/) for the ChatGPT API powering our flashcard generation
+Special thanks to the following projects and resources that made AnkiLingoFlash possible:
 
-Thank you for using and contributing to AnkiLingoFlash! Together, we're making language learning more efficient and enjoyable.
+- [Anki](https://apps.ankiweb.net/): For their excellent spaced repetition software.
+- [AnkiConnect](https://github.com/FooSoft/anki-connect): A powerful Anki plugin that allows external applications to communicate with Anki.
+- [AwesomeTTS](https://github.com/AwesomeTTS/awesometts-anki-addon): An add-on that provides text-to-speech capabilities for Anki, enhancing the learning experience.
+- [OpenAI](https://openai.com/): For the ChatGPT API powering our flashcard generation.
+
+Their contributions have been invaluable in the development of this extension.
