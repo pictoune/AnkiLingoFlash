@@ -167,5 +167,5 @@ Special thanks to the following projects and resources that made AnkiLingoFlash 
 - [Anki](https://apps.ankiweb.net/): For their excellent spaced repetition software.
 - [AnkiConnect](https://github.com/FooSoft/anki-connect): A powerful Anki plugin that allows external applications to communicate with Anki.
 - [AwesomeTTS](https://github.com/AwesomeTTS/awesometts-anki-addon): An add-on that provides text-to-speech capabilities for Anki, enhancing the learning experience.
-- [OpenAI](https://openai.com/): For the ChatGPT API powering our flashcard generation.
 - [franc](https://github.com/wooorm/franc): For the language detection library that helps accurately identify the language of the selected text.
+- [OpenAI](https://openai.com/): For the ChatGPT API powering our flashcard generation.
