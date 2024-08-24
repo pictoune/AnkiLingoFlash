@@ -42,13 +42,49 @@ Visit the [installation page](https://ankilingoflash.com/installation.html) for 
    ```
    npm install
    ```
-3. Build the extension for all supported browsers:
+3. Set up your Google OAuth 2.0 credentials:
+   - Go to the [Google Cloud Console](https://console.cloud.google.com/)
+   - Create a new project or select an existing one
+   - Navigate to "APIs & Services" > "Credentials"
+   - Click "Create Credentials" and select "OAuth client ID"
+   - Set up the OAuth consent screen if you haven't already
+   
+   For Chrome:
+   - Choose "Chrome Extension" as the application type
+   - Enter your Chrome extension ID (you can find this in `chrome://extensions` when you load the unpacked extension)
+   
+   For Firefox:
+   - Choose "Web application" as the application type
+   - To get your redirect URL:
+     1. Load your extension in Firefox (see step 6 below)
+     2. Go to `about:debugging#/runtime/this-firefox`
+     3. Find your extension and click on "Inspect"
+     4. In the console that opens, type `browser.identity.getRedirectURL()` and press Enter
+     5. Copy the URL that is returned
+   - Add this URL to the "Authorized redirect URIs" in your Google Cloud Console project
+
+4. Add your Client ID to the appropriate `manifest.json` file based on the browser you're developing for:
+
+   - For Chrome: `src/browser-specific/chrome/manifest.json`
+   - For Firefox: `src/browser-specific/firefox/manifest.json`
+   - For Edge: `src/browser-specific/edge/manifest.json`
+
+   Update the `oauth2` section in the manifest file:
+   ```json
+   "oauth2": {
+     "client_id": "YOUR_CLIENT_ID_HERE",
+     "scopes": ["https://www.googleapis.com/auth/userinfo.email", "https://www.googleapis.com/auth/userinfo.profile"]
+   }
+   ```
+
+5. Build the extension for all supported browsers:
    ```
    ./build.sh
    ```
-4. Load the extension in your browser:
+
+6. Load the extension in your browser:
    - Chrome: Navigate to `chrome://extensions/`, enable "Developer mode", click "Load unpacked", and select the `dist/chrome` directory.
-   - Firefox: Go to `about:debugging`, click "This Firefox", select "Load Temporary Add-on", and choose any file in the `dist/firefox` directory.
+   - Firefox: Go to `about:debugging#/runtime/this-firefox`, click "Load Temporary Add-on", and choose any file in the `dist/firefox` directory.
    - Edge: Support coming soon!
 
 ## ⚙️ Initial Setup
