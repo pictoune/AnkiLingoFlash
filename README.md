@@ -132,7 +132,8 @@ AnkiLingoFlash/
 ├── dist/
 ├── build.sh
 ├── package.json
-└── README.md
+├── README.md
+└── worker.js
 ```
 
 - `src/common/`: Shared code across all browsers
@@ -141,6 +142,7 @@ AnkiLingoFlash/
 - `icons/`: Extension icons
 - `dist/`: Output directory for built extensions
 - `build.sh`: Build script for generating browser-specific distributions
+- `worker.js`: Script that runs on Cloudflare, providing a serverless backend that ensures scalability and fast response times. It manages API requests and securely stores user data related to the free trial mode, preventing users from artificially increasing their free flashcard quota. Additionally, it safely stores the single API key used to offer flashcards to new users, preventing misuse.
 
 ### 🤖 Future Improvements
 
