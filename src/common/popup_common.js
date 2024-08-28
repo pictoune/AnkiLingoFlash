@@ -310,14 +310,6 @@ function addEventListeners() {
     }
 }
 
-/**
- * Validate the format of an API key.
- * @param {string} apiKey - The API key to validate.
- * @returns {boolean} True if the API key is valid, false otherwise.
- */
-function validateApiKey(apiKey) {
-    return /^sk-[A-Za-z0-9]{48}$/.test(apiKey);
-}
 
 /**
  * Handle API key validation.
@@ -330,7 +322,7 @@ async function handleValidateApiKey() {
     }
     const apiKey = apiKeyInput.value.trim();
 
-    if (apiKey && validateApiKey(apiKey)) {
+    if (apiKey) {
         // Send message to background script to validate the API key
         chrome.runtime.sendMessage({ action: "validateApiKey", apiKey: apiKey }, async function (response) {
             if (chrome.runtime.lastError) {

@@ -578,7 +578,7 @@ chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
     else if (request.action === "validateApiKey") {
         const apiKey = request.apiKey;
 
-        if (!apiKey || !/^sk-[A-Za-z0-9]{48}$/.test(apiKey)) {
+        if (!apiKey) {
             sendResponse({ valid: false, error: "Invalid API key format" });
             return true;
         }
