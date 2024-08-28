@@ -1,6 +1,6 @@
 <img src="./title_for_readme.png" alt="AnkiLingoFlash" width="300" />
 
-AnkiLingoFlash is a powerful browser extension that automates the creation of Anki flashcards for language learning. Currently available for Chrome and Firefox, with Edge support coming soon, it seamlessly integrates with your browsing experience to enhance your language acquisition process.
+AnkiLingoFlash is a powerful browser extension that automates the creation of Anki flashcards for language learning. Currently available for Chrome, Edge and Firefox, it seamlessly integrates with your browsing experience to enhance your language acquisition process.
 
 ![AnkiLingoFlash Demo](demo.gif)
 
@@ -30,7 +30,7 @@ Integrate AnkiLingoFlash into your daily browsing routine and watch your vocabul
 
 ### For Users
 
-Visit the [installation page](https://ankilingoflash.com/installation.html) for step-by-step instructions on installing AnkiLingoFlash for Chrome or Firefox. Edge support is coming soon!
+Visit the [installation page](https://ankilingoflash.com/installation.html) for step-by-step instructions on installing AnkiLingoFlash for Chrome, Edge or Firefox.
 
 ### For Developers
 
@@ -85,8 +85,8 @@ Visit the [installation page](https://ankilingoflash.com/installation.html) for 
 6. Load the extension in your browser:
    - Chrome: Navigate to `chrome://extensions/`, enable "Developer mode", click "Load unpacked", and select the `dist/chrome` directory.
    - Firefox: Go to `about:debugging#/runtime/this-firefox`, click "Load Temporary Add-on", and choose any file in the `dist/firefox` directory.
-   - Edge: Support coming soon!
-
+   - Edge: Navigate to `edge://extensions/`, enable "Developer mode", click "Load Unpacked", and select the `dist/edge` directory.
+     
 ## ⚙️ Initial Setup
 
 After installation, it's crucial to configure AnkiLingoFlash properly. Follow the [quick tutorial](https://ankilingoflash.com/quick-tutorial.html) to set up the extension. This one-time process, which takes less than 5 minutes, is required for the extension to function properly.
