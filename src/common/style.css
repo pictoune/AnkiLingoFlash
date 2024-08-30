@@ -276,14 +276,6 @@
     text-align: center;
 }
 
-.anki-lingo-flash-container #apiKey {
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    width: 100%;
-    box-sizing: border-box;
-    margin-bottom: 10px;
-}
-
 .anki-lingo-flash-container .error-message {
     color: #f44336;
     font-size: 14px;
@@ -620,8 +612,15 @@
     height: auto;
     padding: 5px;
     font-size: 16px;
-    line-height: 0.5;
+    line-height: normal;
     box-sizing: border-box;
+    background-color: white;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    width: 100%;
+    color: var(--text-color);
+    outline: none;
+    margin-bottom: 10px;
 }
 
 .anki-lingo-flash-container select {
