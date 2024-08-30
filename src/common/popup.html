@@ -31,7 +31,7 @@
         <div id="remoteSettings" style="display: none;">
             <!-- Language selection dropdown -->
             <div class="form-group">
-                <label for="languageSelect" data-i18n="chooseLanguage"></label>
+                <p for="languageSelect" data-i18n="chooseLanguage"></p>
                 <select id="languageSelect">
                     <!-- Options for various languages, each using internationalization -->
                     <option value="english_us" data-i18n="english_us"></option>
@@ -64,7 +64,7 @@
 
             <!-- Toggle switch for own credits or free trial -->
             <div class="form-group">
-                <label data-i18n="ownCreditsOrFreeTrial"></label>
+                <p data-i18n="ownCreditsOrFreeTrial"></p>
                 <label class="toggle-switch">
                     <input type="checkbox" id="useOwnApiKeyToggle">
                     <span class="slider">
@@ -76,7 +76,7 @@
 
             <!-- Own credits option, initially hidden -->
             <div id="ownCreditsOption" style="display: none;">
-                <label for="apiKey" data-i18n="enterOpenAIKey" class="api-key-label"></label>
+                <p for="apiKey" data-i18n="enterOpenAIKey" class="api-key-label"></p>
                 <input type="password" id="apiKey">
                 <div id="apiKeyError" class="error-message" style="display: none;"></div>
                 <button id="validateApiKey" class="btn" data-i18n="validate"></button>
@@ -86,7 +86,7 @@
             <div id="modelChoiceSection" style="display: none;" data-dev-mode="true">
                 <br>
                 <div class="form-group">
-                    <label for="modelChoice" data-i18n="chooseChatGPTModel"></label>
+                    <p for="modelChoice" data-i18n="chooseChatGPTModel"></p>
                     <select id="modelChoice"></select>
                 </div>
             </div>

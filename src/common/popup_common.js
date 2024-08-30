@@ -5,8 +5,8 @@ document.addEventListener('DOMContentLoaded', function () {
     const elementsToTranslate = [
         { id: 'settingsTitle', key: 'settingsTitle', html: true },
         { id: 'aiModelToggle', key: 'aiModelToggle' },
-        { id: 'chooseLanguage', key: 'chooseLanguage' },
-        { id: 'ownCreditsOrFreeTrial', key: 'ownCreditsOrFreeTrial' },
+        { id: 'chooseLanguage', key: 'chooseLanguage', html: true },
+        { id: 'ownCreditsOrFreeTrial', key: 'ownCreditsOrFreeTrial', html: true },
         { id: 'enterOpenAIKey', key: 'enterOpenAIKey' },
         { id: 'validate', key: 'validate' },
         { id: 'chooseChatGPTModel', key: 'chooseChatGPTModel' },
@@ -31,7 +31,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 const message = chrome.i18n.getMessage(item.key);
                 if (element.tagName === 'INPUT' || element.tagName === 'TEXTAREA') {
                     element.placeholder = message;
-                } else if (item.key === 'settingsTitle' || item.key === 'welcomeTitle') {
+                } else if (item.html || message.includes('<')) {
                     element.innerHTML = message;
                 } else {
                     element.textContent = message;

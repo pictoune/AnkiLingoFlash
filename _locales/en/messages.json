@@ -237,7 +237,7 @@
     "message": "Remote"
   },
   "chooseLanguage": {
-    "message": "Choose the language for definitions and mnemonics:"
+    "message": "Choose the language for definitions and<br>mnemonics:"
   },
   "instruct_en_us": {
     "message": "English (US)"
@@ -390,7 +390,7 @@
       "message": "Hindi"
   },
   "ownCreditsOrFreeTrial": {
-    "message": "Would you prefer to try AnkiLingoFlash for free or use your own credits?"
+    "message": "Would you prefer to try AnkiLingoFlash for free<br>or use your own credits?"
   },
   "freeTrial": {
     "message": "Free trial"
