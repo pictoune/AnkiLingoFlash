@@ -7,18 +7,17 @@ async function getClientIdFromManifest() {
     return manifest.oauth2.client_id;
 }
 
-const REDIRECT_URL = "https://0cc5b1fe9913cb36d997b9fb5398cf41467f4991.extensions.allizom.org/";
-
 async function authenticateFirefox() {
     console.log("authenticateFirefox function called");
     return new Promise(async (resolve, reject) => {
+        const redirectURL = browser.identity.getRedirectURL();
         const clientId = await getClientIdFromManifest();
         const scopes = ["openid", "email", "profile"];
 
         const authUrl = new URL("https://accounts.google.com/o/oauth2/auth");
         authUrl.searchParams.set("client_id", clientId);
         authUrl.searchParams.set("response_type", "token");
-        authUrl.searchParams.set("redirect_uri", REDIRECT_URL);
+        authUrl.searchParams.set("redirect_uri", redirectURL);
         authUrl.searchParams.set("scope", scopes.join(" "));
 
         browser.identity.launchWebAuthFlow({
@@ -37,7 +36,7 @@ async function authenticateFirefox() {
 }
 
 // Listen for messages from the extension's popup or content scripts
-browser.runtime.onMessage.addListener((request, sender, sendResponse) => {
+chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
     if (request.action === "login") {
         console.log("Login action received");
         authenticateFirefox().then(token => {
