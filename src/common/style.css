@@ -138,6 +138,10 @@
     text-align: center;
 }
 
+#modelChoiceSection .form-group {
+    margin-bottom: 0;
+}
+
 .anki-lingo-flash-container label {
     display: block;
     margin-bottom: 10px;
@@ -339,6 +343,9 @@
     /* Adjust the width as needed */
     overflow: auto;
     /* Ensure content within the popup is scrollable if necessary */
+
+    padding-left: 6px;  
+    padding-right: 6px; 
 }
 
 .anki-lingo-flash-container .popup-container {
