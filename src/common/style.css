@@ -185,7 +185,9 @@
 .anki-lingo-flash-container .toggle-switch {
     position: relative;
     display: inline-block;
-    width: 227px;
+    width: 100%; /* Ensure the toggle switch spans the full width */
+    max-width: 100%; /* Prevent overflow */
+    box-sizing: border-box; /* Include padding in the width calculation */
     height: 34px;
     margin-bottom: 20px;
 }
@@ -204,6 +206,7 @@
     background-color: #ccc;
     transition: .4s;
     border-radius: 34px;
+    width: 100%;
     text-align: center;
     display: flex;
     align-items: center;
@@ -225,8 +228,8 @@
     background-color: #2196F3;
 }
 
-.anki-lingo-flash-container input:checked+.slider:before {
-    transform: translateX(193px);
+.anki-lingo-flash-container input:checked + .slider:before {
+    left: calc(100% - 32px); /* Move to the far right, subtracting knob width + padding */
 }
 
 .anki-lingo-flash-container .slider::after {
