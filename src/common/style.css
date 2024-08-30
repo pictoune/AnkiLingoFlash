@@ -278,14 +278,9 @@
     text-align: center;
 }
 
-.anki-lingo-flash-container #apiKeyInput {
-    margin-top: 20px;
-}
-
 .anki-lingo-flash-container #apiKey {
     border: 1px solid #ccc;
     border-radius: 4px;
-    padding: 10px;
     width: 100%;
     box-sizing: border-box;
     margin-bottom: 10px;
@@ -920,7 +915,6 @@
 .anki-lingo-flash-container .api-key-label {
     display: block;
     text-align: center;
-    margin-bottom: 10px;
 }
 
 /* Pour s'assurer que le champ de saisie est également centré */
@@ -972,7 +966,6 @@
     width: 100%;
     max-width: 300px;
     /* Adjust this value as needed */
-    margin: 10px auto;
 }
 
 .anki-lingo-flash-container .language-selection {
