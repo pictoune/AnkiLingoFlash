@@ -390,7 +390,7 @@
       "message": "Hindi"
   },
   "ownCreditsOrFreeTrial": {
-    "message": "Would you prefer to try AnkiLingoFlash for free<br>or use your own credits?"
+    "message": "Select your preferred usage mode:"
   },
   "freeTrial": {
     "message": "Free trial"
@@ -405,7 +405,7 @@
     "message": "Choose the ChatGPT model:"
   },
   "pleaseSignIn": {
-    "message": "Sign in with Google to enjoy the free trial:"
+    "message": "Sign in to enjoy the free trial:"
   },
   "signInWithGoogle": {
     "message": "Sign in with Google"

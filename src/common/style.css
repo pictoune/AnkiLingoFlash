@@ -49,8 +49,8 @@
     transition: background-color 0.218s, border-color 0.218s, box-shadow 0.218s;
     vertical-align: middle;
     white-space: nowrap;
-    width: auto;
-    max-width: 400px;
+    width: 100%;
+    max-width: 100%;
     min-width: min-content;
 }
 
@@ -316,7 +316,7 @@
     cursor: pointer;
     border-radius: 4px;
     transition: background-color 0.3s, transform 0.3s;
-    width: 130px;
+    width: 100%;
 }
 
 /* Add or modify these styles in your style.css file */
@@ -335,7 +335,7 @@
 
 .anki-lingo-flash-container .popup-container {
     text-align: center;
-    min-width: 400px;
+    min-width: 100%;
 }
 
 .anki-lingo-flash-container button:not(.gsi-material-button):hover {
@@ -359,7 +359,7 @@
     transition: background-color 0.3s, transform 0.3s;
     opacity: 1 !important;
     visibility: visible !important;
-    width: 200px;
+    width: 100%;
     position: static !important;
 }
 
@@ -558,7 +558,7 @@
 .anki-lingo-flash-container #ownCreditsOption input,
 .anki-lingo-flash-container #ownCreditsOption button:not(.gsi-material-button) {
     width: 100%;
-    max-width: 300px;
+    max-width: 100%;
 }
 
 .anki-lingo-flash-container .input-with-button {
@@ -930,7 +930,7 @@
 .anki-lingo-flash-container #ownCreditsOption input,
 .anki-lingo-flash-container #ownCreditsOption button:not(.gsi-material-button) {
     width: 100%;
-    max-width: 300px;
+    max-width: 100%;
 }
 
 .highlight {
@@ -952,7 +952,7 @@
 #ownCreditsOption,
 #user-info {
     width: 100%;
-    max-width: 300px;
+    max-width: 100%;
     /* Adjust this value as needed */
     margin: 0 auto;
     display: block;
@@ -967,7 +967,7 @@
 #ownCreditsOption button,
 #user-info button {
     width: 100%;
-    max-width: 300px;
+    max-width: 100%;
     /* Adjust this value as needed */
 }
 
