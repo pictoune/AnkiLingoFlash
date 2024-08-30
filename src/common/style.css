@@ -11,6 +11,7 @@
 
 .anki-lingo-flash-container #freeTrialOption {
     text-align: center;
+    padding-bottom: 5px;
 }
 
 .anki-lingo-flash-container #localModelMessage {
