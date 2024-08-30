@@ -233,7 +233,6 @@
     content: attr(data-off);
     color: white;
     font-size: 14px;
-    font-weight: bold;
 }
 
 .anki-lingo-flash-container input:checked+.slider::after {
@@ -244,7 +243,6 @@
     position: absolute;
     color: white;
     font-size: 14px;
-    font-weight: bold;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
@@ -616,6 +614,14 @@
 .anki-lingo-flash-container #modelChoice:focus {
     border-color: #4CAF50;
     outline: none;
+}
+
+.anki-lingo-flash-container #apiKey {
+    height: auto;
+    padding: 5px;
+    font-size: 16px;
+    line-height: 0.5;
+    box-sizing: border-box;
 }
 
 .anki-lingo-flash-container select {
