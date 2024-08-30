@@ -237,7 +237,7 @@
     "message": "Remote"
   },
   "chooseLanguage": {
-    "message": "Choose the language for definitions and<br>mnemonics:"
+    "message": "Choose the language for definitions,<br>direct translations, and mnemonics:"
   },
   "instruct_en_us": {
     "message": "English (US)"
