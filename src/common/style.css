@@ -308,7 +308,6 @@
 .anki-lingo-flash-container #login-button.gsi-material-button {
     width: 100%; /* Set the button width to 100% */
     max-width: 100%; /* Ensure it doesn't exceed the popup width */
-    margin: 10px 0; /* Adjust margin if needed */
     box-sizing: border-box; /* Ensure padding is included in the width */
 }
 
