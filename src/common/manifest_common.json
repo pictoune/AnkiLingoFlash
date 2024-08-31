@@ -1,7 +1,7 @@
 {
   "manifest_version": 3,
   "name": "AnkiLingoFlash",
-  "version": "0.3.6",
+  "version": "0.3.7",
   "description": "__MSG_extensionDescription__",
   "permissions": [
     "contextMenus",
