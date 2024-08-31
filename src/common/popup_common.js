@@ -2,6 +2,11 @@ const DEV_MODE = false;
 
 // Wait for the DOM to be fully loaded before executing the main function
 document.addEventListener('DOMContentLoaded', function () {
+    const popupContainer = document.getElementById('popup-container');
+    if (popupContainer) {
+        popupContainer.classList.add('fixed-width-popup');
+    }
+
     const elementsToTranslate = [
         { id: 'settingsTitle', key: 'settingsTitle', html: true },
         { id: 'aiModelToggle', key: 'aiModelToggle' },

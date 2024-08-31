@@ -368,6 +368,7 @@ chrome.tabs.onUpdated.addListener((tabId, changeInfo, tab) => {
 
 // Listen for context menu clicks
 chrome.contextMenus.onClicked.addListener(async (info, tab) => {
+    //console.error("Tab ID:", tab ? tab.id : "undefined");
     if (info.menuItemId === "selectText") {
         console.log("Context menu clicked, injecting content script...");
         await injectContentScript(tab.id);

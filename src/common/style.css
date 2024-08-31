@@ -9,6 +9,12 @@
     font-family: Arial, sans-serif;
 }
 
+.fixed-width-popup {
+    width: 275px !important; /* Utilisation de !important pour s'assurer que cette règle est prioritaire */
+    max-width: 100%;
+    box-sizing: border-box;
+}
+
 .anki-lingo-flash-container #freeTrialOption {
     text-align: center;
     padding-bottom: 5px;
@@ -338,8 +344,8 @@
     overflow: auto;
     /* Ensure content within the popup is scrollable if necessary */
 
-    padding-left: 6px;  
-    padding-right: 6px; 
+    padding-left: 8px;  
+    padding-right: 8px; 
 }
 
 .anki-lingo-flash-container .popup-container {
