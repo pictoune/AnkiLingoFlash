@@ -38,11 +38,24 @@ Visit the [installation page](https://ankilingoflash.com/installation.html) for 
    ```
    git clone https://github.com/pictoune/AnkiLingoFlash.git
    ```
-2. Install dependencies:
+2. Navigate to the project directory:
+   ```
+   cd AnkiLingoFlash
+   ```
+3. (Optional) If you plan to work on CSS optimization, install the development dependencies
    ```
    npm install
    ```
-3. Set up your Google OAuth 2.0 credentials:
+4. Build the extension for all supported browsers:
+   ```
+   ./build.sh
+   ```
+5. Load the extension in developer mode:
+   - Chrome: Navigate to `chrome://extensions/`, enable "Developer mode", click "Load unpacked", and select the `dist/chrome` directory.
+   - Firefox: Go to `about:debugging#/runtime/this-firefox`, click "Load Temporary Add-on", and choose any file in the `dist/firefox` directory.
+   - Edge: Navigate to `edge://extensions/`, enable "Developer mode", click "Load Unpacked", and select the `dist/edge` directory.
+
+6. Set up your Google OAuth 2.0 credentials:
    - Go to the [Google Cloud Console](https://console.cloud.google.com/)
    - Create a new project or select an existing one
    - Navigate to "APIs & Services" > "Credentials"
@@ -56,14 +69,13 @@ Visit the [installation page](https://ankilingoflash.com/installation.html) for 
    For Firefox:
    - Choose "Web application" as the application type
    - To get your redirect URL:
-     1. Load your extension in Firefox (see step 6 below)
-     2. Go to `about:debugging#/runtime/this-firefox`
-     3. Find your extension and click on "Inspect"
-     4. In the console that opens, type `browser.identity.getRedirectURL()` and press Enter
-     5. Copy the URL that is returned
+     1. Go to `about:debugging#/runtime/this-firefox`
+     2. Find your extension and click on "Inspect"
+     3. In the console that opens, type `browser.identity.getRedirectURL()` and press Enter
+     4. Copy the URL that is returned
    - Add this URL to the "Authorized redirect URIs" in your Google Cloud Console project
 
-4. Add your Client ID to the appropriate `manifest.json` file based on the browser you're developing for:
+7. Add your Client ID to the appropriate `manifest.json` file based on the browser you're developing for:
 
    - For Chrome: `src/browser-specific/chrome/manifest.json`
    - For Firefox: `src/browser-specific/firefox/manifest.json`
@@ -77,15 +89,7 @@ Visit the [installation page](https://ankilingoflash.com/installation.html) for 
    }
    ```
 
-5. Build the extension for all supported browsers:
-   ```
-   ./build.sh
-   ```
-
-6. Load the extension in your browser:
-   - Chrome: Navigate to `chrome://extensions/`, enable "Developer mode", click "Load unpacked", and select the `dist/chrome` directory.
-   - Firefox: Go to `about:debugging#/runtime/this-firefox`, click "Load Temporary Add-on", and choose any file in the `dist/firefox` directory.
-   - Edge: Navigate to `edge://extensions/`, enable "Developer mode", click "Load Unpacked", and select the `dist/edge` directory.
+8. Rebuild and reload the extension in your browser to apply the changes.
      
 ## ⚙️ Initial Setup
 
