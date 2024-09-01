@@ -42,7 +42,7 @@ Visit the [installation page](https://ankilingoflash.com/installation.html) for 
    ```
    cd AnkiLingoFlash
    ```
-3. Install dependencies:
+3. (Optional) If you plan to work on CSS optimization, install the development dependencies
    ```
    npm install
    ```
