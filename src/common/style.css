@@ -1074,9 +1074,16 @@
     width: 100%;
 }
 
-#anki-lingo-flash-review-modal textarea.editable {
+#anki-lingo-flash-review-modal textarea.editable:not(.rtl-language) {
     width: calc(100% - 40px);
     text-align: left;
+    padding: 5px;
+    margin-bottom: 10px;
+}
+
+#anki-lingo-flash-review-modal textarea.editable.rtl-language {
+    width: calc(100% - 40px);
+    text-align: right;
     padding: 5px;
     margin-bottom: 10px;
 }

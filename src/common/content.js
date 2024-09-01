@@ -427,7 +427,7 @@ if (window.hasRun === true) {
             });
         });
     }
-
+    
     /**
      * Updates the content of the review modal with the given flashcard data.
      * 
@@ -442,7 +442,7 @@ if (window.hasRun === true) {
             modal.querySelector('.translation').value = flashcard.translation;
         }
     }
-
+    
     /**
      * Displays a toast notification.
      * 
@@ -454,35 +454,35 @@ if (window.hasRun === true) {
         if (!toastShadowRoot) {
             initializeToastShadowDOM();
         }
-
+    
         if (currentToast) {
             toastContainer.removeChild(currentToast);
         }
-
+    
         currentToast = document.createElement('div');
         currentToast.className = 'toast';
         currentToast.textContent = message;
-
+    
         if (ellipsis) {
             const ellipsisSpan = document.createElement('span');
             ellipsisSpan.className = 'ellipsis';
             currentToast.appendChild(ellipsisSpan);
         }
-
+    
         toastContainer.appendChild(currentToast);
-
+    
         // Force a reflow
         currentToast.offsetHeight;
-
+    
         currentToast.classList.add('show');
-
+    
         if (!keepOpen) {
             setTimeout(() => {
                 removeCurrentToast();
             }, 3000);
         }
     }
-
+    
     /**
      * Removes the current toast notification from the DOM.
      */
@@ -501,7 +501,7 @@ if (window.hasRun === true) {
             }, 300);
         }
     }
-
+    
     /**
      * Invokes an AnkiConnect action.
      * 
@@ -526,7 +526,7 @@ if (window.hasRun === true) {
             });
         });
     }
-
+    
     /**
      * Fetches the list of decks from Anki.
      * 
@@ -540,7 +540,7 @@ if (window.hasRun === true) {
                 return [];
             });
     }
-
+    
     /**
      * Checks if the user is authenticated.
      * 
@@ -569,7 +569,7 @@ if (window.hasRun === true) {
             }
         });
     }
-
+    
     /**
      * Decrypts an API key.
      * 
@@ -600,7 +600,7 @@ if (window.hasRun === true) {
         );
         return new TextDecoder().decode(decrypted);
     }
-
+    
     /**
      * Checks if the stored API key is valid.
      * 
@@ -614,7 +614,7 @@ if (window.hasRun === true) {
                         const apiKey = await decryptApiKey(result.encryptedApiKey, result.installationPassword);
                         chrome.runtime.sendMessage({ action: "validateApiKey", apiKey: apiKey }, function (response) {
                             const isValid = response && response.valid;
-
+    
                             chrome.storage.sync.set({ apiKeyValidated: isValid }, function () {
                                 console.log('API key validation status updated:', isValid);
                             });
@@ -636,7 +636,7 @@ if (window.hasRun === true) {
             });
         });
     }
-
+    
     /**
      * Checks if the given text contains natural language characters from supported languages.
      * 
@@ -648,7 +648,7 @@ if (window.hasRun === true) {
         const regex = /[\p{L}\p{M}]/u;
         return regex.test(text);
     }
-
+    
     /**
      * Checks if a flashcard can be generated for the given user.
      * 
@@ -667,7 +667,7 @@ if (window.hasRun === true) {
             .then(response => response.json())
             .then(data => data.canGenerate);
     }
-
+    
     /**
      * Generates a flashcard from the selected text.
      * 
@@ -678,15 +678,15 @@ if (window.hasRun === true) {
             showToast(chrome.i18n.getMessage("invalidSelectionError"));
             return;
         }
-
+    
         try {
             const settings = await new Promise(resolve =>
                 chrome.storage.sync.get(['choice', 'user', 'isOwnCredits', 'apiKeyValidated', 'freeGenerationLimit', 'userId', 'language'], resolve)
             );
-
+    
             const language = settings.language;
             console.log('Language retrieved in content.js:', language);
-
+    
             if (settings.choice === 'remote') {
                 if (settings.isOwnCredits) {
                     const isValid = await isApiKeyValid();
@@ -716,7 +716,7 @@ if (window.hasRun === true) {
             showToast(chrome.i18n.getMessage("errorCreatingFlashcard"));
         }
     }
-
+    
     /**
      * Updates the flashcard counter in storage and UI.
      * 
@@ -732,7 +732,7 @@ if (window.hasRun === true) {
             console.log('Remaining cards:', remainingCards);
         });
     }
-
+    
     /**
      * Increments the flashcard count and updates the UI.
      */
@@ -745,17 +745,17 @@ if (window.hasRun === true) {
             }
         });
     }
-
-    function showReviewModal(flashcard) {
+    
+    function showReviewModal(flashcard, selectedLanguage) {
         if (currentToast) {
             removeCurrentToast();
         }
-    
+        
         const oldModal = globalShadowRoot.querySelector('#anki-lingo-flash-review-modal');
         if (oldModal) {
             oldModal.remove();
         }
-    
+        
         const modalHtml = `
         <div id="anki-lingo-flash-review-modal" class="anki-lingo-flash-container">
             <div id="reviewModal" data-flashcard-id="${escapeHTML(flashcard.id)}">
@@ -765,7 +765,7 @@ if (window.hasRun === true) {
                         <h3>${chrome.i18n.getMessage("front")}</h3>
                         <div class="sub-section-content">
                             <div class="input-with-button">
-                                <textarea class="definition editable" rows="3">${escapeHTML(flashcard.recto)}</textarea>
+                                <textarea class="definition editable ${isArabic(selectedLanguage) ? 'rtl-language' : ''}" rows="3">${escapeHTML(flashcard.recto)}</textarea>
                                 <button id="regenerateDefinition" class="regenerate-button"></button>
                             </div>
                         </div>
@@ -776,7 +776,7 @@ if (window.hasRun === true) {
                             <h4>${chrome.i18n.getMessage("selectedText")}</h4>
                             <div class="sub-section-content">
                                 <div class="input-with-button">
-                                    <textarea class="back editable" rows="3">${escapeHTML(flashcard.verso)}</textarea>
+                                    <textarea class="back editable ${isArabic(flashcard.detectedLanguage) ? 'rtl-language' : ''}" rows="3">${escapeHTML(flashcard.verso)}</textarea>
                                     <div class="spacer"></div>
                                 </div>
                             </div>
@@ -785,7 +785,7 @@ if (window.hasRun === true) {
                             <h4>${chrome.i18n.getMessage("directTranslation")}</h4>
                             <div class="sub-section-content">
                                 <div class="input-with-button">
-                                    <textarea class="translation editable" rows="3">${escapeHTML(flashcard.translation || '')}</textarea>
+                                    <textarea class="translation editable ${isArabic(selectedLanguage) ? 'rtl-language' : ''}" rows="3">${escapeHTML(flashcard.translation || '')}</textarea>
                                     <button id="regenerateTranslation" class="regenerate-button"></button>
                                 </div>
                             </div>
@@ -794,7 +794,7 @@ if (window.hasRun === true) {
                             <h4>${chrome.i18n.getMessage("Mnemonic")}</h4>
                             <div class="sub-section-content">
                                 <div class="input-with-button">
-                                    <textarea class="mnemonic editable" rows="3">${escapeHTML(flashcard.mnemonic || '')}</textarea>
+                                    <textarea class="mnemonic editable ${isArabic(selectedLanguage) ? 'rtl-language' : ''}" rows="3">${escapeHTML(flashcard.mnemonic || '')}</textarea>
                                     <button id="regenerateMnemonic" class="regenerate-button"></button>
                                 </div>
                             </div>
@@ -862,7 +862,7 @@ if (window.hasRun === true) {
             regenerateContent('translation', flashcard.id);
         });
     }
-
+    
     /**
      * Proceeds with flashcard generation after initial checks.
      * 
@@ -872,12 +872,12 @@ if (window.hasRun === true) {
      */
     async function proceedWithFlashcardGeneration(selectedText, language, settings) {
         showToast(chrome.i18n.getMessage("creatingFlashcard"), true, true);
-
+    
         if (settings.choice === 'remote') {
             console.log('Using remote model');
-
+    
             const userMessage = chrome.i18n.getMessage("generateFlashcardPrompt", [language, selectedText]);
-
+    
             try {
                 const response = await new Promise((resolve, reject) => {
                     chrome.runtime.sendMessage({
@@ -894,7 +894,7 @@ if (window.hasRun === true) {
                         }
                     });
                 });
-
+    
                 console.log('Full API response:', response);
                 if (response.success) {
                     const flashcardData = response.data;
@@ -909,13 +909,12 @@ if (window.hasRun === true) {
                     };
                     console.log("NEW FLASHCARD:");
                     console.log(newFlashcard);
-
-
+    
                     const flashcards = settings.flashcards || {};
                     flashcards[flashcardId] = newFlashcard;
-
+    
                     await new Promise(resolve => chrome.storage.sync.set({ flashcards: flashcards }, resolve));
-                    showReviewModal(newFlashcard);
+                    showReviewModal(newFlashcard, language);
                     console.log('Flashcard created:', newFlashcard);
                     if (!settings.isOwnCredits) {
                         const incrementResponse = await new Promise(resolve =>
@@ -938,7 +937,7 @@ if (window.hasRun === true) {
             }
         }
     }
-
+    
     /**
      * Checks if Anki is running and proceeds accordingly.
      * 
@@ -953,7 +952,7 @@ if (window.hasRun === true) {
                 showAnkiNotOpenModal(flashcard);
             });
     }
-
+    
     /**
      * Displays a modal informing the user that Anki is not open.
      * 
@@ -961,7 +960,7 @@ if (window.hasRun === true) {
      */
     function showAnkiNotOpenModal(flashcard) {
         console.log("Showing Anki not open modal");
-
+    
         const modalHtml = `
             <div id="anki-lingo-flash-anki-not-open-modal" class="anki-lingo-flash-container">
                 <div id="ankiNotOpenModal">
@@ -975,11 +974,11 @@ if (window.hasRun === true) {
                 <div id="modalBackdrop"></div>
             </div>
         `;
-
+    
         const modalContainer = document.createElement('div');
         modalContainer.innerHTML = modalHtml;
         globalShadowRoot.appendChild(modalContainer);
-
+    
         const linkElement = globalShadowRoot.querySelector('#ankiNotOpenModal a');
         if (linkElement) {
             linkElement.addEventListener('click', (e) => {
@@ -987,18 +986,18 @@ if (window.hasRun === true) {
                 chrome.runtime.sendMessage({ action: "openTab", url: e.target.href });
             });
         }
-
+    
         globalShadowRoot.getElementById('cancelButton').addEventListener('click', () => {
             globalShadowRoot.querySelector('#anki-lingo-flash-anki-not-open-modal').remove();
             showToast(chrome.i18n.getMessage("flashcardCreationCanceled"));
         });
-
+    
         globalShadowRoot.getElementById('retryButton').addEventListener('click', () => {
             globalShadowRoot.querySelector('#anki-lingo-flash-anki-not-open-modal').remove();
             checkAnkiRunning(flashcard);
         });
     }
-
+    
     /**
      * Checks if the model for a specific language exists in Anki, and creates it if not.
      * 
@@ -1038,7 +1037,7 @@ if (window.hasRun === true) {
                 }
             });
     }
-
+    
     /**
      * Checks if the model exists, creates it if necessary, and then adds the note to Anki.
      * 
@@ -1063,15 +1062,15 @@ if (window.hasRun === true) {
                     },
                     "tags": []
                 };
-
+    
                 if (data.mnemonic && data.mnemonic.trim() !== '') {
                     note.fields["Mnemonic"] = data.mnemonic;
                 }
-
+    
                 return invoke('addNote', 6, { note });
             });
     }
-
+    
     /**
      * Detects the language of the given text using context from the original element.
      * 
@@ -1081,77 +1080,77 @@ if (window.hasRun === true) {
      */
     function detectLanguage(text, originalElement) {
         const languagesToCheck = ['cmn', 'spa', 'eng', 'rus', 'arb', 'ben', 'hin', 'por', 'ind', 'jpn', 'fra', 'deu', 'jav', 'kor', 'tel', 'vie', 'mar', 'ita', 'tam', 'tur', 'urd', 'guj', 'pol', 'ukr', 'kan', 'mai', 'mal', 'mya', 'pan', 'ron', 'nld', 'hrv', 'tha', 'swh', 'amh', 'orm', 'uzn', 'aze', 'kat', 'ces', 'hun', 'ell', 'swe', 'heb', 'zlm', 'dan', 'fin', 'nor', 'slk'];
-
+    
         function detectWithFranc(text) {
             return window.francAll(text, {
                 minLength: 1,
                 whitelist: languagesToCheck
             })[0][0];
         }
-
+    
         function getTextContent(element) {
             return element.textContent.trim().replace(/\s+/g, ' ');
         }
         function expandContext(element, depth = 0) {
             if (!element || depth > 5) return null;
-
+    
             let parent = element.parentElement;
             if (!parent) return null;
-
+    
             let contextText = getTextContent(parent);
             if (contextText.length > text.length * 3) {
                 return contextText;
             }
-
+    
             return expandContext(parent, depth + 1);
         }
-
+    
         let initialDetection = detectWithFranc(text);
         console.log("Initial detection:", initialDetection);
-
+    
         if (languagesToCheck.includes(initialDetection) && originalElement) {
             let expandedContext = expandContext(originalElement);
             if (expandedContext) {
                 let contextDetection = detectWithFranc(expandedContext);
                 console.log("Context detection:", contextDetection);
-
+    
                 if (contextDetection !== initialDetection) {
                     // If the context detection is different, look for a majority class
                     let detections = [initialDetection, contextDetection];
                     let currentElement = originalElement.parentElement;
                     let depth = 0;
-
+    
                     while (currentElement && depth < 5) {
                         let furtherContext = getTextContent(currentElement);
-
+    
                         console.log("expanded context: " + furtherContext);
-
+    
                         let furtherDetection = detectWithFranc(furtherContext);
                         detections.push(furtherDetection);
-
+    
                         // Check if a language is in majority
                         let counts = detections.reduce((acc, lang) => {
                             acc[lang] = (acc[lang] || 0) + 1;
                             return acc;
                         }, {});
-
+    
                         let majorityLang = Object.keys(counts).reduce((a, b) => counts[a] > counts[b] ? a : b);
                         if (counts[majorityLang] > detections.length / 2) {
                             console.log("Majority language found:", majorityLang);
                             return majorityLang;
                         }
-
+    
                         currentElement = currentElement.parentElement;
                         depth++;
                     }
                 }
             }
         }
-
+    
         console.log("Final detection:", initialDetection);
         return initialDetection;
     }
-
+    
     /**
      * Displays a modal for selecting an Anki deck and confirming flashcard details.
      * 
@@ -1162,13 +1161,13 @@ if (window.hasRun === true) {
         chrome.storage.sync.get(['lastUsedDeck', 'language'], async function (result) {
             let lastUsedDeck = result.lastUsedDeck;
             const currentLanguage = data.detectedLanguage || result.language || navigator.language.split('-')[0];
-
+    
             const languageOptions = await generateLanguageOptions(currentLanguage);
-
+    
             const deckOptions = decks.map(deck =>
                 `<option value="${deck}" ${deck === lastUsedDeck ? 'selected' : ''}>${deck}</option>`
             ).join('');
-
+    
             let modalHtml = `
                 <div id="anki-lingo-flash-deck-selection-modal" class="anki-lingo-flash-container">
                     <div id="flashcardModal">
@@ -1192,26 +1191,26 @@ if (window.hasRun === true) {
                     <div id="modalBackdrop"></div>
                 </div>
             `;
-
+    
             const modalContainer = document.createElement('div');
             modalContainer.innerHTML = modalHtml;
             globalShadowRoot.appendChild(modalContainer);
-
+    
             // Select the detected language in the dropdown
             const languageSelect = globalShadowRoot.querySelector('#languageSelect');
             if (languageSelect) {
                 languageSelect.value = currentLanguage;
             }
-
+    
             globalShadowRoot.querySelector('#validateButton').addEventListener('click', () => {
                 const selectedDeck = globalShadowRoot.querySelector('#deckSelect').value;
                 const selectedLanguage = globalShadowRoot.querySelector('#languageSelect').value;
                 console.log("selected language:", selectedLanguage);
-
+    
                 const longLanguageCode = languageCodeMap[selectedLanguage];
                 const languageName = chrome.i18n.getMessage(longLanguageCode);
                 const modelName = `AnkiLingoFlash_${languageName}`;
-
+    
                 checkAndCreateModelBeforeAdding(selectedDeck, data, modelName)
                     .then(result => {
                         if (result) {
@@ -1226,25 +1225,25 @@ if (window.hasRun === true) {
                         }
                     });
             });
-
+    
             globalShadowRoot.querySelector('#cancelButton').addEventListener('click', () => {
                 showToast(chrome.i18n.getMessage("flashcardCreationCanceled"));
                 globalShadowRoot.querySelector('#anki-lingo-flash-deck-selection-modal').remove();
             });
         });
     }
-
+    
     /**
      * Sets up the refresh logo for regenerate buttons.
      */
     function setupRefreshLogo() {
         setTimeout(() => {
             const regenerateButtons = globalShadowRoot.querySelectorAll('#anki-lingo-flash-review-modal .regenerate-button');
-
+    
             if (regenerateButtons.length === 0) {
                 return;
             }
-
+    
             const iconURL = chrome.runtime.getURL('icons/refresh_logo.svg');
             regenerateButtons.forEach(button => {
                 button.style.backgroundImage = `url("${iconURL}")`;
@@ -1256,10 +1255,10 @@ if (window.hasRun === true) {
             });
         }, 0);
     }
-
+    
     // Call this function after the Shadow DOM is created and whenever you create new regenerate buttons
     setupRefreshLogo();
-
+    
     /**
      * Removes the toast notification from the DOM.
      */
@@ -1269,14 +1268,14 @@ if (window.hasRun === true) {
             toast.remove();
         }
     }
-
+    
     // Listen for messages from the background script
     chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
         console.log("Received message:", request);
         if (request.action === "updateFlashcardCount") {
             console.log('Flashcard count updated:', request.count);
             console.log('Remaining cards:', request.remainingCards);
-
+    
             chrome.tabs.query({}, function (tabs) {
                 for (var i = 0; i < tabs.length; ++i) {
                     chrome.tabs.sendMessage(tabs[i].id, {
@@ -1295,7 +1294,7 @@ if (window.hasRun === true) {
             showToast(chrome.i18n.getMessage("flashcardCreationCanceled"));
         } else if (request.action === "generateFlashcard") {
             console.log('Selected text:', request.text);
-
+    
             checkAuth((isAuthenticated) => {
                 if (isAuthenticated) {
                     generateFlashcard(request.text, request.language);
@@ -1307,4 +1306,9 @@ if (window.hasRun === true) {
             showToast(request.message, request.keepOpen, request.ellipsis);
         }
     });
+    
+    // Helper function to check if a language is Arabic
+    function isArabic(language) {
+        return language === 'arabic_standard' || language === 'arabic_eg'; // 'arb' for Standard Arabic, 'arz' for Egyptian Arabic
+    }
 }
