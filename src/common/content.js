@@ -84,7 +84,7 @@ if (window.hasRun === true) {
         DEFINITION: 'definition',
         MNEMONIC: 'mnemonic',
         TRANSLATION: 'translation'
-    };
+    }; 
 
     /**
      * Escapes HTML characters to prevent XSS attacks.
