@@ -7,7 +7,8 @@ import { CONFIG } from './config.js';
 const CONVERSATION_TYPES = {
     FLASHCARD: 'flashcard',
     DEFINITION: 'definition',
-    MNEMONIC: 'mnemonic'
+    MNEMONIC: 'mnemonic',
+    TRANSLATION: 'translation'
 };
 
 /**
@@ -429,6 +430,8 @@ function getSystemPrompt(type) {
             return chrome.i18n.getMessage("helpfulAssistantDefinition");
         case CONVERSATION_TYPES.MNEMONIC:
             return chrome.i18n.getMessage("creativeAssistantMnemonic");
+        case CONVERSATION_TYPES.TRANSLATION:
+            return chrome.i18n.getMessage("translationAssistant");
         default:
             console.log(`Unknown conversation type: ${type}`);
             return chrome.i18n.getMessage("generateFlashcardInstructions");

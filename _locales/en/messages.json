@@ -652,5 +652,30 @@
   },
   "slovak": {
     "message": "Slovak"
-  }
+  },
+  "regeneratingTranslation": {
+    "message": "Regenerating translation"
+},
+"translationAssistant": {
+    "message": "You are a translation assistant specialized in providing accurate translations in $1 for various terms or expressions. Always respond in JSON format with a 'translation' key. For example: {\"translation\": \"Your translation here\"}.",
+    "placeholders": {
+        "1": {
+            "content": "$1"
+        }
+    }
+},
+"generateTranslation": {
+    "message": "Provide an accurate translation in $1 for the term/expression: [$2]. The response should be a JSON containing only the translation. Format: {\"translation\": \"Your translation here\"}.",
+    "placeholders": {
+        "1": {
+            "content": "$1"
+        },
+        "2": {
+            "content": "$2"
+        }
+    }
+},
+"errorRegeneratingTranslation": {
+    "message": "Error regenerating translation. Please try again."
+}
 }

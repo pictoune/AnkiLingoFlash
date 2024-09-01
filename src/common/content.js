@@ -82,7 +82,8 @@ if (window.hasRun === true) {
     const CONVERSATION_TYPES = {
         FLASHCARD: 'flashcard',
         DEFINITION: 'definition',
-        MNEMONIC: 'mnemonic'
+        MNEMONIC: 'mnemonic',
+        TRANSLATION: 'translation'
     };
 
     /**
@@ -339,7 +340,7 @@ if (window.hasRun === true) {
                 showToast(chrome.i18n.getMessage("pleaseLogInForFreeTrial"));
                 return;
             }
-
+    
             chrome.storage.sync.get(['choice', 'model', 'isOwnCredits', 'flashcards', 'language', 'regenerationLimit', 'userId'], function (settings) {
                 if (settings.choice === 'remote') {
                     const flashcard = settings.flashcards[flashcardId];
@@ -347,63 +348,67 @@ if (window.hasRun === true) {
                         console.log('Flashcard not found');
                         return;
                     }
-
-                    // Check if the regeneration limit has been reached
+    
                     if (!settings.isOwnCredits && flashcard.regenerationCount[part] >= settings.regenerationLimit) {
                         if (part === 'definition') {
                             showToast(chrome.i18n.getMessage("defRegenerationLimitReached", [settings.regenerationLimit]));
                         } else if (part === 'mnemonic') {
                             showToast(chrome.i18n.getMessage("mneRegenerationLimitReached", [settings.regenerationLimit]));
+                        } else if (part === 'translation') {
+                            showToast(chrome.i18n.getMessage("translationRegenerationLimitReached", [settings.regenerationLimit]));
                         }
                         return;
                     }
-
-                    // Increment the regeneration count
+    
                     flashcard.regenerationCount[part]++;
                     settings.flashcards[flashcardId] = flashcard;
                     chrome.storage.sync.set({ flashcards: settings.flashcards });
-
-                    // Show appropriate toast message
+    
                     if (part === 'definition') {
                         showToast(chrome.i18n.getMessage("regeneratingDefinition"), true, true);
-                    }
-                    else if (part === 'mnemonic') {
+                    } else if (part === 'mnemonic') {
                         showToast(chrome.i18n.getMessage("regeneratingMnemonic"), true, true);
+                    } else if (part === 'translation') {
+                        showToast(chrome.i18n.getMessage("regeneratingTranslation"), true, true);
                     }
-
-                    // Hide the "Review flashcard" popup
+    
                     const reviewModal = globalShadowRoot.querySelector('#anki-lingo-flash-review-modal');
                     if (reviewModal) reviewModal.style.display = 'none';
-
-                    // Prepare the user prompt based on the part being regenerated
-                    let userPrompt = part === 'definition' ?
-                        chrome.i18n.getMessage("generateDefinition", [settings.language, flashcard.verso]) :
-                        chrome.i18n.getMessage("generateMnemonic", [settings.language, flashcard.verso]);
-
-                    // Call the ChatGPT API to regenerate the content
+    
+                    let userPrompt;
+                    if (part === 'definition') {
+                        userPrompt = chrome.i18n.getMessage("generateDefinition", [settings.language, flashcard.verso]);
+                    } else if (part === 'mnemonic') {
+                        userPrompt = chrome.i18n.getMessage("generateMnemonic", [settings.language, flashcard.verso]);
+                    } else if (part === 'translation') {
+                        userPrompt = chrome.i18n.getMessage("generateTranslation", [settings.language, flashcard.verso]);
+                    }
+    
                     chrome.runtime.sendMessage({
                         action: "callChatGPTAPI",
                         userId: settings.userId,
-                        type: part === 'definition' ? CONVERSATION_TYPES.DEFINITION : CONVERSATION_TYPES.MNEMONIC,
+                        type: part === 'definition' ? CONVERSATION_TYPES.DEFINITION : 
+                              part === 'mnemonic' ? CONVERSATION_TYPES.MNEMONIC : 
+                              CONVERSATION_TYPES.TRANSLATION,
                         message: userPrompt,
                         language: settings.language
                     }, response => {
                         if (response.success) {
                             let newContent = response.data;
-
-                            // Update the flashcard with the new content
+    
                             if (part === 'definition' && newContent.definition) {
                                 flashcard.recto = newContent.definition;
                             } else if (part === 'mnemonic' && newContent.mnemonic) {
                                 flashcard.mnemonic = newContent.mnemonic;
+                            } else if (part === 'translation' && newContent.translation) {
+                                flashcard.translation = newContent.translation;
                             } else {
                                 console.log(`Invalid content for ${part}:`, newContent);
                                 showToast(chrome.i18n.getMessage(`errorRegenerating${part.charAt(0).toUpperCase() + part.slice(1)}`));
                                 if (reviewModal) reviewModal.style.display = 'flex';
                                 return;
                             }
-
-                            // Save the updated flashcard
+    
                             settings.flashcards[flashcardId] = flashcard;
                             chrome.storage.sync.set({ flashcards: settings.flashcards }, function () {
                                 updateModalContent(flashcard);
@@ -417,7 +422,6 @@ if (window.hasRun === true) {
                         }
                     });
                 } else {
-                    // Local model handling (not implemented in this version)
                     console.log('Local model regeneration not implemented');
                 }
             });
@@ -742,22 +746,16 @@ if (window.hasRun === true) {
         });
     }
 
-    /**
-     * Displays the review modal for a given flashcard.
-     * 
-     * @param {Object} flashcard - The flashcard object to review.
-     */
     function showReviewModal(flashcard) {
         if (currentToast) {
             removeCurrentToast();
         }
-
-        // Remove the old modal if it exists
+    
         const oldModal = globalShadowRoot.querySelector('#anki-lingo-flash-review-modal');
         if (oldModal) {
             oldModal.remove();
         }
-
+    
         const modalHtml = `
         <div id="anki-lingo-flash-review-modal" class="anki-lingo-flash-container">
             <div id="reviewModal" data-flashcard-id="${escapeHTML(flashcard.id)}">
@@ -788,7 +786,7 @@ if (window.hasRun === true) {
                             <div class="sub-section-content">
                                 <div class="input-with-button">
                                     <textarea class="translation editable" rows="3">${escapeHTML(flashcard.translation || '')}</textarea>
-                                    <div class="spacer"></div>
+                                    <button id="regenerateTranslation" class="regenerate-button"></button>
                                 </div>
                             </div>
                         </div>
@@ -811,25 +809,23 @@ if (window.hasRun === true) {
             <div id="modalBackdrop"></div>
         </div>
         `;
-
+    
         const modalContainer = document.createElement('div');
         modalContainer.innerHTML = modalHtml;
         globalShadowRoot.appendChild(modalContainer);
-
+    
         setupRefreshLogo();
-
-        // Language detection
+    
         let originalElement = document.getSelection().anchorNode.parentElement;
         const detectedLanguage = detectLanguage(flashcard.verso, originalElement);
         console.log("Detected language:", detectedLanguage);
-
+    
         flashcard.detectedLanguage = detectedLanguage;
-
-        // Add event listeners for buttons
+    
         globalShadowRoot.querySelector('#validateButton').addEventListener('click', () => {
             const mnemonicTextarea = globalShadowRoot.querySelector('#reviewModal .mnemonic');
             const mnemonicValue = mnemonicTextarea ? mnemonicTextarea.value.trim() : '';
-
+    
             const updatedFlashcard = {
                 id: flashcard.id,
                 recto: globalShadowRoot.querySelector('#reviewModal .definition').value,
@@ -838,29 +834,32 @@ if (window.hasRun === true) {
                 regenerationCount: flashcard.regenerationCount,
                 detectedLanguage: flashcard.detectedLanguage
             };
-
+    
             if (mnemonicValue !== '') {
                 updatedFlashcard.mnemonic = mnemonicValue;
             }
-
+    
             globalShadowRoot.querySelector('#anki-lingo-flash-review-modal').remove();
             checkAnkiRunning(updatedFlashcard);
         });
-
+    
         globalShadowRoot.querySelector('#cancelReviewButton').addEventListener('click', () => {
             globalShadowRoot.querySelector('#anki-lingo-flash-review-modal').remove();
             chrome.runtime.sendMessage({ action: "flashcardCreationCanceled" }, function (response) {
                 showToast(chrome.i18n.getMessage("flashcardCreationCanceled"));
             });
         });
-
-        // Add event listeners for regenerate buttons
+    
         globalShadowRoot.querySelector('#regenerateDefinition').addEventListener('click', () => {
             regenerateContent('definition', flashcard.id);
         });
-
+    
         globalShadowRoot.querySelector('#regenerateMnemonic').addEventListener('click', () => {
             regenerateContent('mnemonic', flashcard.id);
+        });
+    
+        globalShadowRoot.querySelector('#regenerateTranslation').addEventListener('click', () => {
+            regenerateContent('translation', flashcard.id);
         });
     }
 
