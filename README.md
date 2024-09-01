@@ -110,11 +110,26 @@ After installation, it's crucial to configure AnkiLingoFlash properly. Follow th
 I welcome contributions to AnkiLingoFlash! Whether you're fixing bugs, adding features, or improving documentation, your help is appreciated.
 
 To contribute:
-1. Fork the repository
-2. Create your feature branch (`git checkout -b feature/AmazingFeature`)
-3. Commit your changes (`git commit -m 'Add some AmazingFeature'`)
-4. Push to the branch (`git push origin feature/AmazingFeature`)
-5. Open a Pull Request
+1. Fork the repository on GitHub.
+2. Clone your fork locally:
+   ```
+   git clone https://github.com/your-username/AnkiLingoFlash.git
+   ```
+3. Create a new branch for your feature or bug fix:
+   ```
+   git checkout -b feature/your-feature-name
+   ```
+4. Make your changes in the new branch.
+5. Test your changes thoroughly.
+6. Commit your changes with a clear and descriptive commit message:
+   ```
+   git commit -m "Add some AmazingFeature"
+   ```
+7. Push to your fork:
+   ```
+   git push origin feature/your-feature-name
+   ```
+8. Open a Pull Request from your fork to the main AnkiLingoFlash repository.
 
 For major changes or ideas, please open an issue first to discuss what you would like to change. If you prefer, you can also reach out to me directly—my contact information is available on the [about page](https://ankilingoflash.com/about.html#-get-in-touch).
 
