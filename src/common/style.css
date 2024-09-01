@@ -1028,3 +1028,70 @@
     color: #888;
     margin-bottom: 5px;
 }
+
+#anki-lingo-flash-review-modal .modal-content {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    width: 100%;
+    max-width: 600px;
+    margin: 0 auto;
+    text-align: left;
+}
+
+#anki-lingo-flash-review-modal h2 {
+    text-align: center;
+    width: 100%;
+    margin-bottom: 20px;
+}
+
+#anki-lingo-flash-review-modal h3,
+#anki-lingo-flash-review-modal h4 {
+    text-align: left;
+    width: 100%;
+    margin-bottom: 10px;
+}
+
+#anki-lingo-flash-review-modal .section,
+#anki-lingo-flash-review-modal .sub-section {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    margin-bottom: 15px;
+}
+
+#anki-lingo-flash-review-modal .sub-section-content {
+    width: 100%;
+    display: flex;
+    justify-content: flex-start;
+}
+
+#anki-lingo-flash-review-modal .input-with-button {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    width: 100%;
+}
+
+#anki-lingo-flash-review-modal textarea.editable {
+    width: calc(100% - 40px);
+    text-align: left;
+    padding: 5px;
+    margin-bottom: 10px;
+}
+
+#anki-lingo-flash-review-modal .regenerate-button {
+    margin-left: 10px;
+}
+
+#anki-lingo-flash-review-modal .button-container {
+    display: flex;
+    justify-content: flex-center;
+    width: 100%;
+    margin-top: 20px;
+}
+
+#anki-lingo-flash-review-modal .modal-button:not(.gsi-material-button) {
+    margin-right: 10px;
+}
