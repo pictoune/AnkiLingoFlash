@@ -86,7 +86,7 @@ if (window.hasRun === true) {
         TRANSLATION: 'translation'
     }; 
 
-    /**
+    /** 
      * Escapes HTML characters to prevent XSS attacks.
      * 
      * @param {string} unsafeText - The text to be escaped.
