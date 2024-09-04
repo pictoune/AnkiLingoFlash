@@ -712,7 +712,7 @@ if (window.hasRun === true) {
                 console.log('Local model regeneration not implemented');
             }
         } catch (error) {
-            console.error('Error in generateFlashcard:', error);
+            console.log('Error in generateFlashcard:', error);
             showToast(chrome.i18n.getMessage("errorCreatingFlashcard"));
         }
     }
@@ -746,6 +746,14 @@ if (window.hasRun === true) {
         });
     }
     
+    /**
+     * Displays a review modal for a given flashcard, allowing users to review and edit its content.
+     * The modal includes fields for the front (definition), back (selected text), direct translation, and mnemonic.
+     * Users can regenerate content, validate their changes, or cancel the review.
+     * 
+     * @param {Object} flashcard - The flashcard object containing its content and metadata.
+     * @param {string} selectedLanguage - The language selected by the user for the flashcard.
+ */
     function showReviewModal(flashcard, selectedLanguage) {
         if (currentToast) {
             removeCurrentToast();
@@ -755,6 +763,42 @@ if (window.hasRun === true) {
         if (oldModal) {
             oldModal.remove();
         }
+        
+        let selectedText = flashcard.verso;
+        let contextText = '';
+    
+        // Tentative de récupération du texte sélectionné et du contexte
+        const selection = window.getSelection();
+        if (selection && selection.rangeCount > 0) {
+            const range = selection.getRangeAt(0);
+            
+            // Récupération du texte sélectionné
+            selectedText = range.toString().trim();
+            
+            // Tentative de récupération du contexte
+            let container = range.commonAncestorContainer;
+            while (container && container.nodeType !== Node.ELEMENT_NODE) {
+                container = container.parentNode;
+            }
+            
+            if (container) {
+                // Récupération d'un contexte plus large
+                contextText = container.textContent || container.innerText || '';
+            }
+        }
+    
+        // Si nous n'avons pas pu obtenir de contexte, utilisons le texte sélectionné comme contexte
+        if (!contextText) {
+            contextText = selectedText;
+        }
+    
+        console.log("Selected text:", selectedText);
+        console.log("Context text:", contextText);
+    
+        const detectedLanguage = detectLanguage(selectedText, contextText);
+        console.log("Detected language:", detectedLanguage);
+    
+        flashcard.detectedLanguage = detectedLanguage;
         
         const modalHtml = `
         <div id="anki-lingo-flash-review-modal" class="anki-lingo-flash-container">
@@ -816,51 +860,52 @@ if (window.hasRun === true) {
     
         setupRefreshLogo();
     
-        let originalElement = document.getSelection().anchorNode.parentElement;
-        const detectedLanguage = detectLanguage(flashcard.verso, originalElement);
-        console.log("Detected language:", detectedLanguage);
+        // Utilisation de la délégation d'événements
+        const modal = globalShadowRoot.querySelector('#anki-lingo-flash-review-modal');
+        
+        modal.addEventListener('click', function(event) {
+            if (event.target.id === 'validateButton') {
+                const mnemonicTextarea = this.querySelector('#reviewModal .mnemonic');
+                const mnemonicValue = mnemonicTextarea ? mnemonicTextarea.value.trim() : '';
     
-        flashcard.detectedLanguage = detectedLanguage;
+                const updatedFlashcard = {
+                    id: flashcard.id,
+                    recto: this.querySelector('#reviewModal .definition').value,
+                    verso: this.querySelector('#reviewModal .back').value,
+                    translation: this.querySelector('#reviewModal .translation').value,
+                    regenerationCount: flashcard.regenerationCount,
+                    detectedLanguage: flashcard.detectedLanguage
+                };
     
-        globalShadowRoot.querySelector('#validateButton').addEventListener('click', () => {
-            const mnemonicTextarea = globalShadowRoot.querySelector('#reviewModal .mnemonic');
-            const mnemonicValue = mnemonicTextarea ? mnemonicTextarea.value.trim() : '';
+                if (mnemonicValue !== '') {
+                    updatedFlashcard.mnemonic = mnemonicValue;
+                }
     
-            const updatedFlashcard = {
-                id: flashcard.id,
-                recto: globalShadowRoot.querySelector('#reviewModal .definition').value,
-                verso: globalShadowRoot.querySelector('#reviewModal .back').value,
-                translation: globalShadowRoot.querySelector('#reviewModal .translation').value,
-                regenerationCount: flashcard.regenerationCount,
-                detectedLanguage: flashcard.detectedLanguage
-            };
-    
-            if (mnemonicValue !== '') {
-                updatedFlashcard.mnemonic = mnemonicValue;
+                this.remove();
+                checkAnkiRunning(updatedFlashcard);
+            } else if (event.target.id === 'cancelReviewButton') {
+                this.remove();
+                chrome.runtime.sendMessage({ action: "flashcardCreationCanceled" }, function (response) {
+                    showToast(chrome.i18n.getMessage("flashcardCreationCanceled"));
+                });
+            } else if (event.target.id === 'regenerateDefinition') {
+                regenerateContent('definition', flashcard.id);
+            } else if (event.target.id === 'regenerateMnemonic') {
+                regenerateContent('mnemonic', flashcard.id);
+            } else if (event.target.id === 'regenerateTranslation') {
+                regenerateContent('translation', flashcard.id);
             }
-    
-            globalShadowRoot.querySelector('#anki-lingo-flash-review-modal').remove();
-            checkAnkiRunning(updatedFlashcard);
         });
     
-        globalShadowRoot.querySelector('#cancelReviewButton').addEventListener('click', () => {
-            globalShadowRoot.querySelector('#anki-lingo-flash-review-modal').remove();
-            chrome.runtime.sendMessage({ action: "flashcardCreationCanceled" }, function (response) {
-                showToast(chrome.i18n.getMessage("flashcardCreationCanceled"));
-            });
-        });
+        // Debugging
+        console.log('Modal created:', modal);
+        console.log('Validate button:', modal.querySelector('#validateButton'));
+        console.log('Cancel button:', modal.querySelector('#cancelReviewButton'));
     
-        globalShadowRoot.querySelector('#regenerateDefinition').addEventListener('click', () => {
-            regenerateContent('definition', flashcard.id);
-        });
-    
-        globalShadowRoot.querySelector('#regenerateMnemonic').addEventListener('click', () => {
-            regenerateContent('mnemonic', flashcard.id);
-        });
-    
-        globalShadowRoot.querySelector('#regenerateTranslation').addEventListener('click', () => {
-            regenerateContent('translation', flashcard.id);
-        });
+        // Assurez-vous que le DOM est complètement chargé
+        setTimeout(() => {
+            setupRefreshLogo();
+        }, 0);
     }
     
     /**
@@ -1078,7 +1123,7 @@ if (window.hasRun === true) {
      * @param {Element} originalElement - The original DOM element containing the text.
      * @returns {string} The detected language code.
      */
-    function detectLanguage(text, originalElement) {
+    function detectLanguage(text, contextText) {
         const languagesToCheck = ['cmn', 'spa', 'eng', 'rus', 'arb', 'ben', 'hin', 'por', 'ind', 'jpn', 'fra', 'deu', 'jav', 'kor', 'tel', 'vie', 'mar', 'ita', 'tam', 'tur', 'urd', 'guj', 'pol', 'ukr', 'kan', 'mai', 'mal', 'mya', 'pan', 'ron', 'nld', 'hrv', 'tha', 'swh', 'amh', 'orm', 'uzn', 'aze', 'kat', 'ces', 'hun', 'ell', 'swe', 'heb', 'zlm', 'dan', 'fin', 'nor', 'slk'];
     
         function detectWithFranc(text) {
@@ -1088,61 +1133,32 @@ if (window.hasRun === true) {
             })[0][0];
         }
     
-        function getTextContent(element) {
-            return element.textContent.trim().replace(/\s+/g, ' ');
-        }
-        function expandContext(element, depth = 0) {
-            if (!element || depth > 5) return null;
-    
-            let parent = element.parentElement;
-            if (!parent) return null;
-    
-            let contextText = getTextContent(parent);
-            if (contextText.length > text.length * 3) {
-                return contextText;
-            }
-    
-            return expandContext(parent, depth + 1);
-        }
-    
         let initialDetection = detectWithFranc(text);
         console.log("Initial detection:", initialDetection);
     
-        if (languagesToCheck.includes(initialDetection) && originalElement) {
-            let expandedContext = expandContext(originalElement);
-            if (expandedContext) {
-                let contextDetection = detectWithFranc(expandedContext);
-                console.log("Context detection:", contextDetection);
+        if (languagesToCheck.includes(initialDetection) && contextText) {
+            let contextDetection = detectWithFranc(contextText);
+            console.log("Context detection:", contextDetection);
     
-                if (contextDetection !== initialDetection) {
-                    // If the context detection is different, look for a majority class
-                    let detections = [initialDetection, contextDetection];
-                    let currentElement = originalElement.parentElement;
-                    let depth = 0;
+            if (contextDetection !== initialDetection) {
+                // Si la détection du contexte est différente, on cherche une langue majoritaire
+                let detections = [initialDetection, contextDetection];
+                let chunks = contextText.split(/\s+/);
+                for (let i = 0; i < chunks.length; i += 20) {
+                    let chunk = chunks.slice(i, i + 20).join(' ');
+                    let chunkDetection = detectWithFranc(chunk);
+                    detections.push(chunkDetection);
+                }
     
-                    while (currentElement && depth < 5) {
-                        let furtherContext = getTextContent(currentElement);
+                let counts = detections.reduce((acc, lang) => {
+                    acc[lang] = (acc[lang] || 0) + 1;
+                    return acc;
+                }, {});
     
-                        console.log("expanded context: " + furtherContext);
-    
-                        let furtherDetection = detectWithFranc(furtherContext);
-                        detections.push(furtherDetection);
-    
-                        // Check if a language is in majority
-                        let counts = detections.reduce((acc, lang) => {
-                            acc[lang] = (acc[lang] || 0) + 1;
-                            return acc;
-                        }, {});
-    
-                        let majorityLang = Object.keys(counts).reduce((a, b) => counts[a] > counts[b] ? a : b);
-                        if (counts[majorityLang] > detections.length / 2) {
-                            console.log("Majority language found:", majorityLang);
-                            return majorityLang;
-                        }
-    
-                        currentElement = currentElement.parentElement;
-                        depth++;
-                    }
+                let majorityLang = Object.keys(counts).reduce((a, b) => counts[a] > counts[b] ? a : b);
+                if (counts[majorityLang] > detections.length / 2) {
+                    console.log("Majority language found:", majorityLang);
+                    return majorityLang;
                 }
             }
         }

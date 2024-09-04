@@ -80,11 +80,11 @@ function showToast(message, keepOpen = false, ellipsis = false) {
                 ellipsis: ellipsis
             }, function (response) {
                 if (chrome.runtime.lastError) {
-                    console.error("Error showing toast:", chrome.runtime.lastError.message);
+                    console.log("Error showing toast:", chrome.runtime.lastError.message);
                 }
             });
         } else {
-            console.error("No valid tab found to show toast");
+            console.log("No valid tab found to show toast");
         }
     });
 }
@@ -346,7 +346,7 @@ chrome.runtime.onInstalled.addListener(async (details) => {
     // Inject content script into existing tabs
     const tabs = await chrome.tabs.query({});
     for (const tab of tabs) {
-        if (tab.url && (tab.url.startsWith('http') || tab.url.startsWith('https'))) {
+        if (tab.url && (tab.url.startsWith('http') || tab.url.startsWith('https') || tab.url.endsWith('.pdf'))) {
             await injectContentScript(tab.id);
         }
     }
@@ -362,31 +362,40 @@ let tabReady = {};
 
 // Listen for tab updates
 chrome.tabs.onUpdated.addListener((tabId, changeInfo, tab) => {
-    if (changeInfo.status === 'complete') {
+    if (changeInfo.status === 'complete' && tab.url && (tab.url.startsWith('http') || tab.url.startsWith('https') || tab.url.endsWith('.pdf'))) {
         tabReady[tabId] = true;
+        injectContentScript(tabId);
     }
 });
 
 // Listen for context menu clicks
 chrome.contextMenus.onClicked.addListener(async (info, tab) => {
-    //console.error("Tab ID:", tab ? tab.id : "undefined");
     if (info.menuItemId === "selectText") {
         console.log("Context menu clicked, injecting content script...");
         await injectContentScript(tab.id);
         console.log("Content script injected, sending message...");
         chrome.storage.sync.get(['language'], function (result) {
-            chrome.tabs.sendMessage(tab.id, {
-                action: "generateFlashcard",
-                text: info.selectionText,
-                language: result.language || 'en'
-            })
-                .then(response => {
-                    console.log(`Message sent successfully with response:`, response);
-                })
-                .catch(error => {
-                    console.log(`Error sending message: ${error}`);
-                    showToast(chrome.i18n.getMessage("flashcardGenerationError"));
-                });
+            // Utiliser chrome.tabs.query pour obtenir l'onglet actif
+            chrome.tabs.query({active: true, currentWindow: true}, function(tabs) {
+                //console.error("TAB ID: " + tabs[0].id);
+                if (tabs.length > 0) {
+                    chrome.tabs.sendMessage(tabs[0].id, {
+                        action: "generateFlashcard",
+                        text: info.selectionText,
+                        language: result.language || 'en'
+                    })
+                    .then(response => {
+                        console.log(`Message sent successfully with response:`, response);
+                    })
+                    .catch(error => {
+                        console.log(`Error sending message:`, error);
+                        showToast(chrome.i18n.getMessage("flashcardGenerationError"));
+                    });
+                } else {
+                    console.log("No active tab found");
+                    showToast(chrome.i18n.getMessage("noActiveTabError"));
+                }
+            });
         });
     }
 });

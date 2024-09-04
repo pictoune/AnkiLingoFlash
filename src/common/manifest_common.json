@@ -17,7 +17,8 @@
     "https://api.openai.com/*",
     "https://anki-lingo-flash.piriouvictor.workers.dev/*",
     "https://accounts.google.com/*",
-    "https://*/*"
+    "https://*/*",
+    "file://*.pdf"
   ],
   "action": {
     "default_popup": "popup.html"
