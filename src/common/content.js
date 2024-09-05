@@ -384,8 +384,6 @@ if (window.hasRun === true) {
                     }, response => {
                         if (response.success) {
                             let newContent = response.data;
-
-                            console.log(newContent);
     
                             if (part === 'definition' && newContent.definition) {
                                 flashcard.recto = newContent.definition;
@@ -393,8 +391,10 @@ if (window.hasRun === true) {
                                 flashcard.mnemonic = newContent.mnemonic;
                             } else if (part === 'translation' && newContent.translation) {
                                 flashcard.translation = newContent.translation;
-                            } else if (part === 'examples' && newContent.examples) {
-                                flashcard.examples = newContent.examples;
+                            } else if (part === 'examples') {
+                                flashcard.example_1 = newContent.example_1 || '';
+                                flashcard.example_2 = newContent.example_2 || '';
+                                flashcard.example_3 = newContent.example_3 || '';
                             } else {
                                 console.log(`Invalid content for ${part}:`, newContent);
                                 showToast(chrome.i18n.getMessage(`errorRegenerating${part.charAt(0).toUpperCase() + part.slice(1)}`));
@@ -432,7 +432,9 @@ if (window.hasRun === true) {
             modal.querySelector('.definition').value = flashcard.recto;
             modal.querySelector('.back').value = flashcard.verso;
             modal.querySelector('.translation').value = flashcard.translation || '';
-            modal.querySelector('.examples').value = flashcard.examples || '';
+            modal.querySelector('.example_1').value = flashcard.example_1 || '';
+            modal.querySelector('.example_2').value = flashcard.example_2 || '';
+            modal.querySelector('.example_3').value = flashcard.example_3 || '';
             modal.querySelector('.mnemonic').value = flashcard.mnemonic || '';
         }
     }
@@ -747,7 +749,7 @@ if (window.hasRun === true) {
      * 
      * @param {Object} flashcard - The flashcard object containing its content and metadata.
      * @param {string} selectedLanguage - The language selected by the user for the flashcard.
- */
+     */
     function showReviewModal(flashcard, selectedLanguage) {
         if (currentToast) {
             removeCurrentToast();
@@ -835,7 +837,9 @@ if (window.hasRun === true) {
                         <h4>${chrome.i18n.getMessage("examples")}</h4>
                         <div class="sub-section-content">
                             <div class="input-with-button">
-                                <textarea class="examples editable ${isArabic(selectedLanguage) ? 'rtl-language' : ''}" rows="3">${escapeHTML(flashcard.examples || '')}</textarea>
+                                <textarea class="example_1 editable ${isArabic(selectedLanguage) ? 'rtl-language' : ''}" rows="2">${escapeHTML(flashcard.example_1 || '')}</textarea>
+                                <textarea class="example_2 editable ${isArabic(selectedLanguage) ? 'rtl-language' : ''}" rows="2">${escapeHTML(flashcard.example_2 || '')}</textarea>
+                                <textarea class="example_3 editable ${isArabic(selectedLanguage) ? 'rtl-language' : ''}" rows="2">${escapeHTML(flashcard.example_3 || '')}</textarea>
                                 <button id="regenerateExamples" class="regenerate-button"></button>
                             </div>
                         </div>
@@ -876,7 +880,9 @@ if (window.hasRun === true) {
                     recto: this.querySelector('#reviewModal .definition').value,
                     verso: this.querySelector('#reviewModal .back').value,
                     translation: this.querySelector('#reviewModal .translation').value,
-                    examples: this.querySelector('#reviewModal .examples').value,
+                    example_1: this.querySelector('#reviewModal .example_1').value,
+                    example_2: this.querySelector('#reviewModal .example_2').value,
+                    example_3: this.querySelector('#reviewModal .example_3').value,
                     mnemonic: this.querySelector('#reviewModal .mnemonic').value,
                     regenerationCount: flashcard.regenerationCount,
                     detectedLanguage: flashcard.detectedLanguage
@@ -953,7 +959,9 @@ if (window.hasRun === true) {
                         verso: selectedText,
                         mnemonic: flashcardData.mnemonic,
                         translation: flashcardData.translation,
-                        examples: flashcardData.examples,
+                        example_1: flashcardData.example_1,
+                        example_2: flashcardData.example_2,
+                        example_3: flashcardData.example_3,
                         regenerationCount: { definition: 0, mnemonic: 0, translation: 0, examples: 0 }
                     };
                     console.log("NEW FLASHCARD:");
@@ -1059,33 +1067,27 @@ if (window.hasRun === true) {
                 if (!models.includes(modelName)) {
                     return invoke('createModel', 6, {
                         modelName: modelName,
-                        // Updated order of fields to match the new modal template
-                        inOrderFields: ["Translation", "Definition", "Selection", "Examples", "Mnemonic", "Add Reverse"],
+                        inOrderFields: ["Translation", "Definition", "Selection", "Example_1", "Example_2", "Example_3", "Mnemonic", "Add Reverse"],
                         cardTemplates: [
                             {
                                 Name: "Card 1",
-                                // Front: Direct Translation, Definition
                                 Front: `
                                     <div style='font-family: "Arial"; font-size: 20px; text-align: center;'>
                                         <b>${chrome.i18n.getMessage('directTranslation')}</b><br>{{Translation}}
                                         <br><br><b>${chrome.i18n.getMessage('Definition')}</b><br>{{Definition}}
                                     </div>`,
-                                // Back: Selected Term, Examples, Mnemonics
                                 Back: `
                                     {{FrontSide}}
                                     <hr id="answer">
                                     <div style='font-family: "Arial"; font-size: 20px; text-align: center;'>
-                                        <div style="margin-bottom: 5px;">${chrome.i18n.getMessage('selectedTerm')}</div>
-                                        <div style="margin-bottom: 5px;">{{Selection}}</div>
+                                        {{Selection}}
                                     </div>
-                                    {{#Examples}}
                                     <br>
-                                    <div style='font-family: "Arial"; font-size: 18px;'>
-                                        <b>${chrome.i18n.getMessage('Examples')}</b><br>{{Examples}}
-                                    </div>
-                                    {{/Examples}}
+                                    <i>1. {{Example_1}}</i><br>
+                                    <i>2. {{Example_2}}</i><br>
+                                    <i>3. {{Example_3}}</i>
                                     {{#Mnemonic}}
-                                    <br>
+                                    <br><br>
                                     <div style='font-family: "Arial"; font-size: 18px;'>
                                         <b>${chrome.i18n.getMessage('Mnemonic')}</b><br>{{Mnemonic}}
                                     </div>
@@ -1095,20 +1097,13 @@ if (window.hasRun === true) {
                                 Name: "Card 2 (Reverse)",
                                 Front: `
                                     {{#Add Reverse}}
-                                        {{FrontSide}}
-                                        <hr id="answer">
-                                        <div style='font-family: "Arial"; font-size: 20px; text-align: center;'>
-                                            <div style="margin-bottom: 5px;">${chrome.i18n.getMessage('selectedTerm')}</div>
-                                            <div style="margin-bottom: 5px;">{{Selection}}</div>
-                                        </div>
-                                        {{#Examples}}
-                                        <br>
-                                        <div style='font-family: "Arial"; font-size: 18px;'>
-                                            <b>${chrome.i18n.getMessage('Examples')}</b><br>{{Examples}}
-                                        </div>
-                                        {{/Examples}}
+                                        {{Selection}}
+                                        <br><br>
+                                        <i>1. {{Example_1}}</i><br>
+                                        <i>2. {{Example_2}}</i><br>
+                                        <i>3. {{Example_3}}</i>
                                         {{#Mnemonic}}
-                                        <br>
+                                        <br><br>
                                         <div style='font-family: "Arial"; font-size: 18px;'>
                                             <b>${chrome.i18n.getMessage('Mnemonic')}</b><br>{{Mnemonic}}
                                         </div>
@@ -1116,10 +1111,10 @@ if (window.hasRun === true) {
                                     {{/Add Reverse}}`,
                                 Back: `
                                     {{#Add Reverse}}
-                                        <div style='font-family: "Arial"; font-size: 20px; text-align: center;'>
-                                            <b>${chrome.i18n.getMessage('directTranslation')}</b><br>{{Translation}}
-                                            <br><br><b>${chrome.i18n.getMessage('Definition')}</b><br>{{Definition}}
-                                        </div>
+                                    <div style='font-family: "Arial"; font-size: 20px; text-align: center;'>
+                                        <b>${chrome.i18n.getMessage('directTranslation')}</b><br>{{Translation}}
+                                        <br><br><b>${chrome.i18n.getMessage('Definition')}</b><br>{{Definition}}
+                                    </div>
                                     {{/Add Reverse}}`
                             }
                         ]
@@ -1155,9 +1150,11 @@ if (window.hasRun === true) {
                     "modelName": modelName,
                     "fields": {
                         "Definition": data.recto,
-                        "Selection": `<div style='text-align: center;'>${data.verso}<br><br></div>`,
+                        "Selection": data.verso,
                         "Translation": data.translation || '',
-                        "Examples": data.examples || '',
+                        "Example_1": data.example_1 || '',
+                        "Example_2": data.example_2 || '',
+                        "Example_3": data.example_3 || '',
                         "Mnemonic": data.mnemonic || '',
                         "Add Reverse": createReverse ? "1" : ""
                     },

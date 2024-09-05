@@ -148,33 +148,27 @@ function createCustomModelForLanguage(modelName) {
             if (!models.includes(modelName)) {
                 return invoke('createModel', 6, {
                     modelName: modelName,
-                    // Updated order of fields to match your new design
-                    inOrderFields: ["Translation", "Definition", "Selection", "Examples", "Mnemonic", "Add Reverse"],
+                    inOrderFields: ["Translation", "Definition", "Selection", "Example_1", "Example_2", "Example_3", "Mnemonic", "Add Reverse"],
                     cardTemplates: [
                         {
                             Name: "Card 1",
-                            // Front: Direct Translation, Definition
                             Front: `
                                 <div style='font-family: "Arial"; font-size: 20px; text-align: center;'>
                                     <b>${chrome.i18n.getMessage('directTranslation')}</b><br>{{Translation}}
                                     <br><br><b>${chrome.i18n.getMessage('Definition')}</b><br>{{Definition}}
                                 </div>`,
-                            // Back: Selected Term, Examples, Mnemonics
                             Back: `
                                 {{FrontSide}}
                                 <hr id="answer">
                                 <div style='font-family: "Arial"; font-size: 20px; text-align: center;'>
-                                    <div style="margin-bottom: 5px;">${chrome.i18n.getMessage('selectedTerm')}</div>
-                                    <div style="margin-bottom: 5px;">{{Selection}}</div>
+                                    {{Selection}}
                                 </div>
-                                {{#Examples}}
                                 <br>
-                                <div style='font-family: "Arial"; font-size: 18px;'>
-                                    <b>${chrome.i18n.getMessage('Examples')}</b><br>{{Examples}}
-                                </div>
-                                {{/Examples}}
+                                <i>1. {{Example_1}}</i><br>
+                                <i>2. {{Example_2}}</i><br>
+                                <i>3. {{Example_3}}</i>
                                 {{#Mnemonic}}
-                                <br>
+                                <br><br>
                                 <div style='font-family: "Arial"; font-size: 18px;'>
                                     <b>${chrome.i18n.getMessage('Mnemonic')}</b><br>{{Mnemonic}}
                                 </div>
@@ -184,20 +178,13 @@ function createCustomModelForLanguage(modelName) {
                             Name: "Card 2 (Reverse)",
                             Front: `
                                 {{#Add Reverse}}
-                                    {{FrontSide}}
-                                    <hr id="answer">
-                                    <div style='font-family: "Arial"; font-size: 20px; text-align: center;'>
-                                        <div style="margin-bottom: 5px;">${chrome.i18n.getMessage('selectedTerm')}</div>
-                                        <div style="margin-bottom: 5px;">{{Selection}}</div>
-                                    </div>
-                                    {{#Examples}}
+                                    {{Selection}}
                                     <br>
-                                    <div style='font-family: "Arial"; font-size: 18px;'>
-                                        <b>${chrome.i18n.getMessage('Examples')}</b><br>{{Examples}}
-                                    </div>
-                                    {{/Examples}}
+                                    <i>1. {{Example_1}}</i><br>
+                                    <i>2. {{Example_2}}</i><br>
+                                    <i>3. {{Example_3}}</i>
                                     {{#Mnemonic}}
-                                    <br>
+                                    <br><br>
                                     <div style='font-family: "Arial"; font-size: 18px;'>
                                         <b>${chrome.i18n.getMessage('Mnemonic')}</b><br>{{Mnemonic}}
                                     </div>
@@ -573,12 +560,47 @@ async function callChatGPTAPI(userId, type, userMessage, language, apiKey = null
                                         type: "string",
                                         description: `A direct translation of the term, in ${language}.`
                                     },
-                                    examples: {
+                                    example_1: {
                                         type: "string",
-                                        description: `A few example sentences using the term or expression in ${language}`
+                                        description: `First example sentence using the term or expression in the same language as the given term`
+                                    },
+                                    example_2: {
+                                        type: "string",
+                                        description: `Second example sentence using the term or expression in the same language as the given term`
+                                    },
+                                    example_3: {
+                                        type: "string",
+                                        description: `Third example sentence using the term or expression in the same language as the given term`
                                     }
                                 },
-                                required: ["definition", "mnemonic", "translation", "examples"],
+                                required: ["definition", "mnemonic", "translation", "example_1", "example_2", "example_3"],
+                                additionalProperties: false
+                            },
+                            strict: true
+                        }
+                    };
+                } else if (type === CONVERSATION_TYPES.EXAMPLES) {
+                    responseFormat = {
+                        type: "json_schema",
+                        json_schema: {
+                            name: "examples_response",
+                            schema: {
+                                type: "object",
+                                properties: {
+                                    example_1: {
+                                        type: "string",
+                                        description: `First example sentence using the term in the same language as the given term`
+                                    },
+                                    example_2: {
+                                        type: "string",
+                                        description: `Second example sentence using the term in the same language as the given term`
+                                    },
+                                    example_3: {
+                                        type: "string",
+                                        description: `Third example sentence using the term in the same language as the given term`
+                                    }
+                                },
+                                required: ["example_1", "example_2", "example_3"],
                                 additionalProperties: false
                             },
                             strict: true
