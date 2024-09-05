@@ -84,7 +84,6 @@ if (window.hasRun === true) {
         DEFINITION: 'definition',
         MNEMONIC: 'mnemonic',
         TRANSLATION: 'translation',
-        CONTEXT: 'context',
         EXAMPLES: 'examples'
     };
 
@@ -372,8 +371,6 @@ if (window.hasRun === true) {
                         userPrompt = chrome.i18n.getMessage("generateMnemonic", [settings.language, flashcard.verso]);
                     } else if (part === 'translation') {
                         userPrompt = chrome.i18n.getMessage("generateTranslation", [settings.language, flashcard.verso]);
-                    } else if (part === 'context') {
-                        userPrompt = chrome.i18n.getMessage("generateContext", [settings.language, flashcard.verso]);
                     } else if (part === 'examples') {
                         userPrompt = chrome.i18n.getMessage("generateExamples", [flashcard.verso]);
                     }
@@ -396,8 +393,6 @@ if (window.hasRun === true) {
                                 flashcard.mnemonic = newContent.mnemonic;
                             } else if (part === 'translation' && newContent.translation) {
                                 flashcard.translation = newContent.translation;
-                            } else if (part === 'context' && newContent.context) {
-                                flashcard.context = newContent.context;
                             } else if (part === 'examples' && newContent.examples) {
                                 flashcard.examples = newContent.examples;
                             } else {
@@ -436,7 +431,6 @@ if (window.hasRun === true) {
         if (modal) {
             modal.querySelector('.definition').value = flashcard.recto;
             modal.querySelector('.back').value = flashcard.verso;
-            modal.querySelector('.context').value = flashcard.context || '';
             modal.querySelector('.translation').value = flashcard.translation || '';
             modal.querySelector('.examples').value = flashcard.examples || '';
             modal.querySelector('.mnemonic').value = flashcard.mnemonic || '';
@@ -826,15 +820,6 @@ if (window.hasRun === true) {
                         </div>
                     </div>
                 </div>
-                <div class="sub-section">
-                        <h4>${chrome.i18n.getMessage("context")}</h4>
-                        <div class="sub-section-content">
-                            <div class="input-with-button">
-                                <textarea class="context editable ${isArabic(selectedLanguage) ? 'rtl-language' : ''}" rows="3">${escapeHTML(flashcard.context || '')}</textarea>
-                                <button id="regenerateContext" class="regenerate-button"></button>
-                            </div>
-                        </div>
-                    </div>
                 <div class="section">
                     <h3>${chrome.i18n.getMessage("back")}</h3>
                     <div class="sub-section">
@@ -890,7 +875,6 @@ if (window.hasRun === true) {
                     id: flashcard.id,
                     recto: this.querySelector('#reviewModal .definition').value,
                     verso: this.querySelector('#reviewModal .back').value,
-                    context: this.querySelector('#reviewModal .context').value,
                     translation: this.querySelector('#reviewModal .translation').value,
                     examples: this.querySelector('#reviewModal .examples').value,
                     mnemonic: this.querySelector('#reviewModal .mnemonic').value,
@@ -907,8 +891,6 @@ if (window.hasRun === true) {
                 });
             } else if (event.target.id === 'regenerateDefinition') {
                 regenerateContent('definition', flashcard.id);
-            } else if (event.target.id === 'regenerateContext') {
-                regenerateContent('context', flashcard.id);
             } else if (event.target.id === 'regenerateMnemonic') {
                 regenerateContent('mnemonic', flashcard.id);
             } else if (event.target.id === 'regenerateTranslation') {
@@ -969,11 +951,10 @@ if (window.hasRun === true) {
                         id: flashcardId,
                         recto: flashcardData.definition,
                         verso: selectedText,
-                        context: flashcardData.context,
                         mnemonic: flashcardData.mnemonic,
                         translation: flashcardData.translation,
                         examples: flashcardData.examples,
-                        regenerationCount: { definition: 0, mnemonic: 0, context: 0, translation: 0, examples: 0 }
+                        regenerationCount: { definition: 0, mnemonic: 0, translation: 0, examples: 0 }
                     };
                     console.log("NEW FLASHCARD:");
                     console.log(newFlashcard);
@@ -1079,18 +1060,15 @@ if (window.hasRun === true) {
                     return invoke('createModel', 6, {
                         modelName: modelName,
                         // Updated order of fields to match the new modal template
-                        inOrderFields: ["Translation", "Definition", "Context", "Selection", "Examples", "Mnemonic", "Add Reverse"],
+                        inOrderFields: ["Translation", "Definition", "Selection", "Examples", "Mnemonic", "Add Reverse"],
                         cardTemplates: [
                             {
                                 Name: "Card 1",
-                                // Front: Direct Translation, Definition, Context
+                                // Front: Direct Translation, Definition
                                 Front: `
                                     <div style='font-family: "Arial"; font-size: 20px; text-align: center;'>
                                         <b>${chrome.i18n.getMessage('directTranslation')}</b><br>{{Translation}}
                                         <br><br><b>${chrome.i18n.getMessage('Definition')}</b><br>{{Definition}}
-                                        {{#Context}}
-                                        <br><br><b>${chrome.i18n.getMessage('Context')}</b><br>{{Context}}
-                                        {{/Context}}
                                     </div>`,
                                 // Back: Selected Term, Examples, Mnemonics
                                 Back: `
@@ -1141,9 +1119,6 @@ if (window.hasRun === true) {
                                         <div style='font-family: "Arial"; font-size: 20px; text-align: center;'>
                                             <b>${chrome.i18n.getMessage('directTranslation')}</b><br>{{Translation}}
                                             <br><br><b>${chrome.i18n.getMessage('Definition')}</b><br>{{Definition}}
-                                            {{#Context}}
-                                            <br><br><b>${chrome.i18n.getMessage('Context')}</b><br>{{Context}}
-                                            {{/Context}}
                                         </div>
                                     {{/Add Reverse}}`
                             }
@@ -1181,7 +1156,6 @@ if (window.hasRun === true) {
                     "fields": {
                         "Definition": data.recto,
                         "Selection": `<div style='text-align: center;'>${data.verso}<br><br></div>`,
-                        "Context": data.context || '',
                         "Translation": data.translation || '',
                         "Examples": data.examples || '',
                         "Mnemonic": data.mnemonic || '',

@@ -9,7 +9,6 @@ const CONVERSATION_TYPES = {
     DEFINITION: 'definition',
     MNEMONIC: 'mnemonic',
     TRANSLATION: 'translation',
-    CONTEXT: 'context',
     EXAMPLES: 'examples'
 };
 
@@ -150,18 +149,15 @@ function createCustomModelForLanguage(modelName) {
                 return invoke('createModel', 6, {
                     modelName: modelName,
                     // Updated order of fields to match your new design
-                    inOrderFields: ["Translation", "Definition", "Context", "Selection", "Examples", "Mnemonic", "Add Reverse"],
+                    inOrderFields: ["Translation", "Definition", "Selection", "Examples", "Mnemonic", "Add Reverse"],
                     cardTemplates: [
                         {
                             Name: "Card 1",
-                            // Front: Direct Translation, Definition, Context
+                            // Front: Direct Translation, Definition
                             Front: `
                                 <div style='font-family: "Arial"; font-size: 20px; text-align: center;'>
                                     <b>${chrome.i18n.getMessage('directTranslation')}</b><br>{{Translation}}
                                     <br><br><b>${chrome.i18n.getMessage('Definition')}</b><br>{{Definition}}
-                                    {{#Context}}
-                                    <br><br><b>${chrome.i18n.getMessage('Context')}</b><br>{{Context}}
-                                    {{/Context}}
                                 </div>`,
                             // Back: Selected Term, Examples, Mnemonics
                             Back: `
@@ -212,9 +208,6 @@ function createCustomModelForLanguage(modelName) {
                                 <div style='font-family: "Arial"; font-size: 20px; text-align: center;'>
                                     <b>${chrome.i18n.getMessage('directTranslation')}</b><br>{{Translation}}
                                     <br><br><b>${chrome.i18n.getMessage('Definition')}</b><br>{{Definition}}
-                                    {{#Context}}
-                                    <br><br><b>${chrome.i18n.getMessage('Context')}</b><br>{{Context}}
-                                    {{/Context}}
                                 </div>
                                 {{/Add Reverse}}`
                         }
@@ -494,8 +487,6 @@ function getSystemPrompt(type) {
             return chrome.i18n.getMessage("creativeAssistantMnemonic");
         case CONVERSATION_TYPES.TRANSLATION:
             return chrome.i18n.getMessage("translationAssistant");
-        case CONVERSATION_TYPES.CONTEXT:
-            return chrome.i18n.getMessage("contextAssistant");
         case CONVERSATION_TYPES.EXAMPLES:
             return chrome.i18n.getMessage("examplesAssistant");
         default:
@@ -582,16 +573,12 @@ async function callChatGPTAPI(userId, type, userMessage, language, apiKey = null
                                         type: "string",
                                         description: `A direct translation of the term, in ${language}.`
                                     },
-                                    context: {
-                                        type: "string",
-                                        description: `The context in which the term or expression is used in ${language}`
-                                    },
                                     examples: {
                                         type: "string",
                                         description: `A few example sentences using the term or expression in ${language}`
                                     }
                                 },
-                                required: ["definition", "mnemonic", "translation", "context", "examples"],
+                                required: ["definition", "mnemonic", "translation", "examples"],
                                 additionalProperties: false
                             },
                             strict: true
