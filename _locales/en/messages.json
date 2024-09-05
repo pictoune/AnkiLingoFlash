@@ -699,12 +699,7 @@
   }
 },
 "examplesAssistant": {
-  "message": "You are a helpful assistant specialized in generating clear, numbered example sentences in $1 for various terms or expressions. Respond in JSON format with an 'examples' key, ensuring each example is numbered and separated by real line breaks. For example: {\"examples\": \"1. First example.\n2. Second example.\n3. Third example.\"} (\\n represents a real line break, not the literal characters).",
-  "placeholders": {
-    "1": {
-      "content": "$1"
-    }
-  }
+  "message": "You are a helpful assistant specialized in generating clear, numbered example sentences for various terms or expressions. Respond in JSON format with an 'examples' key, ensuring each example is numbered and separated by real line breaks. For example: {\"examples\": \"1. First example.\n2. Second example.\n3. Third example.\"} (\\n represents a real line break, not the literal characters)."
 },
 "generateContext": {
   "message": "Provide a concise and relevant context in $1 for the term/expression: [$2]. The response should be a JSON containing only the context without mentioning the term/expression. Format: {\"context\": \"Your context here\"}.",
@@ -718,13 +713,10 @@
   }
 },
 "generateExamples": {
-  "message": "Generate a few clear and informative example sentences in $1 using the term/expression: [$2]. The response should be a JSON containing only the examples. Format: {\"examples\": \"Your examples here\"}.",
+  "message": "Generate a few clear and informative example sentences using the term/expression: [$1]. The response should be a JSON containing only the examples. Format: {\"examples\": \"Your examples here\"}.",
   "placeholders": {
     "1": {
       "content": "$1"
-    },
-    "2": {
-      "content": "$2"
     }
   }
 },

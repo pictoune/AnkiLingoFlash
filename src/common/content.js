@@ -375,7 +375,7 @@ if (window.hasRun === true) {
                     } else if (part === 'context') {
                         userPrompt = chrome.i18n.getMessage("generateContext", [settings.language, flashcard.verso]);
                     } else if (part === 'examples') {
-                        userPrompt = chrome.i18n.getMessage("generateExamples", [settings.language, flashcard.verso]);
+                        userPrompt = chrome.i18n.getMessage("generateExamples", [flashcard.verso]);
                     }
     
                     chrome.runtime.sendMessage({
