@@ -8,7 +8,9 @@ const CONVERSATION_TYPES = {
     FLASHCARD: 'flashcard',
     DEFINITION: 'definition',
     MNEMONIC: 'mnemonic',
-    TRANSLATION: 'translation'
+    TRANSLATION: 'translation',
+    CONTEXT: 'context',
+    EXAMPLES: 'examples'
 };
 
 /**
@@ -146,29 +148,50 @@ function createCustomModelForLanguage(modelName) {
         .then(models => {
             if (!models.includes(modelName)) {
                 return invoke('createModel', 6, {
-                    modelName: escapeHTML(modelName),
-                    inOrderFields: ["Definition", "Selection", "Translation", "Mnemonic"],
+                    modelName: modelName,
+                    inOrderFields: ["Definition", "Selection", "Context", "Translation", "Examples", "Mnemonic", "Add Reverse"],
                     cardTemplates: [
                         {
+                            Name: "Card 1",
                             Front: `{{Definition}}`,
                             Back: `{{FrontSide}}
                                 <hr id="answer">
-                                <div style='font-family: "Arial"; font-size: 20px;'>
-                                    <span style="margin-right: 10px;">{{Selection}}</span>
-                                </div>
-                                <div style='font-family: "Arial"; font-size: 18px;'>
+                                <div style='font-family: "Arial"; font-size: 20px; text-align: center;'>
+                                    <div style="margin-bottom: 5px;">{{Selection}}</div>
+                                    <div style="margin-bottom: 10px;">${chrome.i18n.getMessage('moveLineHere')}</div>
                                     <i>{{Translation}}</i>
                                 </div>
-                                <div style="text-align: center;">
-                                    ${escapeHTML(chrome.i18n.getMessage('moveLineHere'))}
-                                </div>
+                                {{#Context}}
                                 <br>
-                                <div style='font-family: "Arial"; font-size: 20px;'>{{Mnemonic}}</div>`
+                                <div style='font-family: "Arial"; font-size: 18px;'>
+                                    <b>${chrome.i18n.getMessage("Context")}</b><br>
+                                    {{Context}}
+                                </div>
+                                {{/Context}}
+                                {{#Examples}}
+                                <br>
+                                <div style='font-family: "Arial"; font-size: 18px;'>
+                                    <b>${chrome.i18n.getMessage("Examples")}</b><br>
+                                    {{Examples}}
+                                </div>
+                                {{/Examples}}
+                                {{#Mnemonic}}
+                                <br>
+                                <div style='font-family: "Arial"; font-size: 18px;'>
+                                    <b>${chrome.i18n.getMessage("Mnemonic")}</b><br>
+                                    {{Mnemonic}}
+                                </div>
+                                {{/Mnemonic}}`
+                        },
+                        {
+                            Name: "Card 2 (Reverse)",
+                            Front: `{{#Add Reverse}}{{Selection}}{{/Add Reverse}}`,
+                            Back: `{{#Add Reverse}}{{FrontSide}}<hr id="answer">{{Definition}}{{/Add Reverse}}`
                         }
                     ]
                 });
             } else {
-                console.log(`Model ${escapeHTML(modelName)} already exists.`);
+                console.log(`Model ${modelName} already exists.`);
                 return Promise.resolve();
             }
         });
@@ -441,6 +464,10 @@ function getSystemPrompt(type) {
             return chrome.i18n.getMessage("creativeAssistantMnemonic");
         case CONVERSATION_TYPES.TRANSLATION:
             return chrome.i18n.getMessage("translationAssistant");
+        case CONVERSATION_TYPES.CONTEXT:
+            return chrome.i18n.getMessage("contextAssistant");
+        case CONVERSATION_TYPES.EXAMPLES:
+            return chrome.i18n.getMessage("examplesAssistant");
         default:
             console.log(`Unknown conversation type: ${type}`);
             return chrome.i18n.getMessage("generateFlashcardInstructions");
@@ -504,6 +531,62 @@ async function callChatGPTAPI(userId, type, userMessage, language, apiKey = null
                     ...(result.isOwnCredits && { 'Authorization': `Bearer ${apiKeyToUse}` })
                 };
 
+                let responseFormat;
+                if (type === CONVERSATION_TYPES.FLASHCARD) {
+                    responseFormat = {
+                        type: "json_schema",
+                        json_schema: {
+                            name: "flashcard_response",
+                            schema: {
+                                type: "object",
+                                properties: {
+                                    definition: {
+                                        type: "string",
+                                        description: `A clear and concise definition of the term or concept in ${language}`
+                                    },
+                                    mnemonic: {
+                                        type: "string",
+                                        description: `A memory aid to help remember the definition in ${language}`
+                                    },
+                                    translation: {
+                                        type: "string",
+                                        description: `A direct translation of the term, in ${language}.`
+                                    },
+                                    context: {
+                                        type: "string",
+                                        description: `The context in which the term or expression is used in ${language}`
+                                    },
+                                    examples: {
+                                        type: "string",
+                                        description: `A few example sentences using the term or expression in ${language}`
+                                    }
+                                },
+                                required: ["definition", "mnemonic", "translation", "context", "examples"],
+                                additionalProperties: false
+                            },
+                            strict: true
+                        }
+                    };
+                } else {
+                    responseFormat = {
+                        type: "json_schema",
+                        json_schema: {
+                            name: "component_response",
+                            schema: {
+                                type: "object",
+                                properties: {
+                                    [type]: {
+                                        type: "string",
+                                        description: `The ${type} for the term or expression in ${language}`
+                                    }
+                                },
+                                required: [type],
+                                additionalProperties: false
+                            },
+                            strict: true
+                        }
+                    };
+                }
 
                 const response = await fetch(url, {
                     method: 'POST',
@@ -511,32 +594,7 @@ async function callChatGPTAPI(userId, type, userMessage, language, apiKey = null
                     body: JSON.stringify({
                         model: CONFIG.DEFAULT_REMOTE_MODEL,
                         messages: conversation.messages,
-                        response_format: {
-                            type: "json_schema",
-                            json_schema: {
-                                name: "flashcard_response",
-                                schema: {
-                                    type: "object",
-                                    properties: {
-                                        definition: {
-                                            type: "string",
-                                            description: `A clear and concise definition of the term or concept in ${language}`
-                                        },
-                                        mnemonic: {
-                                            type: "string",
-                                            description: `A memory aid to help remember the definition in ${language}`
-                                        },
-                                        translation: {
-                                            type: "string",
-                                            description: `A direct translation of the term, in ${language}.`
-                                        }
-                                    },
-                                    required: ["definition", "mnemonic", "translation"],
-                                    additionalProperties: false
-                                },
-                                strict: true
-                            }
-                        }
+                        response_format: responseFormat
                     })
                 });
 
@@ -545,7 +603,7 @@ async function callChatGPTAPI(userId, type, userMessage, language, apiKey = null
                 }
 
                 const data = await response.json();
-                console.log("Full API response:", response);
+                console.log("Full API response:", data);
 
                 if (!data.choices || !Array.isArray(data.choices) || data.choices.length === 0) {
                     throw new Error("Invalid API response: missing or empty choices array");

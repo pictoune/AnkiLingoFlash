@@ -83,10 +83,10 @@
     "message": "A card with the same selected text already exists in this deck."
   },
   "generateFlashcardInstructions": {
-    "message": "You are a helpful and creative assistant specialized in generating flashcards for various words or expressions. Provide a clear definition, a mnemonic to help remember the term, and a direct translation. The definition should explain the concept without explicitly mentioning the original term/expression. Always respond in the language specified in the user's prompt."
+    "message": "You are a helpful assistant specialized in generating flashcards for words or expressions. Provide a clear definition, typical context, numbered example sentences (e.g., 1., 2., 3.), a mnemonic, and a direct translation. Avoid using the term/expression in the definition. Respond in the language specified by the user. Use real line breaks for multi-line fields, such as examples, without visible text representations (e.g., '<br>' or '\\n'). Example format for examples: {\"examples\": \"1. First example.\n2. Second example.\n3. Third example.\"}"
   },
   "generateFlashcardPrompt": {
-    "message": "Generate a flashcard in $1 for the following term/expression in brackets: [$2].",
+    "message": "Generate a flashcard in $1 for the following term/expression in brackets: [$2]. Include a definition, context, examples, mnemonic, and translation.",
     "placeholders": {
       "1": {
         "content": "$1"
@@ -677,5 +677,86 @@
 },
 "errorRegeneratingTranslation": {
     "message": "Error regenerating translation. Please try again."
-}
+},
+"Context": {
+  "message": "Context"
+},
+"Examples": {
+  "message": "Examples"
+},
+"regeneratingContext": {
+  "message": "Regenerating context"
+},
+"regeneratingExamples": {
+  "message": "Regenerating examples"
+},
+"contextAssistant": {
+  "message": "You are a helpful assistant capable of generating concise and relevant context in $1 for various terms or expressions. Always respond in JSON format with a 'context' key. For example: {\"context\": \"Your context here\"}.",
+  "placeholders": {
+    "1": {
+      "content": "$1"
+    }
+  }
+},
+"examplesAssistant": {
+  "message": "You are a helpful assistant specialized in generating clear, numbered example sentences in $1 for various terms or expressions. Respond in JSON format with an 'examples' key, ensuring each example is numbered and separated by real line breaks. For example: {\"examples\": \"1. First example.\n2. Second example.\n3. Third example.\"} (\\n represents a real line break, not the literal characters).",
+  "placeholders": {
+    "1": {
+      "content": "$1"
+    }
+  }
+},
+"generateContext": {
+  "message": "Provide a concise and relevant context in $1 for the term/expression: [$2]. The response should be a JSON containing only the context without mentioning the term/expression. Format: {\"context\": \"Your context here\"}.",
+  "placeholders": {
+    "1": {
+      "content": "$1"
+    },
+    "2": {
+      "content": "$2"
+    }
+  }
+},
+"generateExamples": {
+  "message": "Generate a few clear and informative example sentences in $1 using the term/expression: [$2]. The response should be a JSON containing only the examples. Format: {\"examples\": \"Your examples here\"}.",
+  "placeholders": {
+    "1": {
+      "content": "$1"
+    },
+    "2": {
+      "content": "$2"
+    }
+  }
+},
+"errorRegeneratingContext": {
+  "message": "Error regenerating context. Please try again."
+},
+"errorRegeneratingExamples": {
+  "message": "Error regenerating examples. Please try again."
+},
+"contextRegenerationLimitReached": {
+  "message": "You have reached the limit of $LIMIT$ regenerations for the context of this flashcard.",
+  "placeholders": {
+    "LIMIT": {
+      "content": "$1"
+    }
+  }
+},
+"examplesRegenerationLimitReached": {
+  "message": "You have reached the limit of $LIMIT$ regenerations for the examples of this flashcard.",
+  "placeholders": {
+    "LIMIT": {
+      "content": "$1"
+    }
+  }
+},
+  "CreateReverseCardLabel": {
+    "message": "Create a reverse card for this flashcard?"
+  },
+  "Yes": {
+    "message": "Yes"
+  },
+  "No": {
+    "message": "No"
+  }
 }
