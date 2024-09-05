@@ -33,7 +33,7 @@
     "message": "Regenerating mnemonic"
   },
   "helpfulAssistantDefinition": {
-    "message": "You are a helpful assistant capable of generating concise and accurate definitions in $1 for various terms or expressions. Always respond in JSON format with a 'definition' key. For example: {\"definition\": \"Your definition here\"}.",
+    "message": "You are a helpful assistant capable of generating concise and accurate definitions in $1 for various terms or expressions. Always respond in JSON format with a 'definition' key. If relevant, the definition should also include information about the context in which the word or expression is used. However, do not mention the term itself in the definition. For example: {\"definition\": \"Your definition here, used in formal contexts\"}.",
     "placeholders": {
       "1": {
         "content": "$1"
