@@ -387,6 +387,8 @@ if (window.hasRun === true) {
                     }, response => {
                         if (response.success) {
                             let newContent = response.data;
+
+                            console.log(newContent);
     
                             if (part === 'definition' && newContent.definition) {
                                 flashcard.recto = newContent.definition;
