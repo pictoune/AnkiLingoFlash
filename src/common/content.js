@@ -799,31 +799,32 @@ if (window.hasRun === true) {
         flashcard.detectedLanguage = detectedLanguage;
         
         const modalHtml = `
-    <div id="anki-lingo-flash-review-modal" class="anki-lingo-flash-container">
+        <div id="anki-lingo-flash-review-modal" class="anki-lingo-flash-container">
         <div id="reviewModal" data-flashcard-id="${escapeHTML(flashcard.id)}">
             <div class="modal-content">
                 <h2>${chrome.i18n.getMessage("reviewFlashcard")}</h2>
                 <div class="section">
                     <h3>${chrome.i18n.getMessage("front")}</h3>
-                    <div class="sub-section-content">
-                        <div class="input-with-button">
-                            <textarea class="definition editable ${isArabic(selectedLanguage) ? 'rtl-language' : ''}" rows="3">${escapeHTML(flashcard.recto)}</textarea>
-                            <button id="regenerateDefinition" class="regenerate-button"></button>
-                        </div>
-                    </div>
-                </div>
-                <div class="section">
-                    <h3>${chrome.i18n.getMessage("back")}</h3>
                     <div class="sub-section">
-                        <h4>${chrome.i18n.getMessage("selectedText")}</h4>
+                        <h4>${chrome.i18n.getMessage("directTranslation")}</h4>
                         <div class="sub-section-content">
                             <div class="input-with-button">
-                                <textarea class="back editable ${isArabic(flashcard.detectedLanguage) ? 'rtl-language' : ''}" rows="3">${escapeHTML(flashcard.verso)}</textarea>
-                                <div class="spacer"></div>
+                                <textarea class="translation editable ${isArabic(selectedLanguage) ? 'rtl-language' : ''}" rows="3">${escapeHTML(flashcard.translation || '')}</textarea>
+                                <button id="regenerateTranslation" class="regenerate-button"></button>
                             </div>
                         </div>
                     </div>
                     <div class="sub-section">
+                        <h4>${chrome.i18n.getMessage("Definition")}</h4>
+                        <div class="sub-section-content">
+                            <div class="input-with-button">
+                                <textarea class="definition editable ${isArabic(selectedLanguage) ? 'rtl-language' : ''}" rows="3">${escapeHTML(flashcard.recto)}</textarea>
+                                <button id="regenerateDefinition" class="regenerate-button"></button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="sub-section">
                         <h4>${chrome.i18n.getMessage("context")}</h4>
                         <div class="sub-section-content">
                             <div class="input-with-button">
@@ -832,12 +833,14 @@ if (window.hasRun === true) {
                             </div>
                         </div>
                     </div>
+                <div class="section">
+                    <h3>${chrome.i18n.getMessage("back")}</h3>
                     <div class="sub-section">
-                        <h4>${chrome.i18n.getMessage("directTranslation")}</h4>
+                        <h4>${chrome.i18n.getMessage("selectedText")}</h4>
                         <div class="sub-section-content">
                             <div class="input-with-button">
-                                <textarea class="translation editable ${isArabic(selectedLanguage) ? 'rtl-language' : ''}" rows="3">${escapeHTML(flashcard.translation || '')}</textarea>
-                                <button id="regenerateTranslation" class="regenerate-button"></button>
+                                <textarea class="back editable ${isArabic(flashcard.detectedLanguage) ? 'rtl-language' : ''}" rows="3">${escapeHTML(flashcard.verso)}</textarea>
+                                <div class="spacer"></div>
                             </div>
                         </div>
                     </div>
@@ -1073,74 +1076,74 @@ if (window.hasRun === true) {
                 if (!models.includes(modelName)) {
                     return invoke('createModel', 6, {
                         modelName: modelName,
-                        inOrderFields: ["Definition", "Selection", "Context", "Translation", "Examples", "Mnemonic", "Add Reverse"],
+                        // Updated order of fields to match the new modal template
+                        inOrderFields: ["Translation", "Definition", "Context", "Selection", "Examples", "Mnemonic", "Add Reverse"],
                         cardTemplates: [
                             {
                                 Name: "Card 1",
-                                Front: `{{Definition}}`,
-                                Back: `{{FrontSide}}
+                                // Front: Direct Translation, Definition, Context
+                                Front: `
+                                    <div style='font-family: "Arial"; font-size: 20px; text-align: center;'>
+                                        <b>${chrome.i18n.getMessage('directTranslation')}</b><br>{{Translation}}
+                                        <br><br><b>${chrome.i18n.getMessage('Definition')}</b><br>{{Definition}}
+                                        {{#Context}}
+                                        <br><br><b>${chrome.i18n.getMessage('Context')}</b><br>{{Context}}
+                                        {{/Context}}
+                                    </div>`,
+                                // Back: Selected Term, Examples, Mnemonics
+                                Back: `
+                                    {{FrontSide}}
                                     <hr id="answer">
                                     <div style='font-family: "Arial"; font-size: 20px; text-align: center;'>
+                                        <div style="margin-bottom: 5px;">${chrome.i18n.getMessage('selectedTerm')}</div>
                                         <div style="margin-bottom: 5px;">{{Selection}}</div>
-                                        <div style="margin-bottom: 10px;">${chrome.i18n.getMessage('moveLineHere')}</div>
-                                        <i>{{Translation}}</i>
                                     </div>
-                                    {{#Context}}
-                                    <br>
-                                    <div style='font-family: "Arial"; font-size: 18px;'>
-                                        <b>${chrome.i18n.getMessage("Context")}</b><br>
-                                        {{Context}}
-                                    </div>
-                                    {{/Context}}
                                     {{#Examples}}
                                     <br>
                                     <div style='font-family: "Arial"; font-size: 18px;'>
-                                        <b>${chrome.i18n.getMessage("Examples")}</b><br>
-                                        {{Examples}}
+                                        <b>${chrome.i18n.getMessage('Examples')}</b><br>{{Examples}}
                                     </div>
                                     {{/Examples}}
                                     {{#Mnemonic}}
                                     <br>
                                     <div style='font-family: "Arial"; font-size: 18px;'>
-                                        <b>${chrome.i18n.getMessage("Mnemonic")}</b><br>
-                                        {{Mnemonic}}
+                                        <b>${chrome.i18n.getMessage('Mnemonic')}</b><br>{{Mnemonic}}
                                     </div>
                                     {{/Mnemonic}}`
                             },
                             {
                                 Name: "Card 2 (Reverse)",
-                                Front: `{{#Add Reverse}}
-                                    <div style='font-family: "Arial"; font-size: 20px; text-align: center;'>{{Selection}}</div>
-                                {{/Add Reverse}}`,
-                                Back: `{{#Add Reverse}}
-                                    {{FrontSide}}
-                                    <hr id="answer">
-                                    <div style='font-family: "Arial"; font-size: 20px; text-align: center;'>
-                                        <div style="margin-bottom: 5px;">{{Definition}}</div>
-                                        <i>{{Translation}}</i>
-                                    </div>
-                                    {{#Context}}
-                                    <br>
-                                    <div style='font-family: "Arial"; font-size: 18px;'>
-                                        <b>${chrome.i18n.getMessage("Context")}</b><br>
-                                        {{Context}}
-                                    </div>
-                                    {{/Context}}
-                                    {{#Examples}}
-                                    <br>
-                                    <div style='font-family: "Arial"; font-size: 18px;'>
-                                        <b>${chrome.i18n.getMessage("Examples")}</b><br>
-                                        {{Examples}}
-                                    </div>
-                                    {{/Examples}}
-                                    {{#Mnemonic}}
-                                    <br>
-                                    <div style='font-family: "Arial"; font-size: 18px;'>
-                                        <b>${chrome.i18n.getMessage("Mnemonic")}</b><br>
-                                        {{Mnemonic}}
-                                    </div>
-                                    {{/Mnemonic}}
-                                {{/Add Reverse}}`
+                                Front: `
+                                    {{#Add Reverse}}
+                                        {{FrontSide}}
+                                        <hr id="answer">
+                                        <div style='font-family: "Arial"; font-size: 20px; text-align: center;'>
+                                            <div style="margin-bottom: 5px;">${chrome.i18n.getMessage('selectedTerm')}</div>
+                                            <div style="margin-bottom: 5px;">{{Selection}}</div>
+                                        </div>
+                                        {{#Examples}}
+                                        <br>
+                                        <div style='font-family: "Arial"; font-size: 18px;'>
+                                            <b>${chrome.i18n.getMessage('Examples')}</b><br>{{Examples}}
+                                        </div>
+                                        {{/Examples}}
+                                        {{#Mnemonic}}
+                                        <br>
+                                        <div style='font-family: "Arial"; font-size: 18px;'>
+                                            <b>${chrome.i18n.getMessage('Mnemonic')}</b><br>{{Mnemonic}}
+                                        </div>
+                                        {{/Mnemonic}}
+                                    {{/Add Reverse}}`,
+                                Back: `
+                                    {{#Add Reverse}}
+                                        <div style='font-family: "Arial"; font-size: 20px; text-align: center;'>
+                                            <b>${chrome.i18n.getMessage('directTranslation')}</b><br>{{Translation}}
+                                            <br><br><b>${chrome.i18n.getMessage('Definition')}</b><br>{{Definition}}
+                                            {{#Context}}
+                                            <br><br><b>${chrome.i18n.getMessage('Context')}</b><br>{{Context}}
+                                            {{/Context}}
+                                        </div>
+                                    {{/Add Reverse}}`
                             }
                         ]
                     });

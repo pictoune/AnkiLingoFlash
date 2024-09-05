@@ -149,44 +149,74 @@ function createCustomModelForLanguage(modelName) {
             if (!models.includes(modelName)) {
                 return invoke('createModel', 6, {
                     modelName: modelName,
-                    inOrderFields: ["Definition", "Selection", "Context", "Translation", "Examples", "Mnemonic", "Add Reverse"],
+                    // Updated order of fields to match your new design
+                    inOrderFields: ["Translation", "Definition", "Context", "Selection", "Examples", "Mnemonic", "Add Reverse"],
                     cardTemplates: [
                         {
                             Name: "Card 1",
-                            Front: `{{Definition}}`,
-                            Back: `{{FrontSide}}
+                            // Front: Direct Translation, Definition, Context
+                            Front: `
+                                <div style='font-family: "Arial"; font-size: 20px; text-align: center;'>
+                                    <b>${chrome.i18n.getMessage('directTranslation')}</b><br>{{Translation}}
+                                    <br><br><b>${chrome.i18n.getMessage('Definition')}</b><br>{{Definition}}
+                                    {{#Context}}
+                                    <br><br><b>${chrome.i18n.getMessage('Context')}</b><br>{{Context}}
+                                    {{/Context}}
+                                </div>`,
+                            // Back: Selected Term, Examples, Mnemonics
+                            Back: `
+                                {{FrontSide}}
                                 <hr id="answer">
                                 <div style='font-family: "Arial"; font-size: 20px; text-align: center;'>
+                                    <div style="margin-bottom: 5px;">${chrome.i18n.getMessage('selectedTerm')}</div>
                                     <div style="margin-bottom: 5px;">{{Selection}}</div>
-                                    <div style="margin-bottom: 10px;">${chrome.i18n.getMessage('moveLineHere')}</div>
-                                    <i>{{Translation}}</i>
                                 </div>
-                                {{#Context}}
-                                <br>
-                                <div style='font-family: "Arial"; font-size: 18px;'>
-                                    <b>${chrome.i18n.getMessage("Context")}</b><br>
-                                    {{Context}}
-                                </div>
-                                {{/Context}}
                                 {{#Examples}}
                                 <br>
                                 <div style='font-family: "Arial"; font-size: 18px;'>
-                                    <b>${chrome.i18n.getMessage("Examples")}</b><br>
-                                    {{Examples}}
+                                    <b>${chrome.i18n.getMessage('Examples')}</b><br>{{Examples}}
                                 </div>
                                 {{/Examples}}
                                 {{#Mnemonic}}
                                 <br>
                                 <div style='font-family: "Arial"; font-size: 18px;'>
-                                    <b>${chrome.i18n.getMessage("Mnemonic")}</b><br>
-                                    {{Mnemonic}}
+                                    <b>${chrome.i18n.getMessage('Mnemonic')}</b><br>{{Mnemonic}}
                                 </div>
                                 {{/Mnemonic}}`
                         },
                         {
                             Name: "Card 2 (Reverse)",
-                            Front: `{{#Add Reverse}}{{Selection}}{{/Add Reverse}}`,
-                            Back: `{{#Add Reverse}}{{FrontSide}}<hr id="answer">{{Definition}}{{/Add Reverse}}`
+                            Front: `
+                                {{#Add Reverse}}
+                                    {{FrontSide}}
+                                    <hr id="answer">
+                                    <div style='font-family: "Arial"; font-size: 20px; text-align: center;'>
+                                        <div style="margin-bottom: 5px;">${chrome.i18n.getMessage('selectedTerm')}</div>
+                                        <div style="margin-bottom: 5px;">{{Selection}}</div>
+                                    </div>
+                                    {{#Examples}}
+                                    <br>
+                                    <div style='font-family: "Arial"; font-size: 18px;'>
+                                        <b>${chrome.i18n.getMessage('Examples')}</b><br>{{Examples}}
+                                    </div>
+                                    {{/Examples}}
+                                    {{#Mnemonic}}
+                                    <br>
+                                    <div style='font-family: "Arial"; font-size: 18px;'>
+                                        <b>${chrome.i18n.getMessage('Mnemonic')}</b><br>{{Mnemonic}}
+                                    </div>
+                                    {{/Mnemonic}}
+                                {{/Add Reverse}}`,
+                            Back: `
+                                {{#Add Reverse}}
+                                <div style='font-family: "Arial"; font-size: 20px; text-align: center;'>
+                                    <b>${chrome.i18n.getMessage('directTranslation')}</b><br>{{Translation}}
+                                    <br><br><b>${chrome.i18n.getMessage('Definition')}</b><br>{{Definition}}
+                                    {{#Context}}
+                                    <br><br><b>${chrome.i18n.getMessage('Context')}</b><br>{{Context}}
+                                    {{/Context}}
+                                </div>
+                                {{/Add Reverse}}`
                         }
                     ]
                 });
