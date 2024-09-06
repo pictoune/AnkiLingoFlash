@@ -1093,7 +1093,8 @@ if (window.hasRun === true) {
                                     <div style='font-family: "Arial"; font-size: 20px; text-align: center;'>
                                         {{Selection}}
                                     </div>
-                                    <br>
+                                    ${chrome.i18n.getMessage('moveLineHere')}
+                                    <br><br>
                                     <i>1. {{Example_1}}</i><br>
                                     <i>2. {{Example_2}}</i><br>
                                     <i>3. {{Example_3}}</i>
@@ -1109,7 +1110,7 @@ if (window.hasRun === true) {
                                 Front: `
                                     {{#Add Reverse}}
                                         {{Selection}}
-                                        <br><br>
+                                        <br>${chrome.i18n.getMessage('moveLineHere')}<br><br>
                                         <i>1. {{Example_1}}</i><br>
                                         <i>2. {{Example_2}}</i><br>
                                         <i>3. {{Example_3}}</i>

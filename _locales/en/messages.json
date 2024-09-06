@@ -83,10 +83,10 @@
     "message": "A card with the same selected text already exists in this deck."
   },
   "generateFlashcardInstructions": {
-    "message": "You are a helpful assistant specialized in generating flashcards for words or expressions. Provide a clear definition (that explains in which context the term is used), three distinct example sentences, a mnemonic, and a direct translation. Avoid using the term/expression in the definition. Respond in the language specified by the user. Ensure that the example sentences are written in the language of the selected term."
+    "message": "You are a helpful assistant specialized in generating flashcards for words or expressions. Provide a clear definition (that explains in which context the term is used), three distinct example sentences, a mnemonic, and a direct translation. Avoid using the term/expression in the definition. Respond in the language specified by the user, except for the example sentences that should be written in the language of the selected term."
   },
   "generateFlashcardPrompt": {
-    "message": "Generate a flashcard in $1 for the term/expression in brackets: [$2]. Example sentences should be in the language of the term.",
+    "message": "Generate a flashcard in $1 for the term/expression in brackets: [$2]. Respond in the language specified by the user, except for the example sentences that should be in the language of the term.",
     "placeholders": {
       "1": {
         "content": "$1"
