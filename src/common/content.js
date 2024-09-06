@@ -432,9 +432,18 @@ if (window.hasRun === true) {
             modal.querySelector('.definition').value = flashcard.recto;
             modal.querySelector('.back').value = flashcard.verso;
             modal.querySelector('.translation').value = flashcard.translation || '';
-            modal.querySelector('.example_1').value = flashcard.example_1 || '';
-            modal.querySelector('.example_2').value = flashcard.example_2 || '';
-            modal.querySelector('.example_3').value = flashcard.example_3 || '';
+            
+            // Mise à jour des exemples dans un seul champ
+            const examplesTextarea = modal.querySelector('.examples');
+            if (examplesTextarea) {
+                const examples = [
+                    flashcard.example_1 || '',
+                    flashcard.example_2 || '',
+                    flashcard.example_3 || ''
+                ].filter(example => example.trim() !== '');
+                examplesTextarea.value = examples.join('\n');
+            }
+            
             modal.querySelector('.mnemonic').value = flashcard.mnemonic || '';
         }
     }
@@ -837,9 +846,7 @@ if (window.hasRun === true) {
                         <h4>${chrome.i18n.getMessage("examples")}</h4>
                         <div class="sub-section-content">
                             <div class="input-with-button">
-                                <textarea class="example_1 editable ${isArabic(selectedLanguage) ? 'rtl-language' : ''}" rows="2">${escapeHTML(flashcard.example_1 || '')}</textarea>
-                                <textarea class="example_2 editable ${isArabic(selectedLanguage) ? 'rtl-language' : ''}" rows="2">${escapeHTML(flashcard.example_2 || '')}</textarea>
-                                <textarea class="example_3 editable ${isArabic(selectedLanguage) ? 'rtl-language' : ''}" rows="2">${escapeHTML(flashcard.example_3 || '')}</textarea>
+                                <textarea class="examples editable ${isArabic(selectedLanguage) ? 'rtl-language' : ''}" rows="6">${escapeHTML(flashcard.example_1 || '')}\n${escapeHTML(flashcard.example_2 || '')}\n${escapeHTML(flashcard.example_3 || '')}</textarea>
                                 <button id="regenerateExamples" class="regenerate-button"></button>
                             </div>
                         </div>
@@ -880,13 +887,17 @@ if (window.hasRun === true) {
                     recto: this.querySelector('#reviewModal .definition').value,
                     verso: this.querySelector('#reviewModal .back').value,
                     translation: this.querySelector('#reviewModal .translation').value,
-                    example_1: this.querySelector('#reviewModal .example_1').value,
-                    example_2: this.querySelector('#reviewModal .example_2').value,
-                    example_3: this.querySelector('#reviewModal .example_3').value,
                     mnemonic: this.querySelector('#reviewModal .mnemonic').value,
                     regenerationCount: flashcard.regenerationCount,
                     detectedLanguage: flashcard.detectedLanguage
                 };
+    
+                // Séparation des exemples
+                const examplesText = this.querySelector('#reviewModal .examples').value;
+                const examples = examplesText.split('\n').filter(example => example.trim() !== '');
+                updatedFlashcard.example_1 = examples[0] || '';
+                updatedFlashcard.example_2 = examples[1] || '';
+                updatedFlashcard.example_3 = examples[2] || '';
     
                 this.remove();
                 checkAnkiRunning(updatedFlashcard);
@@ -1184,46 +1195,75 @@ if (window.hasRun === true) {
      * @param {Element} originalElement - The original DOM element containing the text.
      * @returns {string} The detected language code.
      */
-    function detectLanguage(text, contextText) {
+    function detectLanguage(text, originalElement) {
         const languagesToCheck = ['cmn', 'spa', 'eng', 'rus', 'arb', 'ben', 'hin', 'por', 'ind', 'jpn', 'fra', 'deu', 'jav', 'kor', 'tel', 'vie', 'mar', 'ita', 'tam', 'tur', 'urd', 'guj', 'pol', 'ukr', 'kan', 'mai', 'mal', 'mya', 'pan', 'ron', 'nld', 'hrv', 'tha', 'swh', 'amh', 'orm', 'uzn', 'aze', 'kat', 'ces', 'hun', 'ell', 'swe', 'heb', 'zlm', 'dan', 'fin', 'nor', 'slk'];
-    
+
         function detectWithFranc(text) {
             return window.francAll(text, {
                 minLength: 1,
                 whitelist: languagesToCheck
             })[0][0];
         }
-    
+
+        function getTextContent(element) {
+            return element.textContent.trim().replace(/\s+/g, ' ');
+        }
+        function expandContext(element, depth = 0) {
+            if (!element || depth > 5) return null;
+
+            let parent = element.parentElement;
+            if (!parent) return null;
+
+            let contextText = getTextContent(parent);
+            if (contextText.length > text.length * 3) {
+                return contextText;
+            }
+
+            return expandContext(parent, depth + 1);
+        }
+
         let initialDetection = detectWithFranc(text);
         console.log("Initial detection:", initialDetection);
-    
-        if (languagesToCheck.includes(initialDetection) && contextText) {
-            let contextDetection = detectWithFranc(contextText);
-            console.log("Context detection:", contextDetection);
-    
-            if (contextDetection !== initialDetection) {
-                // Si la détection du contexte est différente, on cherche une langue majoritaire
-                let detections = [initialDetection, contextDetection];
-                let chunks = contextText.split(/\s+/);
-                for (let i = 0; i < chunks.length; i += 20) {
-                    let chunk = chunks.slice(i, i + 20).join(' ');
-                    let chunkDetection = detectWithFranc(chunk);
-                    detections.push(chunkDetection);
-                }
-    
-                let counts = detections.reduce((acc, lang) => {
-                    acc[lang] = (acc[lang] || 0) + 1;
-                    return acc;
-                }, {});
-    
-                let majorityLang = Object.keys(counts).reduce((a, b) => counts[a] > counts[b] ? a : b);
-                if (counts[majorityLang] > detections.length / 2) {
-                    console.log("Majority language found:", majorityLang);
-                    return majorityLang;
+
+        if (languagesToCheck.includes(initialDetection) && originalElement) {
+            let expandedContext = expandContext(originalElement);
+            if (expandedContext) {
+                let contextDetection = detectWithFranc(expandedContext);
+                console.log("Context detection:", contextDetection);
+
+                if (contextDetection !== initialDetection) {
+                    // If the context detection is different, look for a majority class
+                    let detections = [initialDetection, contextDetection];
+                    let currentElement = originalElement.parentElement;
+                    let depth = 0;
+
+                    while (currentElement && depth < 5) {
+                        let furtherContext = getTextContent(currentElement);
+
+                        console.log("expanded context: " + furtherContext);
+
+                        let furtherDetection = detectWithFranc(furtherContext);
+                        detections.push(furtherDetection);
+
+                        // Check if a language is in majority
+                        let counts = detections.reduce((acc, lang) => {
+                            acc[lang] = (acc[lang] || 0) + 1;
+                            return acc;
+                        }, {});
+
+                        let majorityLang = Object.keys(counts).reduce((a, b) => counts[a] > counts[b] ? a : b);
+                        if (counts[majorityLang] > detections.length / 2) {
+                            console.log("Majority language found:", majorityLang);
+                            return majorityLang;
+                        }
+
+                        currentElement = currentElement.parentElement;
+                        depth++;
+                    }
                 }
             }
         }
-    
+
         console.log("Final detection:", initialDetection);
         return initialDetection;
     }
