@@ -543,6 +543,9 @@ async function callChatGPTAPI(userId, type, userMessage, language, apiKey = null
 
                 let responseFormat;
                 if (type === CONVERSATION_TYPES.FLASHCARD) {
+                    // Vérifier si le message contient une demande de mnémonique
+                    const includeMnemonic = userMessage.includes("mnemonic");
+
                     responseFormat = {
                         type: "json_schema",
                         json_schema: {
@@ -553,10 +556,6 @@ async function callChatGPTAPI(userId, type, userMessage, language, apiKey = null
                                     definition: {
                                         type: "string",
                                         description: `A clear and concise definition of the term or concept in ${language}`
-                                    },
-                                    mnemonic: {
-                                        type: "string",
-                                        description: `A memory aid to help remember the definition in ${language}`
                                     },
                                     translation: {
                                         type: "string",
@@ -573,9 +572,16 @@ async function callChatGPTAPI(userId, type, userMessage, language, apiKey = null
                                     example_3: {
                                         type: "string",
                                         description: `Third example sentence using the term or expression in the same language as the given term`
-                                    }
+                                    },
+                                    ...(includeMnemonic ? {
+                                        mnemonic: {
+                                            type: "string",
+                                            description: `A memory aid to help remember the definition in ${language}`
+                                        }
+                                    } : {})
                                 },
-                                required: ["definition", "mnemonic", "translation", "example_1", "example_2", "example_3"],
+                                required: ["definition", "translation", "example_1", "example_2", "example_3"],
+                                ...(includeMnemonic ? { required: ["definition", "translation", "example_1", "example_2", "example_3", "mnemonic"] } : {}),
                                 additionalProperties: false
                             },
                             strict: true

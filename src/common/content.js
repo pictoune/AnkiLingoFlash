@@ -759,7 +759,7 @@ if (window.hasRun === true) {
      * @param {Object} flashcard - The flashcard object containing its content and metadata.
      * @param {string} selectedLanguage - The language selected by the user for the flashcard.
      */
-    function showReviewModal(flashcard, selectedLanguage) {
+    async function showReviewModal(flashcard, selectedLanguage) {
         if (currentToast) {
             removeCurrentToast();
         }
@@ -807,75 +807,118 @@ if (window.hasRun === true) {
         
         const modalHtml = `
         <div id="anki-lingo-flash-review-modal" class="anki-lingo-flash-container">
-        <div id="reviewModal" data-flashcard-id="${escapeHTML(flashcard.id)}">
-            <div class="modal-content">
-                <h2>${chrome.i18n.getMessage("reviewFlashcard")}</h2>
-                <div class="section">
-                    <h3>${chrome.i18n.getMessage("front")}</h3>
-                    <div class="sub-section">
-                        <h4>${chrome.i18n.getMessage("directTranslation")}</h4>
-                        <div class="sub-section-content">
-                            <div class="input-with-button">
-                                <textarea class="translation editable ${isArabic(selectedLanguage) ? 'rtl-language' : ''}" rows="3">${escapeHTML(flashcard.translation || '')}</textarea>
-                                <button id="regenerateTranslation" class="regenerate-button"></button>
+            <div id="reviewModal" data-flashcard-id="${escapeHTML(flashcard.id)}">
+                <div class="modal-content">
+                    <h2>${chrome.i18n.getMessage("reviewFlashcard")}</h2>
+                    <div class="section">
+                        <h3>${chrome.i18n.getMessage("front")}</h3>
+                        <div class="sub-section">
+                            <h4>${chrome.i18n.getMessage("directTranslation")}</h4>
+                            <div class="sub-section-content">
+                                <div class="input-with-button">
+                                    <textarea class="translation editable ${isArabic(selectedLanguage) ? 'rtl-language' : ''}" rows="3">${escapeHTML(flashcard.translation || '')}</textarea>
+                                    <button id="regenerateTranslation" class="regenerate-button"></button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="sub-section">
+                            <h4>${chrome.i18n.getMessage("Definition")}</h4>
+                            <div class="sub-section-content">
+                                <div class="input-with-button">
+                                    <textarea class="definition editable ${isArabic(selectedLanguage) ? 'rtl-language' : ''}" rows="3">${escapeHTML(flashcard.recto)}</textarea>
+                                    <button id="regenerateDefinition" class="regenerate-button"></button>
+                                </div>
                             </div>
                         </div>
                     </div>
-                    <div class="sub-section">
-                        <h4>${chrome.i18n.getMessage("Definition")}</h4>
-                        <div class="sub-section-content">
-                            <div class="input-with-button">
-                                <textarea class="definition editable ${isArabic(selectedLanguage) ? 'rtl-language' : ''}" rows="3">${escapeHTML(flashcard.recto)}</textarea>
-                                <button id="regenerateDefinition" class="regenerate-button"></button>
+                    <div class="section">
+                        <h3>${chrome.i18n.getMessage("back")}</h3>
+                        <div class="sub-section">
+                            <h4>${chrome.i18n.getMessage("selectedText")}</h4>
+                            <div class="sub-section-content">
+                                <div class="input-with-button">
+                                    <textarea class="back editable ${isArabic(flashcard.detectedLanguage) ? 'rtl-language' : ''}" rows="3">${escapeHTML(flashcard.verso)}</textarea>
+                                    <div class="spacer"></div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="sub-section">
+                            <h4>${chrome.i18n.getMessage("examples")}</h4>
+                            <div class="sub-section-content">
+                                <div class="input-with-button">
+                                    <textarea class="examples editable ${isArabic(selectedLanguage) ? 'rtl-language' : ''}" rows="6">${escapeHTML(flashcard.example_1 || '')}\n${escapeHTML(flashcard.example_2 || '')}\n${escapeHTML(flashcard.example_3 || '')}</textarea>
+                                    <button id="regenerateExamples" class="regenerate-button"></button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="sub-section" id="mnemonic-section">
+                            
+                        <label for="mnemonicToggle" class="toggle-switch">
+                            <input type="checkbox" id="mnemonicToggle">
+                            <span class="slider round">
+                            <span class="toggle-label" data-state="off">${chrome.i18n.getMessage("dontGenMnemonic")}</span>
+                            <span class="toggle-label" data-state="on">${chrome.i18n.getMessage("genMnemonic")}</span>
+                            </span>
+                        </label>
+                          
+                            <div class="sub-section-content" id="mnemonicContent">
+                                <div class="input-with-button">
+                                    <textarea class="mnemonic editable ${isArabic(selectedLanguage) ? 'rtl-language' : ''}" rows="3">${escapeHTML(flashcard.mnemonic || '')}</textarea>
+                                    <button id="regenerateMnemonic" class="regenerate-button"></button>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
-                <div class="section">
-                    <h3>${chrome.i18n.getMessage("back")}</h3>
-                    <div class="sub-section">
-                        <h4>${chrome.i18n.getMessage("selectedText")}</h4>
-                        <div class="sub-section-content">
-                            <div class="input-with-button">
-                                <textarea class="back editable ${isArabic(flashcard.detectedLanguage) ? 'rtl-language' : ''}" rows="3">${escapeHTML(flashcard.verso)}</textarea>
-                                <div class="spacer"></div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="sub-section">
-                        <h4>${chrome.i18n.getMessage("examples")}</h4>
-                        <div class="sub-section-content">
-                            <div class="input-with-button">
-                                <textarea class="examples editable ${isArabic(selectedLanguage) ? 'rtl-language' : ''}" rows="6">${escapeHTML(flashcard.example_1 || '')}\n${escapeHTML(flashcard.example_2 || '')}\n${escapeHTML(flashcard.example_3 || '')}</textarea>
-                                <button id="regenerateExamples" class="regenerate-button"></button>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="sub-section" id="mnemonic-section">
-                        <h4>${chrome.i18n.getMessage("Mnemonic")}</h4>
-                        <div class="sub-section-content">
-                            <div class="input-with-button">
-                                <textarea class="mnemonic editable ${isArabic(selectedLanguage) ? 'rtl-language' : ''}" rows="3">${escapeHTML(flashcard.mnemonic || '')}</textarea>
-                                <button id="regenerateMnemonic" class="regenerate-button"></button>
-                            </div>
-                        </div>
-                    </div>
+                <div class="button-container">
+                    <button id="cancelReviewButton" class="modal-button">${chrome.i18n.getMessage("cancel")}</button>
+                    <button id="validateButton" class="modal-button">${chrome.i18n.getMessage("validate")}</button>
                 </div>
             </div>
-            <div class="button-container">
-                <button id="cancelReviewButton" class="modal-button">${chrome.i18n.getMessage("cancel")}</button>
-                <button id="validateButton" class="modal-button">${chrome.i18n.getMessage("validate")}</button>
-            </div>
+            <div id="modalBackdrop"></div>
         </div>
-        <div id="modalBackdrop"></div>
-    </div>
-    `;
+        `;
     
         const modalContainer = document.createElement('div');
         modalContainer.innerHTML = modalHtml;
         globalShadowRoot.appendChild(modalContainer);
     
         setupRefreshLogo();
+    
+        const mnemonicToggle = globalShadowRoot.querySelector('#mnemonicToggle');
+        const mnemonicContent = globalShadowRoot.querySelector('#mnemonicContent');
+    
+        // Charger l'état précédent du toggle
+        const initialToggleState = await loadMnemonicToggleState();
+        mnemonicToggle.checked = initialToggleState;
+        mnemonicContent.style.display = initialToggleState ? 'block' : 'none';
+    
+        mnemonicToggle.addEventListener('change', async function() {
+            const isChecked = this.checked;
+            saveMnemonicToggleState(isChecked);
+    
+            if (isChecked) {
+                // Masquer le modal et montrer le toast
+                globalShadowRoot.querySelector('#anki-lingo-flash-review-modal').style.display = 'none';
+                showToast(chrome.i18n.getMessage("regeneratingMnemonic"), true, true);
+    
+                // Régénérer le mnémonique
+                await regenerateContent('mnemonic', flashcard.id);
+    
+                // Mettre à jour le contenu du mnémonique directement
+                chrome.storage.sync.get(['flashcards'], function(result) {
+                    const updatedFlashcard = result.flashcards[flashcard.id];
+                    globalShadowRoot.querySelector('.mnemonic').value = updatedFlashcard.mnemonic || '';
+                    
+                    // Afficher le contenu du mnémonique et le modal
+                    mnemonicContent.style.display = 'block';
+                    globalShadowRoot.querySelector('#anki-lingo-flash-review-modal').style.display = 'flex';
+                    removeCurrentToast();
+                });
+            } else {
+                mnemonicContent.style.display = 'none';
+            }
+        });
     
         // Utilisation de la délégation d'événements
         const modal = globalShadowRoot.querySelector('#anki-lingo-flash-review-modal');
@@ -887,7 +930,7 @@ if (window.hasRun === true) {
                     recto: this.querySelector('#reviewModal .definition').value,
                     verso: this.querySelector('#reviewModal .back').value,
                     translation: this.querySelector('#reviewModal .translation').value,
-                    mnemonic: this.querySelector('#reviewModal .mnemonic').value,
+                    mnemonic: mnemonicToggle.checked ? this.querySelector('#reviewModal .mnemonic').value : "",
                     regenerationCount: flashcard.regenerationCount,
                     detectedLanguage: flashcard.detectedLanguage
                 };
@@ -941,7 +984,13 @@ if (window.hasRun === true) {
         if (settings.choice === 'remote') {
             console.log('Using remote model');
     
-            const userMessage = chrome.i18n.getMessage("generateFlashcardPrompt", [language, selectedText]);
+            // Charger l'état du toggle mnémonique
+            const mnemonicToggleState = await loadMnemonicToggleState();
+    
+            // Choisir le bon prompt en fonction de l'état du toggle mnémonique
+            const userMessage = mnemonicToggleState 
+                ? chrome.i18n.getMessage("generateFlashcardWithMnemonicPrompt", [language, selectedText])
+                : chrome.i18n.getMessage("generateFlashcardPrompt", [language, selectedText]);
     
             try {
                 const response = await new Promise((resolve, reject) => {
@@ -968,7 +1017,7 @@ if (window.hasRun === true) {
                         id: flashcardId,
                         recto: flashcardData.definition,
                         verso: selectedText,
-                        mnemonic: flashcardData.mnemonic,
+                        mnemonic: mnemonicToggleState ? flashcardData.mnemonic : "",
                         translation: flashcardData.translation,
                         example_1: flashcardData.example_1,
                         example_2: flashcardData.example_2,
@@ -977,10 +1026,10 @@ if (window.hasRun === true) {
                     };
                     console.log("NEW FLASHCARD:");
                     console.log(newFlashcard);
-                
+    
                     const flashcards = settings.flashcards || {};
                     flashcards[flashcardId] = newFlashcard;
-                
+    
                     await new Promise(resolve => chrome.storage.sync.set({ flashcards: flashcards }, resolve));
                     showReviewModal(newFlashcard, language);
                     console.log('Flashcard created:', newFlashcard);
@@ -1455,5 +1504,17 @@ if (window.hasRun === true) {
     // Helper function to check if a language is Arabic
     function isArabic(language) {
         return language === 'arabic_standard' || language === 'arabic_eg'; // 'arb' for Standard Arabic, 'arz' for Egyptian Arabic
+    }
+
+    function loadMnemonicToggleState() {
+        return new Promise((resolve) => {
+            chrome.storage.sync.get(['mnemonicToggleState'], function(result) {
+                resolve(result.mnemonicToggleState !== false);  // Par défaut ON si non défini
+            });
+        });
+    }
+    
+    function saveMnemonicToggleState(state) {
+        chrome.storage.sync.set({ mnemonicToggleState: state });
     }
 }
