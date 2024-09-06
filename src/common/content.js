@@ -358,68 +358,69 @@ if (window.hasRun === true) {
                     flashcard.regenerationCount[part]++;
                     settings.flashcards[flashcardId] = flashcard;
                     chrome.storage.sync.set({ flashcards: settings.flashcards });
-    
-                    showToast(chrome.i18n.getMessage(`regenerating${part.charAt(0).toUpperCase() + part.slice(1)}`), true, true);
-    
-                    const reviewModal = globalShadowRoot.querySelector('#anki-lingo-flash-review-modal');
-                    if (reviewModal) reviewModal.style.display = 'none';
-    
-                    let userPrompt;
-                    if (part === 'definition') {
-                        userPrompt = chrome.i18n.getMessage("generateDefinition", [settings.language, flashcard.verso]);
-                    } else if (part === 'mnemonic') {
-                        userPrompt = chrome.i18n.getMessage("generateMnemonic", [settings.language, flashcard.verso]);
-                    } else if (part === 'translation') {
-                        userPrompt = chrome.i18n.getMessage("generateTranslation", [settings.language, flashcard.verso]);
-                    } else if (part === 'examples') {
-                        userPrompt = chrome.i18n.getMessage("generateExamples", [flashcard.verso]);
-                    }
-    
-                    chrome.runtime.sendMessage({
-                        action: "callChatGPTAPI",
-                        userId: settings.userId,
-                        type: CONVERSATION_TYPES[part.toUpperCase()],
-                        message: userPrompt,
-                        language: settings.language
-                    }, response => {
-                        if (response.success) {
-                            let newContent = response.data;
-    
-                            if (part === 'definition' && newContent.definition) {
-                                flashcard.recto = newContent.definition;
-                            } else if (part === 'mnemonic' && newContent.mnemonic) {
-                                flashcard.mnemonic = newContent.mnemonic;
-                            } else if (part === 'translation' && newContent.translation) {
-                                flashcard.translation = newContent.translation;
-                            } else if (part === 'examples') {
-                                flashcard.example_1 = newContent.example_1 || '';
-                                flashcard.example_2 = newContent.example_2 || '';
-                                flashcard.example_3 = newContent.example_3 || '';
-                            } else {
-                                console.log(`Invalid content for ${part}:`, newContent);
-                                showToast(chrome.i18n.getMessage(`errorRegenerating${part.charAt(0).toUpperCase() + part.slice(1)}`));
-                                if (reviewModal) reviewModal.style.display = 'flex';
-                                return;
-                            }
-    
-                            settings.flashcards[flashcardId] = flashcard;
-                            chrome.storage.sync.set({ flashcards: settings.flashcards }, function () {
-                                updateModalContent(flashcard);
-                                removeCurrentToast();
-                                if (reviewModal) reviewModal.style.display = 'flex';
-                            });
+
+                showToast(chrome.i18n.getMessage(`regenerating${part.charAt(0).toUpperCase() + part.slice(1)}`), true, true);
+
+                const reviewModal = globalShadowRoot.querySelector('#anki-lingo-flash-review-modal');
+                if (reviewModal) reviewModal.style.display = 'none';
+
+                let userPrompt;
+                if (part === 'definition') {
+                    userPrompt = chrome.i18n.getMessage("generateDefinition", [settings.language, flashcard.verso]);
+                } else if (part === 'mnemonic') {
+                    userPrompt = chrome.i18n.getMessage("generateMnemonic", [settings.language, flashcard.verso]);
+                } else if (part === 'translation') {
+                    userPrompt = chrome.i18n.getMessage("generateTranslation", [settings.language, flashcard.verso]);
+                } else if (part === 'examples') {
+                    userPrompt = chrome.i18n.getMessage("generateExamples", [flashcard.verso]);
+                }
+
+                chrome.runtime.sendMessage({
+                    action: "callChatGPTAPI",
+                    userId: settings.userId,
+                    type: CONVERSATION_TYPES[part.toUpperCase()],
+                    message: userPrompt,
+                    language: settings.language
+                }, response => {
+                    if (response.success) {
+                        let newContent = response.data;
+
+                        if (part === 'definition' && newContent.definition) {
+                            flashcard.recto = newContent.definition;
+                        } else if (part === 'mnemonic' && newContent.mnemonic) {
+                            flashcard.mnemonic = newContent.mnemonic;
+                            flashcard.mnemonicGenerated = true; // Mettre à jour cette propriété
+                        } else if (part === 'translation' && newContent.translation) {
+                            flashcard.translation = newContent.translation;
+                        } else if (part === 'examples') {
+                            flashcard.example_1 = newContent.example_1 || '';
+                            flashcard.example_2 = newContent.example_2 || '';
+                            flashcard.example_3 = newContent.example_3 || '';
                         } else {
-                            console.log(`Error regenerating ${part}:`, response.error);
+                            console.log(`Invalid content for ${part}:`, newContent);
                             showToast(chrome.i18n.getMessage(`errorRegenerating${part.charAt(0).toUpperCase() + part.slice(1)}`));
                             if (reviewModal) reviewModal.style.display = 'flex';
+                            return;
                         }
-                    });
-                } else {
-                    console.log('Local model regeneration not implemented');
-                }
-            });
+
+                        settings.flashcards[flashcardId] = flashcard;
+                        chrome.storage.sync.set({ flashcards: settings.flashcards }, function () {
+                            updateModalContent(flashcard);
+                            removeCurrentToast();
+                            if (reviewModal) reviewModal.style.display = 'flex';
+                        });
+                    } else {
+                        console.log(`Error regenerating ${part}:`, response.error);
+                        showToast(chrome.i18n.getMessage(`errorRegenerating${part.charAt(0).toUpperCase() + part.slice(1)}`));
+                        if (reviewModal) reviewModal.style.display = 'flex';
+                    }
+                });
+            } else {
+                console.log('Local model regeneration not implemented');
+            }
         });
-    }
+    });
+}
     
     /**
      * Updates the content of the review modal with the given flashcard data.
@@ -852,15 +853,13 @@ if (window.hasRun === true) {
                             </div>
                         </div>
                         <div class="sub-section" id="mnemonic-section">
-                            
-                        <label for="mnemonicToggle" class="toggle-switch">
-                            <input type="checkbox" id="mnemonicToggle">
-                            <span class="slider round">
-                            <span class="toggle-label" data-state="off">${chrome.i18n.getMessage("dontGenMnemonic")}</span>
-                            <span class="toggle-label" data-state="on">${chrome.i18n.getMessage("genMnemonic")}</span>
-                            </span>
-                        </label>
-                          
+                            <label for="mnemonicToggle" class="toggle-switch">
+                                <input type="checkbox" id="mnemonicToggle">
+                                <span class="slider round">
+                                <span class="toggle-label" data-state="off">${chrome.i18n.getMessage("dontGenMnemonic")}</span>
+                                <span class="toggle-label" data-state="on">${chrome.i18n.getMessage("genMnemonic")}</span>
+                                </span>
+                            </label>
                             <div class="sub-section-content" id="mnemonicContent">
                                 <div class="input-with-button">
                                     <textarea class="mnemonic editable ${isArabic(selectedLanguage) ? 'rtl-language' : ''}" rows="3">${escapeHTML(flashcard.mnemonic || '')}</textarea>
@@ -896,25 +895,32 @@ if (window.hasRun === true) {
         mnemonicToggle.addEventListener('change', async function() {
             const isChecked = this.checked;
             saveMnemonicToggleState(isChecked);
-    
+        
             if (isChecked) {
-                // Masquer le modal et montrer le toast
-                globalShadowRoot.querySelector('#anki-lingo-flash-review-modal').style.display = 'none';
-                showToast(chrome.i18n.getMessage("regeneratingMnemonic"), true, true);
-    
-                // Régénérer le mnémonique
-                await regenerateContent('mnemonic', flashcard.id);
-    
-                // Mettre à jour le contenu du mnémonique directement
-                chrome.storage.sync.get(['flashcards'], function(result) {
-                    const updatedFlashcard = result.flashcards[flashcard.id];
-                    globalShadowRoot.querySelector('.mnemonic').value = updatedFlashcard.mnemonic || '';
-                    
-                    // Afficher le contenu du mnémonique et le modal
+                if (!flashcard.mnemonicGenerated) {
+                    // Première activation : générer le mnémonique
+                    globalShadowRoot.querySelector('#anki-lingo-flash-review-modal').style.display = 'none';
+                    showToast(chrome.i18n.getMessage("regeneratingMnemonic"), true, true);
+        
+                    await regenerateContent('mnemonic', flashcard.id);
+        
+                    chrome.storage.sync.get(['flashcards'], function(result) {
+                        const updatedFlashcard = result.flashcards[flashcard.id];
+                        globalShadowRoot.querySelector('.mnemonic').value = updatedFlashcard.mnemonic || '';
+                        
+                        flashcard.mnemonicGenerated = true;  // Correction ici
+                        flashcard.mnemonic = updatedFlashcard.mnemonic;  // Mise à jour du mnémonique dans l'objet flashcard local
+                        result.flashcards[flashcard.id] = flashcard;  // Mise à jour de l'objet flashcard dans le stockage
+                        chrome.storage.sync.set({ flashcards: result.flashcards });
+                        
+                        mnemonicContent.style.display = 'block';
+                        globalShadowRoot.querySelector('#anki-lingo-flash-review-modal').style.display = 'flex';
+                        removeCurrentToast();
+                    });
+                } else {
+                    // Activations suivantes : simplement afficher le contenu existant
                     mnemonicContent.style.display = 'block';
-                    globalShadowRoot.querySelector('#anki-lingo-flash-review-modal').style.display = 'flex';
-                    removeCurrentToast();
-                });
+                }
             } else {
                 mnemonicContent.style.display = 'none';
             }
@@ -932,7 +938,8 @@ if (window.hasRun === true) {
                     translation: this.querySelector('#reviewModal .translation').value,
                     mnemonic: mnemonicToggle.checked ? this.querySelector('#reviewModal .mnemonic').value : "",
                     regenerationCount: flashcard.regenerationCount,
-                    detectedLanguage: flashcard.detectedLanguage
+                    detectedLanguage: flashcard.detectedLanguage,
+                    mnemonicGenerated: flashcard.mnemonicGenerated
                 };
     
                 // Séparation des exemples
@@ -1018,6 +1025,7 @@ if (window.hasRun === true) {
                         recto: flashcardData.definition,
                         verso: selectedText,
                         mnemonic: mnemonicToggleState ? flashcardData.mnemonic : "",
+                        mnemonicGenerated: mnemonicToggleState,
                         translation: flashcardData.translation,
                         example_1: flashcardData.example_1,
                         example_2: flashcardData.example_2,
