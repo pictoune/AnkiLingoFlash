@@ -1407,7 +1407,7 @@ if (window.hasRun === true) {
                 // Map selected language to long language code
                 const longLanguageCode = languageCodeMap[selectedLanguage];
                 const languageName = chrome.i18n.getMessage(longLanguageCode);
-                const modelName = `AnkiLingoFlash_${languageName}`;
+                const modelName = `AnkiLingoFlash_0.4_${languageName}`;
                 console.log("Model name:", modelName);
     
                 // Save the user's choice for future use

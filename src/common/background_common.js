@@ -226,7 +226,7 @@ function checkAndCreateModel() {
     ];
 
     const createModels = languages.map(lang => {
-        const modelName = `AnkiLingoFlash_${chrome.i18n.getMessage(lang)}`;
+        const modelName = `AnkiLingoFlash_0.4_${chrome.i18n.getMessage(lang)}`;
         return createCustomModelForLanguage(modelName);
     });
 
