@@ -680,6 +680,11 @@ if (window.hasRun === true) {
      * @param {string} selectedText - The text selected by the user.
      */
     async function generateFlashcard(selectedText) {
+        if (window.location.href.startsWith('file://') && window.location.href.toLowerCase().endsWith('.pdf')) {
+        showToast(chrome.i18n.getMessage("localPdfNotSupported"));
+        return;
+        }
+        
         if (!containsNaturalLanguage(selectedText)) {
             showToast(chrome.i18n.getMessage("invalidSelectionError"));
             return;

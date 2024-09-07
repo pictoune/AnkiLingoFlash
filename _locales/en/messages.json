@@ -748,6 +748,9 @@
   },
   "genMnemonic": {
     "message": "Mnemonic"
+  },
+  "localPdfNotSupported": {
+    "message": "Flashcard generation from local PDF files is not yet available. We are working on this feature."
   }
 }
 
