@@ -448,7 +448,7 @@
   "flashcardNotFound": {
     "message": "Flashcard not found"
   },
-  "defRegenerationLimitReached": {
+  "definitionRegenerationLimitReached": {
     "message": "You have reached the limit of $LIMIT$ regenerations for the definition of this flashcard.",
     "placeholders": {
       "LIMIT": {
@@ -456,7 +456,15 @@
       }
     }
   },
-  "mneRegenerationLimitReached": {
+  "translationRegenerationLimitReached": {
+    "message": "You have reached the limit of $LIMIT$ regenerations for the translation of this flashcard.",
+    "placeholders": {
+      "LIMIT": {
+        "content": "$1"
+      }
+    }
+  },
+  "mnemonicRegenerationLimitReached": {
     "message": "You have reached the limit of $LIMIT$ regenerations for the mnemonic of this flashcard.",
     "placeholders": {
       "LIMIT": {
@@ -717,14 +725,6 @@
 },
 "errorRegeneratingExamples": {
   "message": "Error regenerating examples. Please try again."
-},
-"contextRegenerationLimitReached": {
-  "message": "You have reached the limit of $LIMIT$ regenerations for the context of this flashcard.",
-  "placeholders": {
-    "LIMIT": {
-      "content": "$1"
-    }
-  }
 },
 "examplesRegenerationLimitReached": {
   "message": "You have reached the limit of $LIMIT$ regenerations for the examples of this flashcard.",
