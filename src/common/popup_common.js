@@ -328,57 +328,68 @@ async function handleValidateApiKey() {
     const apiKey = apiKeyInput.value.trim();
 
     if (apiKey) {
-        // Send message to background script to validate the API key
-        chrome.runtime.sendMessage({ action: "validateApiKey", apiKey: apiKey }, async function (response) {
-            if (chrome.runtime.lastError) {
-                console.log('Error:', chrome.runtime.lastError);
-                showToast(chrome.i18n.getMessage("errorOccurred"));
-                return;
-            }
+        try {
+            // Vérifier d'abord la connexion Internet
+            await checkInternetConnection();
 
-            if (response && response.valid) {
-                apiKeyInput.classList.remove('invalid');
-                apiKeyInput.classList.add('valid');
-                hideApiKeyError();
+            // Envoyer le message pour valider la clé API
+            chrome.runtime.sendMessage({ action: "validateApiKey", apiKey: apiKey }, async function (response) {
+                if (chrome.runtime.lastError) {
+                    console.log('Error:', chrome.runtime.lastError);
+                    showToast(chrome.i18n.getMessage("errorOccurred"));
+                    return;
+                }
 
-                // Generate a new installation password and encrypt the API key
-                const installationPassword = await generateInstallationPassword();
-                const encryptedApiKey = await encryptApiKey(apiKey, installationPassword);
+                if (response && response.valid) {
+                    apiKeyInput.classList.remove('invalid');
+                    apiKeyInput.classList.add('valid');
+                    hideApiKeyError();
 
-                // Save the validated and encrypted API key
-                chrome.storage.sync.set({
-                    apiKeyValidated: true,
-                    encryptedApiKey: encryptedApiKey,
-                    installationPassword: installationPassword,
-                    isOwnCredits: true
-                }, function () {
-                    console.log("API key validated and stored successfully");
-                    updateOptionsVisibility();
-                    fetchModels(apiKey);
-                });
-            } else {
-                // If the API key is invalid, reset storage and show error
-                chrome.storage.sync.set({
-                    apiKeyValidated: false,
-                    encryptedApiKey: null,
-                    installationPassword: null
-                }, function () {
-                    console.log("Invalid API key, resetting storage");
-                    updateOptionsVisibility();
-                });
-                showApiKeyError("invalidApiKey");
-                apiKeyInput.classList.add('invalid');
-                apiKeyInput.classList.remove('valid');
-            }
-        });
+                    // Générer un nouveau mot de passe d'installation et chiffrer la clé API
+                    const installationPassword = await generateInstallationPassword();
+                    const encryptedApiKey = await encryptApiKey(apiKey, installationPassword);
+
+                    // Sauvegarder la clé API validée et chiffrée
+                    chrome.storage.sync.set({
+                        apiKeyValidated: true,
+                        encryptedApiKey: encryptedApiKey,
+                        installationPassword: installationPassword,
+                        isOwnCredits: true
+                    }, function () {
+                        console.log("API key validated and stored successfully");
+                        updateOptionsVisibility();
+                        fetchModels(apiKey);
+                    });
+                } else {
+                    // Si la clé API est invalide, réinitialiser le stockage et afficher l'erreur
+                    chrome.storage.sync.set({
+                        apiKeyValidated: false,
+                        encryptedApiKey: null,
+                        installationPassword: null
+                    }, function () {
+                        console.log("Invalid API key, resetting storage");
+                        updateOptionsVisibility();
+                    });
+                    showApiKeyError("invalidApiKey");
+                    apiKeyInput.classList.add('invalid');
+                    apiKeyInput.classList.remove('valid');
+                }
+            });
+        } catch (error) {
+            // Erreur de connexion Internet
+            console.log('Internet connection error:', error);
+            showApiKeyError("internetConnectionError");
+            apiKeyInput.classList.add('invalid');
+            apiKeyInput.classList.remove('valid');
+        }
     } else {
-        // If the API key format is invalid, reset storage and show error
+        // Si le format de la clé API est invalide, réinitialiser le stockage et afficher l'erreur
         chrome.storage.sync.set({
             apiKeyValidated: false,
             encryptedApiKey: null,
             installationPassword: null
         }, function () {
-            console.log("Invalid API key, resetting storage");
+            console.log("Invalid API key format, resetting storage");
             updateOptionsVisibility();
         });
         showApiKeyError("invalidApiKey");
@@ -450,15 +461,32 @@ function updateLoginButton(container) {
     }
 }
 
+function checkInternetConnection() {
+    return new Promise((resolve, reject) => {
+      fetch('https://anki-lingo-flash.piriouvictor.workers.dev/api/check-connectivity')
+        .then(response => response.json())
+        .then(data => {
+          if (data.status === 'online') {
+            resolve(true);
+          } else {
+            reject(false);
+          }
+        })
+        .catch(() => {
+          reject(false);
+        });
+    });
+  }
+
 /**
  * Show API key error message.
  * @param {string} message - The error message to display.
  */
-function showApiKeyError(message) {
+function showApiKeyError(messageKey) {
     const apiKeyInput = document.getElementById('apiKey');
     const errorElement = document.getElementById('apiKeyError');
     if (errorElement) {
-        errorElement.textContent = chrome.i18n.getMessage(message);
+        errorElement.textContent = chrome.i18n.getMessage(messageKey);
         errorElement.style.display = 'block';
     }
     if (apiKeyInput) {

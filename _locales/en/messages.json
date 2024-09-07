@@ -214,6 +214,9 @@
   "invalidApiKey": {
     "message": "Invalid API key. Please try again."
   },
+  "internetConnectionError": {
+    "message": "Unable to verify the API key. Please check your Internet connection and try again."
+  },
   "pleaseEnterApiKey": {
     "message": "Please enter a valid API key."
   },
