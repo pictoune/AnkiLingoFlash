@@ -10,6 +10,16 @@ addEventListener('fetch', event => {
     event.respondWith(handleRequest(event.request));
 });
 
+function handleConnectivityCheckRequest(request) {
+    console.log("Processing connectivity check request");
+    return new Response(JSON.stringify({ status: 'online' }), {
+        headers: {
+            'Content-Type': 'application/json',
+            'Access-Control-Allow-Origin': '*'
+        }
+    });
+}
+
 async function handleRequest(request) {
     console.log("Handling request:", request.url);
     if (request.method === 'OPTIONS') {
@@ -37,10 +47,46 @@ async function handleRequest(request) {
     } else if (url.pathname === '/api/increment-flashcard-count') {
         console.log("Handling increment flashcard count request");
         return handleIncrementFlashcardCountRequest(request);
+    } else if (url.pathname === '/oauth-redirect') {
+        console.log("Handling OAuth redirect");
+        return handleOAuthRedirect(request);
+    } else if (url.pathname === '/api/check-connectivity') {
+        console.log("Handling connectivity check request");
+        return handleConnectivityCheckRequest(request);
     }
 
     console.log("Request not matched, returning 404");
     return new Response('Not Found', { status: 404 });
+}
+
+async function handleOAuthRedirect(request) {
+    const url = new URL(request.url);
+    const fragmentParams = new URLSearchParams(url.hash.slice(1));
+    const token = fragmentParams.get('access_token');
+
+    if (token) {
+        return new Response(`
+            <html>
+                <body>
+                    <script>
+                        if (window.opener) {
+                            window.opener.postMessage({token: "${token}"}, "*");
+                        } else {
+                            // For Firefox, we need to use browser.runtime.sendMessage
+                            browser.runtime.sendMessage({action: "auth_success", token: "${token}"});
+                        }
+                        window.close();
+                    </script>
+                </body>
+            </html>
+        `, {
+            headers: {
+                'Content-Type': 'text/html',
+            },
+        });
+    } else {
+        return new Response('Authentication failed', { status: 400 });
+    }
 }
 
 async function handleChatRequest(request) {
