@@ -1,6 +1,11 @@
 // Use 'browser' instead of 'chrome' for Firefox extensions
 const chrome = browser;
 
+/**
+ * Handles the logout process.
+ * Sends a logout message to the background script and updates the UI accordingly.
+ * Displays an error message if the logout fails.
+ */
 function handleLogout() {
     browser.runtime.sendMessage({ action: "logout" }, function (response) {
         if (response && response.success) {
@@ -13,6 +18,11 @@ function handleLogout() {
     });
 }
 
+/**
+ * Handles the login process.
+ * Sends a login message to the background script, stores the user data in sync storage,
+ * and updates the UI with the user information.
+ */
 function handleLogin() {
     browser.runtime.sendMessage({ action: "login" }).then(function (response) {
         if (response && response.user) {
@@ -28,7 +38,15 @@ function handleLogin() {
     });
 }
 
-// Update user information in the UI
+/**
+ * Updates the user information displayed in the UI.
+ * If a user is logged in and not using own credits, it shows the user info.
+ * Otherwise, it hides the user info section.
+ * 
+ * @param {Object} user - The user object containing user information.
+ * @param {number} flashcardCount - The number of flashcards created.
+ * @param {number} freeGenerationLimit - The limit of free flashcard generations.
+ */
 function updateUserInfo(user = null, flashcardCount = 0, freeGenerationLimit) {
     const userInfo = document.getElementById('user-info');
 
@@ -54,7 +72,12 @@ function updateUserInfo(user = null, flashcardCount = 0, freeGenerationLimit) {
     });
 }
 
-// Update the login button in the UI
+/**
+ * Updates the login button in the UI.
+ * If the login button doesn't exist, it creates one with the necessary event listener.
+ * 
+ * @param {HTMLElement} container - The container element for the login button.
+ */
 function updateLoginButton(container) {
     if (!container.querySelector('#login-button')) {
         container.innerHTML = `

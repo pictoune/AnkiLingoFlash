@@ -1,12 +1,20 @@
 // Use 'browser' instead of 'chrome' for Firefox extensions
 const chrome = browser;
 
-// Function to get the clientId from the manifest file
+/**
+ * Retrieves the client ID from the extension's manifest file.
+ * @returns {Promise<string>} A promise that resolves with the client ID.
+ */
 async function getClientIdFromManifest() {
     const manifest = await browser.runtime.getManifest();
     return manifest.oauth2.client_id;
 }
 
+/**
+ * Authenticates the user using Firefox's WebExtensions API.
+ * Initiates the OAuth2 flow with Google and returns an access token.
+ * @returns {Promise<string>} A promise that resolves with the access token.
+ */
 async function authenticateFirefox() {
     console.log("authenticateFirefox function called");
     return new Promise(async (resolve, reject) => {
@@ -35,7 +43,12 @@ async function authenticateFirefox() {
     });
 }
 
-// Listen for messages from the extension's popup or content scripts
+/**
+ * Listens for messages from the extension's popup or content scripts.
+ * Handles 'login' and 'logout' actions.
+ * For 'login', it authenticates the user and fetches user data.
+ * For 'logout', it clears user data from storage.
+ */
 chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
     if (request.action === "login") {
         console.log("Login action received");
