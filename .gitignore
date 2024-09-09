@@ -2,3 +2,4 @@ node_modules/
 dist/
 src/common/utils.js
 .DS_Store
+cws_definition.md

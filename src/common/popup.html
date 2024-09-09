@@ -76,11 +76,16 @@
 
             <!-- Own credits option, initially hidden -->
             <div id="ownCreditsOption" style="display: none;">
-                <p for="apiKey" data-i18n="enterOpenAIKey" class="api-key-label"></p>
-                <input type="password" id="apiKey">
-                <div id="apiKeyError" class="error-message" style="display: none;"></div>
-                <button id="validateApiKey" class="btn" data-i18n="validate"></button>
-            </div>
+                <label for="apiKey" class="api-key-label">
+                  <span data-i18n="enterOpenAIKey"></span>
+                  <img src="icons/help_logo.svg" alt="Help" class="help-icon" id="apiKeyHelp">
+                </label>
+                <div class="api-key-input-container">
+                  <input type="password" id="apiKey" name="apiKey">
+                  <div id="apiKeyError" class="error-message" style="display: none;"></div>
+                </div>
+                <button id="validateApiKey" data-i18n="validate"></button>
+              </div>
 
             <!-- Model choice section, for development mode -->
             <div id="modelChoiceSection" style="display: none;" data-dev-mode="true">

@@ -28,6 +28,14 @@ document.addEventListener('DOMContentLoaded', function () {
         { id: 'freeTrial', key: 'freeTrial' }
     ];
 
+    const apiKeyHelp = document.getElementById('apiKeyHelp');
+    if (apiKeyHelp) {
+        apiKeyHelp.addEventListener('click', function(e) {
+        e.preventDefault(); // Empêche le comportement par défaut du clic
+        chrome.tabs.create({ url: 'https://ankilingoflash.com/#pricing' });
+        });
+    }
+
     // Function to translate elements based on their data-i18n attribute
     function translateElements() {
         elementsToTranslate.forEach(item => {

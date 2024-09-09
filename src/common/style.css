@@ -10,7 +10,7 @@
 }
 
 .fixed-width-popup {
-    width: 275px !important; /* Utilisation de !important pour s'assurer que cette règle est prioritaire */
+    width: 275px !important;
     max-width: 100%;
     box-sizing: border-box;
 }
@@ -191,9 +191,9 @@
 .anki-lingo-flash-container .toggle-switch {
     position: relative;
     display: inline-block;
-    width: 100%; /* Ensure the toggle switch spans the full width */
-    max-width: 100%; /* Prevent overflow */
-    box-sizing: border-box; /* Include padding in the width calculation */
+    width: 100%;
+    max-width: 100%;
+    box-sizing: border-box;
     height: 34px;
     margin-bottom: 20px;
 }
@@ -235,7 +235,7 @@
 }
 
 .anki-lingo-flash-container input:checked + .slider:before {
-    left: calc(100% - 32px); /* Move to the far right, subtracting knob width + padding */
+    left: calc(100% - 32px);
 }
 
 .anki-lingo-flash-container .slider::after {
@@ -312,9 +312,9 @@
 }
 
 .anki-lingo-flash-container #login-button.gsi-material-button {
-    width: 100%; /* Set the button width to 100% */
-    max-width: 100%; /* Ensure it doesn't exceed the popup width */
-    box-sizing: border-box; /* Ensure padding is included in the width */
+    width: 100%;
+    max-width: 100%;
+    box-sizing: border-box;
 }
 
 .anki-lingo-flash-container button:not(.gsi-material-button),
@@ -334,16 +334,10 @@
     width: 100%;
 }
 
-/* Add or modify these styles in your style.css file */
-
 #popup-container {
     min-width: 250px;
-    /* Adjust the width as needed */
     min-height: auto;
-    /* Adjust the width as needed */
     overflow: auto;
-    /* Ensure content within the popup is scrollable if necessary */
-
     padding-left: 8px;  
     padding-right: 8px; 
 }
@@ -389,7 +383,6 @@
     color: #5f6367;
     border: none;
     padding: 10px 20px 10px 40px;
-    /* Augmenter le padding à gauche pour l'icône */
     text-align: center;
     text-decoration: none;
     display: flex;
@@ -931,7 +924,9 @@
 }
 
 .anki-lingo-flash-container .api-key-label {
-    display: block;
+    display: flex;
+    align-items: center;
+    justify-content: center;
     text-align: center;
 }
 
@@ -963,12 +958,10 @@
     color: rgb(105, 170, 255) !important;
 }
 
-
 #ownCreditsOption,
 #user-info {
     width: 100%;
     max-width: 100%;
-    /* Adjust this value as needed */
     margin: 0 auto;
     display: block;
 }
@@ -983,7 +976,6 @@
 #user-info button {
     width: 100%;
     max-width: 100%;
-    /* Adjust this value as needed */
 }
 
 .anki-lingo-flash-container .language-selection {
@@ -1134,4 +1126,25 @@
     #anki-lingo-flash-review-modal textarea.editable {
         font-size: 14px;
     }
+}
+
+/* Styles pour l'icône d'aide */
+.anki-lingo-flash-container .api-key-label {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.anki-lingo-flash-container .help-icon {
+    width: 16px;
+    height: 16px;
+    margin-left: 5px;
+    vertical-align: middle;
+    cursor: pointer;
+}
+
+.anki-lingo-flash-container .api-key-label span,
+.anki-lingo-flash-container .api-key-label img {
+    display: inline-block;
+    vertical-align: middle;
 }
