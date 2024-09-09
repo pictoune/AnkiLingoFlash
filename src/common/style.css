@@ -1130,17 +1130,20 @@
 
 /* Styles pour l'icône d'aide */
 .anki-lingo-flash-container .api-key-label {
-    display: flex;
+    display: inline-flex;
     align-items: center;
     justify-content: center;
+    margin-bottom: 5px;
 }
 
 .anki-lingo-flash-container .help-icon {
-    width: 16px;
-    height: 16px;
-    margin-left: 5px;
+    width: 14px;
+    height: 14px;
+    margin-left: 6px;
     vertical-align: middle;
     cursor: pointer;
+    position: relative;
+    top: -1px;
 }
 
 .anki-lingo-flash-container .api-key-label span,
