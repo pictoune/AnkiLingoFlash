@@ -15,6 +15,14 @@
         <!-- Main title of the settings page, using internationalization -->
         <h1 data-i18n="settingsTitle"></h1>
 
+        <div class="form-group">
+            <label for="learningGoal" class="api-key-label">
+              <p data-i18n="enterLearningGoal"></p>
+              <img src="icons/help_logo.svg" alt="Help" class="help-icon" id="learningGoalHelp">
+            </label>
+            <input type="text" id="learningGoal" name="learningGoal" placeholder="e.g., Make new friends, Boost my career">
+          </div>
+
         <!-- Toggle switch for AI model selection (local/remote) -->
         <div class="form-group">
             <label for="modelToggle" data-i18n="aiModelToggle"></label>

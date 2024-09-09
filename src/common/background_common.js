@@ -441,10 +441,10 @@ chrome.contextMenus.onClicked.addListener(async (info, tab) => {
  * @param {string} type - The conversation type
  * @returns {Promise<Object>} A promise that resolves with the conversation object
  */
-async function getOrCreateConversation(userId, type) {
+async function getOrCreateConversation(userId, type, learningGoal) {
     const key = `conversation_${userId}_${type}`;
     const result = await chrome.storage.sync.get(key);
-    const systemPrompt = getSystemPrompt(type);
+    const systemPrompt = getSystemPrompt(type, learningGoal);
 
     if (result[key]) {
         // Update the system message if the conversation already exists
@@ -465,11 +465,11 @@ async function getOrCreateConversation(userId, type) {
  * @param {string} type - The conversation type
  * @returns {string} The system prompt
  */
-function getSystemPrompt(type) {
+function getSystemPrompt(type, learningGoal) {
     console.log('Getting system prompt for type:', type);
     switch (type) {
         case CONVERSATION_TYPES.FLASHCARD:
-            return chrome.i18n.getMessage("generateFlashcardInstructions");
+            return chrome.i18n.getMessage("generateFlashcardInstructions", [learningGoal]);
         case CONVERSATION_TYPES.DEFINITION:
             return chrome.i18n.getMessage("helpfulAssistantDefinition");
         case CONVERSATION_TYPES.MNEMONIC:
@@ -477,10 +477,10 @@ function getSystemPrompt(type) {
         case CONVERSATION_TYPES.TRANSLATION:
             return chrome.i18n.getMessage("translationAssistant");
         case CONVERSATION_TYPES.EXAMPLES:
-            return chrome.i18n.getMessage("examplesAssistant");
+            return chrome.i18n.getMessage("examplesAssistant", [learningGoal]);
         default:
             console.log(`Unknown conversation type: ${type}`);
-            return chrome.i18n.getMessage("generateFlashcardInstructions");
+            return chrome.i18n.getMessage("generateFlashcardInstructions", [learningGoal]);
     }
 }
 
@@ -495,7 +495,7 @@ function getSystemPrompt(type) {
  */
 async function callChatGPTAPI(userId, type, userMessage, language, apiKey = null) {
     return new Promise((resolve, reject) => {
-        chrome.storage.sync.get(['isOwnCredits', 'encryptedApiKey', 'installationPassword', 'apiKeyValidated'], async function (result) {
+        chrome.storage.sync.get(['isOwnCredits', 'encryptedApiKey', 'installationPassword', 'apiKeyValidated', 'learningGoal'], async function (result) {
             if (result.isOwnCredits && !result.apiKeyValidated) {
                 reject(new Error(chrome.i18n.getMessage("enterValidApiKey")));
                 return;
@@ -529,7 +529,8 @@ async function callChatGPTAPI(userId, type, userMessage, language, apiKey = null
             }
 
             try {
-                const conversation = await getOrCreateConversation(userId, type, language);
+                const learningGoal = result.learningGoal || "General language learning";
+                const conversation = await getOrCreateConversation(userId, type, language, learningGoal);
                 conversation.messages.push({ role: 'user', content: userMessage });
 
                 const url = result.isOwnCredits
@@ -543,7 +544,6 @@ async function callChatGPTAPI(userId, type, userMessage, language, apiKey = null
 
                 let responseFormat;
                 if (type === CONVERSATION_TYPES.FLASHCARD) {
-                    // Vérifier si le message contient une demande de mnémonique
                     const includeMnemonic = userMessage.includes("mnemonic");
 
                     responseFormat = {

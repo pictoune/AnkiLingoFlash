@@ -83,8 +83,13 @@
     "message": "A card with the same selected text already exists in this deck."
   },
   "generateFlashcardInstructions": {
-    "message": "You are a helpful assistant specialized in generating flashcards for words or expressions. Provide a clear definition (that explains in which context the term is used), three distinct example sentences, and a direct translation. Avoid using the term/expression in the definition. Respond in the language specified by the user, except for the example sentences that should be written in the language of the selected term."
-  },
+    "message": "You are a helpful assistant specialized in generating flashcards for words or expressions. Provide a clear definition (that explains in which context the term is used), three distinct example sentences, and a direct translation. Avoid using the term/expression in the definition. Respond in the language specified by the user, except for the example sentences that should be written in the language of the selected term. The user's learning goal is: $1. Please ensure that the examples and context are relevant to this goal when possible.",
+    "placeholders": {
+        "1": {
+            "content": "$1"
+        }
+    }
+},
   "generateFlashcardPrompt": {
     "message": "Generate a flashcard in $1 for the term/expression in brackets: [$2]. Include a definition, three example sentences, and a direct translation. Respond in the language specified by the user, except for the example sentences that should be in the language of the term.",
     "placeholders": {
@@ -713,7 +718,12 @@
   "message": "Regenerating examples"
 },
 "examplesAssistant": {
-  "message": "You are a helpful assistant specialized in generating example sentences for various terms or expressions. The examples should be in the same language as the given term."
+  "message": "You are a helpful assistant specialized in generating example sentences for various terms or expressions. The examples should be in the same language as the given term. The user's learning goal is: $1. Please create examples that are relevant to this goal when possible.",
+  "placeholders": {
+      "1": {
+          "content": "$1"
+      }
+  }
 },
 "generateExamples": {
   "message": "Generate three example sentences using the term/expression: [$1].",
@@ -751,7 +761,10 @@
   },
   "localPdfNotSupported": {
     "message": "Flashcard generation from local PDF files is not yet available. We are working on this feature."
-  }
+  },
+  "enterLearningGoal": {
+    "message": "Enter your language learning goal:"
+}
 }
 
 

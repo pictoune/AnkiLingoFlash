@@ -8,6 +8,7 @@ document.addEventListener('DOMContentLoaded', function () {
     }
 
     const elementsToTranslate = [
+        { id: 'enterLearningGoal', key: 'enterLearningGoal' },
         { id: 'settingsTitle', key: 'settingsTitle', html: true },
         { id: 'aiModelToggle', key: 'aiModelToggle' },
         { id: 'chooseLanguage', key: 'chooseLanguage', html: true },
@@ -27,6 +28,21 @@ document.addEventListener('DOMContentLoaded', function () {
         { id: 'ownCredits', key: 'ownCredits' },
         { id: 'freeTrial', key: 'freeTrial' }
     ];
+
+    loadLearningGoal();
+
+    const learningGoalInput = document.getElementById('learningGoal');
+    if (learningGoalInput) {
+        learningGoalInput.addEventListener('change', saveLearningGoal);
+    }
+
+    const learningGoalHelp = document.getElementById('learningGoalHelp');
+    if (learningGoalHelp) {
+        learningGoalHelp.addEventListener('click', function(e) {
+            e.preventDefault();
+            chrome.tabs.create({ url: 'https://www.google.fr' });
+        });
+    }
 
     const apiKeyHelp = document.getElementById('apiKeyHelp');
     if (apiKeyHelp) {
@@ -815,6 +831,21 @@ function initializePopup() {
     updateUserInfo();
     updateOptionsVisibility();
     addModelChoiceListener();
+}
+
+function saveLearningGoal() {
+    const learningGoal = document.getElementById('learningGoal').value;
+    chrome.storage.sync.set({ learningGoal: learningGoal }, function() {
+        console.log('Learning goal saved:', learningGoal);
+    });
+}
+
+function loadLearningGoal() {
+    chrome.storage.sync.get(['learningGoal'], function(result) {
+        if (result.learningGoal) {
+            document.getElementById('learningGoal').value = result.learningGoal;
+        }
+    });
 }
 
 // Event listener for when the DOM content is loaded

@@ -134,7 +134,7 @@
 }
 
 .anki-lingo-flash-container h1 {
-    font-size: 18px;
+    font-size: 17px;
     margin-bottom: 20px;
     color: var(--text-color);
 }
@@ -695,7 +695,7 @@
     }
 
     .anki-lingo-flash-container h1 {
-        font-size: 18px;
+        font-size: 17px;
     }
 
     .anki-lingo-flash-container label,
@@ -810,7 +810,7 @@
     padding: 24px;
     max-width: 600px;
     width: 90%;
-    max-height: 90vh;
+    max-height: 300;
     overflow-y: auto;
 }
 
@@ -1150,4 +1150,17 @@
 .anki-lingo-flash-container .api-key-label img {
     display: inline-block;
     vertical-align: middle;
+}
+
+.anki-lingo-flash-container .learning-goal-section {
+    margin-bottom: 20px;
+}
+
+.anki-lingo-flash-container #learningGoal {
+    width: 100%;
+    padding: 8px;
+    font-size: 13px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
 }
