@@ -40,7 +40,7 @@ document.addEventListener('DOMContentLoaded', function () {
     if (learningGoalHelp) {
         learningGoalHelp.addEventListener('click', function(e) {
             e.preventDefault();
-            chrome.tabs.create({ url: 'https://www.google.fr' });
+            chrome.tabs.create({ url: 'https://ankilingoflash.com/configure-ankilingoflash.html#learning-goal' });
         });
     }
 
