@@ -15,12 +15,12 @@
         <!-- Main title of the settings page, using internationalization -->
         <h1 data-i18n="settingsTitle"></h1>
 
-        <div class="form-group">
+        <div class="form-group card-section">
             <label for="learningGoal" class="api-key-label">
               <p data-i18n="enterLearningGoal"></p>
               <img src="icons/help_logo.svg" alt="Help" class="help-icon" id="learningGoalHelp">
             </label>
-            <input type="text" id="learningGoal" name="learningGoal" placeholder="e.g., Make new friends, Boost my career">
+            <input type="text" id="learningGoal" name="learningGoal" placeholder="e.g., Preparing for travel in France">
           </div>
 
         <!-- Toggle switch for AI model selection (local/remote) -->
@@ -38,7 +38,7 @@
         <!-- Remote settings section, initially hidden -->
         <div id="remoteSettings" style="display: none;">
             <!-- Language selection dropdown -->
-            <div class="form-group">
+            <div class="form-group card-section">
                 <p for="languageSelect" data-i18n="chooseLanguage"></p>
                 <select id="languageSelect">
                     <!-- Options for various languages, each using internationalization -->
@@ -70,6 +70,8 @@
                 </select>
             </div>
 
+
+            <div class="card-section">
             <!-- Toggle switch for own credits or free trial -->
             <div class="form-group">
                 <p data-i18n="ownCreditsOrFreeTrial"></p>
@@ -147,6 +149,7 @@
             <p id="flashcard-counter" data-i18n="freeFlashcardsLeft"></p>
             <button id="logout-button" class="btn" data-i18n="signOut"></button>
         </div>
+    </div>
     </div>
     <!-- Link to the JavaScript file for popup functionality -->
     <script src="popup.js"></script>

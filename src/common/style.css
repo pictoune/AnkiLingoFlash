@@ -1164,3 +1164,11 @@
     border-radius: 4px;
     box-sizing: border-box;
 }
+
+.card-section {
+    background-color: #ffffff;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    margin-bottom: 20px;
+    padding: 15px;
+  }
