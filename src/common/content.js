@@ -1155,7 +1155,6 @@ if (window.hasRun === true) {
                                     <div style='font-family: "Arial"; font-size: 20px; text-align: center;'>
                                         {{Selection}}
                                     </div>
-                                    ${chrome.i18n.getMessage('moveLineHere')}
                                     <br><br>
                                     <i>1. {{Example_1}}</i><br>
                                     <i>2. {{Example_2}}</i><br>
@@ -1172,7 +1171,7 @@ if (window.hasRun === true) {
                                 Front: `
                                     {{#Add Reverse}}
                                         {{Selection}}
-                                        <br>${chrome.i18n.getMessage('moveLineHere')}<br><br>
+                                        <br><br>
                                         <i>1. {{Example_1}}</i><br>
                                         <i>2. {{Example_2}}</i><br>
                                         <i>3. {{Example_3}}</i>
@@ -1363,12 +1362,14 @@ if (window.hasRun === true) {
                                 ${deckOptions}
                             </select>
                         </div>
+                        <!--
                         <div class="language-selection">
                             <label for="languageSelect">${chrome.i18n.getMessage("selectLanguage")}</label>
                             <select id="languageSelect">
                                 ${languageOptions}
                             </select>
                         </div>
+                        -->
                         <div class="create-reverse-checkbox">
                             <label for="createReverseCardToggle">${chrome.i18n.getMessage("CreateReverseCardLabel")}</label>
                             <label class="toggle-switch">
@@ -1402,17 +1403,17 @@ if (window.hasRun === true) {
             // Handle validate button click
             globalShadowRoot.querySelector('#validateButton').addEventListener('click', () => {
                 const selectedDeck = globalShadowRoot.querySelector('#deckSelect').value;
-                const selectedLanguage = globalShadowRoot.querySelector('#languageSelect').value;
+                //const selectedLanguage = globalShadowRoot.querySelector('#languageSelect').value;
                 const createReverse = globalShadowRoot.querySelector('#createReverseCardToggle').checked;
     
                 console.log("Selected deck:", selectedDeck);
-                console.log("Selected language:", selectedLanguage);
+                //console.log("Selected language:", selectedLanguage);
                 console.log("Create reverse card:", createReverse);
     
                 // Map selected language to long language code
-                const longLanguageCode = languageCodeMap[selectedLanguage];
-                const languageName = chrome.i18n.getMessage(longLanguageCode);
-                const modelName = `AnkiLingoFlash_0.4_${languageName}`;
+                //const longLanguageCode = languageCodeMap[selectedLanguage];
+                //const languageName = chrome.i18n.getMessage(longLanguageCode);
+                const modelName = `AnkiLingoFlash_0.4`;
                 console.log("Model name:", modelName);
     
                 // Save the user's choice for future use

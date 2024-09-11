@@ -163,7 +163,6 @@ function createCustomModelForLanguage(modelName) {
                                 <div style='font-family: "Arial"; font-size: 20px; text-align: center;'>
                                     {{Selection}}
                                 </div>
-                                ${chrome.i18n.getMessage('moveLineHere')}
                                 <br><br>
                                 <i>1. {{Example_1}}</i><br>
                                 <i>2. {{Example_2}}</i><br>
@@ -180,7 +179,6 @@ function createCustomModelForLanguage(modelName) {
                             Front: `
                                 {{#Add Reverse}}
                                     {{Selection}}
-                                    ${chrome.i18n.getMessage('moveLineHere')}
                                     <br><br>
                                     <i>1. {{Example_1}}</i><br>
                                     <i>2. {{Example_2}}</i><br>
@@ -226,7 +224,7 @@ function checkAndCreateModel() {
     ];
 
     const createModels = languages.map(lang => {
-        const modelName = `AnkiLingoFlash_0.4_${chrome.i18n.getMessage(lang)}`;
+        const modelName = `AnkiLingoFlash_0.4`;
         return createCustomModelForLanguage(modelName);
     });
 
