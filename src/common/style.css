@@ -1169,6 +1169,15 @@
     background-color: #ffffff;
     border-radius: 8px;
     box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-    margin-bottom: 20px;
-    padding: 15px;
+    margin-bottom: 8px;
+    padding: 5px;
   }
+
+/* Style pour les sous-sections en forme de cartes */
+.sub-card {
+    background-color: #f9f9f9;
+    border-radius: 6px;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.08);
+    margin: 10px 0;
+    padding: 12px;
+}

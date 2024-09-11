@@ -73,7 +73,7 @@
 
             <div class="card-section">
             <!-- Toggle switch for own credits or free trial -->
-            <div class="form-group">
+            <div class="form-group sub-card">
                 <p data-i18n="ownCreditsOrFreeTrial"></p>
                 <label class="toggle-switch">
                     <input type="checkbox" id="useOwnApiKeyToggle">
@@ -85,29 +85,30 @@
             </div>
 
             <!-- Own credits option, initially hidden -->
-            <div id="ownCreditsOption" style="display: none;">
+            <div class="sub-card" id="ownCreditsOption">
                 <label for="apiKey" class="api-key-label">
                   <span data-i18n="enterOpenAIKey"></span>
                   <img src="icons/help_logo.svg" alt="Help" class="help-icon" id="apiKeyHelp">
                 </label>
                 <div class="api-key-input-container">
                   <input type="password" id="apiKey" name="apiKey">
-                  <div id="apiKeyError" class="error-message" style="display: none;"></div>
+                  <div id="apiKeyError" class="error-message" style="display: none;">
                 </div>
+            </div>
                 <button id="validateApiKey" data-i18n="validate"></button>
               </div>
 
             <!-- Model choice section, for development mode -->
             <div id="modelChoiceSection" style="display: none;" data-dev-mode="true">
                 <br>
-                <div class="form-group">
+                <div class="form-group sub-card">
                     <p for="modelChoice" data-i18n="chooseChatGPTModel"></p>
                     <select id="modelChoice"></select>
                 </div>
             </div>
 
             <!-- Free trial option, initially hidden -->
-            <div id="freeTrialOption" style="display: none;">
+            <div class="sub-card" id="freeTrialOption" style="display: none;">
                 <p data-i18n="pleaseSignIn"></p>
                 <!-- Google Sign-In button -->
                 <button id="login-button" class="gsi-material-button">
@@ -143,7 +144,7 @@
         <div id="localModelMessage" style="display: none;" data-i18n="notAvailableYet"></div>
 
         <!-- User info section, initially hidden -->
-        <div id="user-info" style="display: none;">
+        <div class="sub-card" id="user-info" style="display: none;">
             <h2 data-i18n="welcome"></h2>
             <p data-i18n="loggedInMessage"></p>
             <p id="flashcard-counter" data-i18n="freeFlashcardsLeft"></p>
