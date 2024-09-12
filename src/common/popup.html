@@ -98,19 +98,9 @@
             </div>
                 <button id="validateApiKey" data-i18n="validate"></button>
               </div>
-            </div>
 
-            <!-- Model choice section, for development mode -->
-            <div id="modelChoiceSection" style="display: none;" data-dev-mode="true">
-                <br>
-                <div class="form-group sub-card">
-                    <p for="modelChoice" data-i18n="chooseChatGPTModel"></p>
-                    <select id="modelChoice"></select>
-                </div>
-            </div>
-
-            <!-- Free trial option, initially hidden -->
-            <div class="sub-card" id="freeTrialOption" style="display: none;">
+            
+              <div id="freeTrialOption" style="display: none;">
                 <p data-i18n="pleaseSignIn"></p>
                 <!-- Google Sign-In button -->
                 <button id="login-button" class="gsi-material-button">
@@ -140,18 +130,31 @@
                     </div>
                 </button>
             </div>
+              
+
+            <!-- User info section, initially hidden -->
+            <div id="user-info" style="display: none;">
+                <h2 data-i18n="welcome"></h2>
+                <p data-i18n="loggedInMessage"></p>
+                <p id="flashcard-counter" data-i18n="freeFlashcardsLeft"></p>
+                <button id="logout-button" class="btn" data-i18n="signOut"></button>
+            </div>
         </div>
+        
+
+            <div class= "sub-card" id="modelChoiceSection" style="display: none;" data-dev-mode="true">
+                <div class="form-group">
+                    <p for="modelChoice" data-i18n="chooseChatGPTModel"></p>
+                    <select id="modelChoice"></select>
+                </div>
+            </div>
+        </div>
+            
+            
+        
 
         <!-- Message for local model, initially hidden -->
         <div id="localModelMessage" style="display: none;" data-i18n="notAvailableYet"></div>
-
-        <!-- User info section, initially hidden -->
-        <div class="sub-card" id="user-info" style="display: none;">
-            <h2 data-i18n="welcome"></h2>
-            <p data-i18n="loggedInMessage"></p>
-            <p id="flashcard-counter" data-i18n="freeFlashcardsLeft"></p>
-            <button id="logout-button" class="btn" data-i18n="signOut"></button>
-        </div>
     </div>
     </div>
     <!-- Link to the JavaScript file for popup functionality -->
