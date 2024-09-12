@@ -17,11 +17,11 @@
 
         <div class="form-group card-section">
             <label for="learningGoal" class="api-key-label">
-              <p data-i18n="enterLearningGoal"></p>
-              <img src="icons/help_logo.svg" alt="Help" class="help-icon" id="learningGoalHelp">
+                <p data-i18n="enterLearningGoal"></p>
+                <img src="icons/help_logo.svg" alt="Help" class="help-icon" id="learningGoalHelp">
             </label>
             <input type="text" id="learningGoal" name="learningGoal" placeholder="e.g., Preparing for travel in France">
-          </div>
+        </div>
 
         <!-- Toggle switch for AI model selection (local/remote) -->
         <div class="form-group">
@@ -72,90 +72,90 @@
 
 
             <div class="card-section">
-            <!-- Toggle switch for own credits or free trial -->
-            <div class="form-group sub-card">
-                <p data-i18n="ownCreditsOrFreeTrial"></p>
-                <label class="toggle-switch">
-                    <input type="checkbox" id="useOwnApiKeyToggle">
-                    <span class="slider">
-                        <span class="toggle-label" data-state="off" data-i18n="freeTrial"></span>
-                        <span class="toggle-label" data-state="on" data-i18n="ownCredits"></span>
-                    </span>
-                </label>
-            </div>
-
-            <!-- Own credits option, initially hidden -->
-            <div class="sub-card">
-            <div id="ownCreditsOption">
-                <label for="apiKey" class="api-key-label">
-                  <span data-i18n="enterOpenAIKey"></span>
-                  <img src="icons/help_logo.svg" alt="Help" class="help-icon" id="apiKeyHelp">
-                </label>
-                <div class="api-key-input-container">
-                  <input type="password" id="apiKey" name="apiKey">
-                  <div id="apiKeyError" class="error-message" style="display: none;">
+                <!-- Toggle switch for own credits or free trial -->
+                <div class="form-group sub-card">
+                    <p data-i18n="ownCreditsOrFreeTrial"></p>
+                    <label class="toggle-switch">
+                        <input type="checkbox" id="useOwnApiKeyToggle">
+                        <span class="slider">
+                            <span class="toggle-label" data-state="off" data-i18n="freeTrial"></span>
+                            <span class="toggle-label" data-state="on" data-i18n="ownCredits"></span>
+                        </span>
+                    </label>
                 </div>
-            </div>
-                <button id="validateApiKey" data-i18n="validate"></button>
-              </div>
 
-            
-              <div id="freeTrialOption" style="display: none;">
-                <p data-i18n="pleaseSignIn"></p>
-                <!-- Google Sign-In button -->
-                <button id="login-button" class="gsi-material-button">
-                    <div class="gsi-material-button-state"></div>
-                    <div class="gsi-material-button-content-wrapper">
-                        <div class="gsi-material-button-icon">
-                            <!-- SVG for Google logo -->
-                            <svg version="1.1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48"
-                                xmlns:xlink="http://www.w3.org/1999/xlink" style="display: block;">
-                                <path fill="#EA4335"
-                                    d="M24 9.5c3.54 0 6.71 1.22 9.21 3.6l6.85-6.85C35.9 2.38 30.47 0 24 0 14.62 0 6.51 5.38 2.56 13.22l7.98 6.19C12.43 13.72 17.74 9.5 24 9.5z">
-                                </path>
-                                <path fill="#4285F4"
-                                    d="M46.98 24.55c0-1.57-.15-3.09-.38-4.55H24v9.02h12.94c-.58 2.96-2.26 5.48-4.78 7.18l7.73 6c4.51-4.18 7.09-10.36 7.09-17.65z">
-                                </path>
-                                <path fill="#FBBC05"
-                                    d="M10.53 28.59c-.48-1.45-.76-2.99-.76-4.59s.27-3.14.76-4.59l-7.98-6.19C.92 16.46 0 20.12 0 24c0 3.88.92 7.54 2.56 10.78l7.97-6.19z">
-                                </path>
-                                <path fill="#34A853"
-                                    d="M24 48c6.48 0 11.93-2.13 15.89-5.81l-7.73-6c-2.15 1.45-4.92 2.3-8.16 2.3-6.26 0-11.57-4.22-13.47-9.91l-7.98 6.19C6.51 42.62 14.62 48 24 48z">
-                                </path>
-                                <path fill="none" d="M0 0h48v48H0z"></path>
-                            </svg>
+                <!-- Own credits option, initially hidden -->
+                <div class="sub-card">
+                    <div id="ownCreditsOption">
+                        <label for="apiKey" class="api-key-label">
+                            <span data-i18n="enterOpenAIKey"></span>
+                            <img src="icons/help_logo.svg" alt="Help" class="help-icon" id="apiKeyHelp">
+                        </label>
+                        <div class="api-key-input-container">
+                            <input type="password" id="apiKey" name="apiKey">
+                            <div id="apiKeyError" class="error-message" style="display: none;">
+                            </div>
                         </div>
-                        <span class="gsi-material-button-contents" data-i18n="signInWithGoogle"></span>
-                        <span style="display: none;" data-i18n="signInWithGoogle"></span>
+                        <button id="validateApiKey" data-i18n="validate"></button>
                     </div>
-                </button>
-            </div>
-              
 
-            <!-- User info section, initially hidden -->
-            <div id="user-info" style="display: none;">
-                <h2 data-i18n="welcome"></h2>
-                <p data-i18n="loggedInMessage"></p>
-                <p id="flashcard-counter" data-i18n="freeFlashcardsLeft"></p>
-                <button id="logout-button" class="btn" data-i18n="signOut"></button>
-            </div>
-        </div>
-        
 
-            <div class= "sub-card" id="modelChoiceSection" style="display: none;" data-dev-mode="true">
-                <div class="form-group">
-                    <p for="modelChoice" data-i18n="chooseChatGPTModel"></p>
-                    <select id="modelChoice"></select>
+                    <div id="freeTrialOption" style="display: none;">
+                        <p data-i18n="pleaseSignIn"></p>
+                        <!-- Google Sign-In button -->
+                        <button id="login-button" class="gsi-material-button">
+                            <div class="gsi-material-button-state"></div>
+                            <div class="gsi-material-button-content-wrapper">
+                                <div class="gsi-material-button-icon">
+                                    <!-- SVG for Google logo -->
+                                    <svg version="1.1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48"
+                                        xmlns:xlink="http://www.w3.org/1999/xlink" style="display: block;">
+                                        <path fill="#EA4335"
+                                            d="M24 9.5c3.54 0 6.71 1.22 9.21 3.6l6.85-6.85C35.9 2.38 30.47 0 24 0 14.62 0 6.51 5.38 2.56 13.22l7.98 6.19C12.43 13.72 17.74 9.5 24 9.5z">
+                                        </path>
+                                        <path fill="#4285F4"
+                                            d="M46.98 24.55c0-1.57-.15-3.09-.38-4.55H24v9.02h12.94c-.58 2.96-2.26 5.48-4.78 7.18l7.73 6c4.51-4.18 7.09-10.36 7.09-17.65z">
+                                        </path>
+                                        <path fill="#FBBC05"
+                                            d="M10.53 28.59c-.48-1.45-.76-2.99-.76-4.59s.27-3.14.76-4.59l-7.98-6.19C.92 16.46 0 20.12 0 24c0 3.88.92 7.54 2.56 10.78l7.97-6.19z">
+                                        </path>
+                                        <path fill="#34A853"
+                                            d="M24 48c6.48 0 11.93-2.13 15.89-5.81l-7.73-6c-2.15 1.45-4.92 2.3-8.16 2.3-6.26 0-11.57-4.22-13.47-9.91l-7.98 6.19C6.51 42.62 14.62 48 24 48z">
+                                        </path>
+                                        <path fill="none" d="M0 0h48v48H0z"></path>
+                                    </svg>
+                                </div>
+                                <span class="gsi-material-button-contents" data-i18n="signInWithGoogle"></span>
+                                <span style="display: none;" data-i18n="signInWithGoogle"></span>
+                            </div>
+                        </button>
+                    </div>
+
+
+                    <!-- User info section, initially hidden -->
+                    <div id="user-info" style="display: none;">
+                        <h2 data-i18n="welcome"></h2>
+                        <p data-i18n="loggedInMessage"></p>
+                        <p id="flashcard-counter" data-i18n="freeFlashcardsLeft"></p>
+                        <button id="logout-button" class="btn" data-i18n="signOut"></button>
+                    </div>
+                </div>
+
+
+                <div class="sub-card" id="modelChoiceSection" style="display: none;" data-dev-mode="true">
+                    <div class="form-group">
+                        <p for="modelChoice" data-i18n="chooseChatGPTModel"></p>
+                        <select id="modelChoice"></select>
+                    </div>
                 </div>
             </div>
-        </div>
-            
-            
-        
 
-        <!-- Message for local model, initially hidden -->
-        <div id="localModelMessage" style="display: none;" data-i18n="notAvailableYet"></div>
-    </div>
+
+
+
+            <!-- Message for local model, initially hidden -->
+            <div id="localModelMessage" style="display: none;" data-i18n="notAvailableYet"></div>
+        </div>
     </div>
     <!-- Link to the JavaScript file for popup functionality -->
     <script src="popup.js"></script>
