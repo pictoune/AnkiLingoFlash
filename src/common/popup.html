@@ -3,29 +3,24 @@
 
 <head>
     <meta charset="UTF-8">
-    <!-- Title of the extension, using internationalization -->
     <title data-i18n="extensionDescription"></title>
-    <!-- Link to the stylesheet -->
     <link rel="stylesheet" type="text/css" href="style.css">
 </head>
 
 <body>
-    <!-- Main container for the popup -->
     <div id="popup-container" class="anki-lingo-flash-container fixed-width-popup">
-        <!-- Main title of the settings page, using internationalization -->
         <h1 data-i18n="settingsTitle"></h1>
 
         <div class="form-group card-section">
             <label for="learningGoal" class="api-key-label">
-                <p data-i18n="enterLearningGoal"></p>
+                <span class="label-text" data-i18n="enterLearningGoal"></span>
                 <img src="icons/help_logo.svg" alt="Help" class="help-icon" id="learningGoalHelp">
             </label>
             <input type="text" id="learningGoal" name="learningGoal" placeholder="e.g., Preparing for travel in France">
         </div>
 
-        <!-- Toggle switch for AI model selection (local/remote) -->
         <div class="form-group">
-            <label for="modelToggle" data-i18n="aiModelToggle"></label>
+            <label for="modelToggle" class="label-text" data-i18n="aiModelToggle"></label>
             <label class="toggle-switch">
                 <input type="checkbox" id="modelToggle">
                 <span class="slider">
@@ -35,13 +30,10 @@
             </label>
         </div>
 
-        <!-- Remote settings section, initially hidden -->
         <div id="remoteSettings" style="display: none;">
-            <!-- Language selection dropdown -->
             <div class="form-group card-section">
-                <p for="languageSelect" data-i18n="chooseLanguage"></p>
+                <label for="languageSelect" class="label-text" data-i18n="chooseLanguage"></label>
                 <select id="languageSelect">
-                    <!-- Options for various languages, each using internationalization -->
                     <option value="english_us" data-i18n="english_us"></option>
                     <option value="english_uk" data-i18n="english_uk"></option>
                     <option value="english_au" data-i18n="english_au"></option>
@@ -70,11 +62,9 @@
                 </select>
             </div>
 
-
             <div class="card-section">
-                <!-- Toggle switch for own credits or free trial -->
                 <div class="form-group sub-card">
-                    <p data-i18n="ownCreditsOrFreeTrial"></p>
+                    <label class="label-text" data-i18n="ownCreditsOrFreeTrial"></label>
                     <label class="toggle-switch">
                         <input type="checkbox" id="useOwnApiKeyToggle">
                         <span class="slider">
@@ -84,30 +74,25 @@
                     </label>
                 </div>
 
-                <!-- Own credits option, initially hidden -->
                 <div class="sub-card">
                     <div id="ownCreditsOption">
                         <label for="apiKey" class="api-key-label">
-                            <span data-i18n="enterOpenAIKey"></span>
+                            <label class="label-text" data-i18n="enterOpenAIKey"></label>
                             <img src="icons/help_logo.svg" alt="Help" class="help-icon" id="apiKeyHelp">
                         </label>
                         <div class="api-key-input-container">
                             <input type="password" id="apiKey" name="apiKey">
-                            <div id="apiKeyError" class="error-message" style="display: none;">
-                            </div>
+                            <div id="apiKeyError" class="error-message" style="display: none;"></div>
                         </div>
                         <button id="validateApiKey" data-i18n="validate"></button>
                     </div>
 
-
                     <div id="freeTrialOption" style="display: none;">
-                        <p data-i18n="pleaseSignIn"></p>
-                        <!-- Google Sign-In button -->
+                        <label class="label-text" data-i18n="pleaseSignIn"></label>
                         <button id="login-button" class="gsi-material-button">
                             <div class="gsi-material-button-state"></div>
                             <div class="gsi-material-button-content-wrapper">
                                 <div class="gsi-material-button-icon">
-                                    <!-- SVG for Google logo -->
                                     <svg version="1.1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48"
                                         xmlns:xlink="http://www.w3.org/1999/xlink" style="display: block;">
                                         <path fill="#EA4335"
@@ -131,8 +116,6 @@
                         </button>
                     </div>
 
-
-                    <!-- User info section, initially hidden -->
                     <div id="user-info" style="display: none;">
                         <h2 data-i18n="welcome"></h2>
                         <p data-i18n="loggedInMessage"></p>
@@ -141,23 +124,17 @@
                     </div>
                 </div>
 
-
                 <div class="sub-card" id="modelChoiceSection" style="display: none;" data-dev-mode="true">
                     <div class="form-group">
-                        <p for="modelChoice" data-i18n="chooseChatGPTModel"></p>
+                        <label for="modelChoice" class="label-text" data-i18n="chooseChatGPTModel"></label>
                         <select id="modelChoice"></select>
                     </div>
                 </div>
             </div>
 
-
-
-
-            <!-- Message for local model, initially hidden -->
             <div id="localModelMessage" style="display: none;" data-i18n="notAvailableYet"></div>
         </div>
     </div>
-    <!-- Link to the JavaScript file for popup functionality -->
     <script src="popup.js"></script>
 </body>
 

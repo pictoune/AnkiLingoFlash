@@ -1,3 +1,4 @@
+/* Styles de base pour le conteneur AnkiLingoFlash */
 .anki-lingo-flash-container {
     --primary-color: #45a049;
     --danger-color: #f44336;
@@ -9,12 +10,14 @@
     font-family: Arial, sans-serif;
 }
 
+/* Style pour le popup à largeur fixe */
 .fixed-width-popup {
     width: 275px !important;
     max-width: 100%;
     box-sizing: border-box;
 }
 
+/* Styles pour les options de l'essai gratuit et le message du modèle local */
 .anki-lingo-flash-container #freeTrialOption {
     text-align: center;
     padding-bottom: 5px;
@@ -24,6 +27,7 @@
     text-align: center;
 }
 
+/* Styles de base pour le corps */
 .anki-lingo-flash-container body {
     margin: 0;
     padding: 0;
@@ -31,6 +35,7 @@
     background-color: var(--background-color);
 }
 
+/* Styles pour le bouton de connexion Google */
 .anki-lingo-flash-container .gsi-material-button {
     -moz-user-select: none;
     -webkit-user-select: none;
@@ -60,6 +65,7 @@
     min-width: min-content;
 }
 
+/* Autres styles pour le bouton de connexion Google */
 .anki-lingo-flash-container .gsi-material-button .gsi-material-button-icon {
     height: 20px;
     margin-right: 12px;
@@ -113,6 +119,7 @@
     opacity: 38%;
 }
 
+/* Styles pour le conteneur principal */
 .anki-lingo-flash-container .container {
     width: 500px;
     padding: 20px;
@@ -124,6 +131,7 @@
     overflow: hidden;
 }
 
+/* Styles pour les titres */
 .anki-lingo-flash-container h1,
 .anki-lingo-flash-container h2,
 .anki-lingo-flash-container h3,
@@ -139,8 +147,9 @@
     color: var(--text-color);
 }
 
+/* Styles pour les groupes de formulaires */
 .anki-lingo-flash-container .form-group {
-    margin-bottom: 20px;
+    margin-bottom: 15px; /* Réduit de 20px à 15px pour un espacement plus compact */
     text-align: center;
 }
 
@@ -148,9 +157,10 @@
     margin-bottom: 0;
 }
 
+/* Styles pour les étiquettes, entrées, boutons et sélections */
 .anki-lingo-flash-container label {
     display: block;
-    margin-bottom: 10px;
+    margin-bottom: 5px; /* Réduit de 10px à 5px */
     color: var(--text-color);
     font-size: 14px;
 }
@@ -159,24 +169,25 @@
 .anki-lingo-flash-container select,
 .anki-lingo-flash-container textarea {
     width: 100%;
-    padding: 10px;
-    margin-bottom: 20px;
+    padding: 8px; /* Réduit de 10px à 8px */
+    margin-bottom: 15px; /* Réduit de 20px à 15px */
     border: 1px solid var(--border-color);
     border-radius: 4px;
     box-sizing: border-box;
-    font-size: 16px;
+    font-size: 14px; /* Réduit de 16px à 14px */
     text-align: center;
 }
 
+/* Styles pour les boutons */
 .anki-lingo-flash-container .btn:not(.gsi-material-button) {
     background-color: var(--primary-color);
     color: white;
     border: none;
-    padding: 10px 20px;
+    padding: 8px 16px; /* Réduit de 10px 20px à 8px 16px */
     text-align: center;
     text-decoration: none;
     display: inline-block;
-    font-size: 16px;
+    font-size: 14px; /* Réduit de 16px à 14px */
     margin: 4px 2px;
     cursor: pointer;
     border-radius: 4px;
@@ -188,14 +199,15 @@
     transform: scale(1.05);
 }
 
+/* Styles pour le toggle switch */
 .anki-lingo-flash-container .toggle-switch {
     position: relative;
     display: inline-block;
     width: 100%;
     max-width: 100%;
     box-sizing: border-box;
-    height: 34px;
-    margin-bottom: 20px;
+    height: 30px; /* Réduit de 34px à 30px */
+    margin-bottom: 15px; /* Réduit de 20px à 15px */
 }
 
 .anki-lingo-flash-container .toggle-switch input {
@@ -211,7 +223,7 @@
     bottom: 0;
     background-color: #ccc;
     transition: .4s;
-    border-radius: 34px;
+    border-radius: 22px; /* Ajusté pour correspondre à la nouvelle hauteur */
     width: 100%;
     text-align: center;
     display: flex;
@@ -222,26 +234,26 @@
 .anki-lingo-flash-container .slider:before {
     position: absolute;
     content: "";
-    height: 30px;
-    width: 30px;
+    height: 22px; /* Réduit de 30px à 26px */
+    width: 22px; /* Réduit de 30px à 26px */
     left: 2px;
     background-color: white;
     transition: .4s;
     border-radius: 50%;
 }
 
-.anki-lingo-flash-container input:checked+.slider {
+.anki-lingo-flash-container input:checked + .slider {
     background-color: #2196F3;
 }
 
 .anki-lingo-flash-container input:checked + .slider:before {
-    left: calc(100% - 32px);
+    left: calc(100% - 24px); /* Ajusté pour la nouvelle taille */
 }
 
 .anki-lingo-flash-container .slider::after {
     content: attr(data-off);
     color: white;
-    font-size: 14px;
+    font-size: 12px; /* Réduit de 14px à 12px */
 }
 
 .anki-lingo-flash-container input:checked+.slider::after {
@@ -251,7 +263,7 @@
 .anki-lingo-flash-container .toggle-label {
     position: absolute;
     color: white;
-    font-size: 14px;
+    font-size: 12px; /* Réduit de 14px à 12px */
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
@@ -272,12 +284,14 @@
     opacity: 0;
 }
 
+/* Styles pour les boutons de connexion et déconnexion */
 .anki-lingo-flash-container #login-button:not(.gsi-material-button),
 .anki-lingo-flash-container #logout-button:not(.gsi-material-button) {
     width: 80%;
     margin: 10px auto;
 }
 
+/* Styles pour les informations utilisateur */
 .anki-lingo-flash-container #user-info {
     display: flex;
     flex-direction: column;
@@ -285,15 +299,17 @@
     text-align: center;
 }
 
+/* Styles pour les messages d'erreur */
 .anki-lingo-flash-container .error-message {
     color: #f44336;
-    font-size: 14px;
+    font-size: 12px; /* Réduit de 14px à 12px */
     margin-top: 5px;
     margin-bottom: 10px;
     display: none;
     text-align: center;
 }
 
+/* Styles pour la validation de la clé API */
 .anki-lingo-flash-container #apiKey.invalid {
     border-color: #f44336;
     border-width: 2px;
@@ -311,18 +327,20 @@
     outline: none;
 }
 
+/* Styles pour le bouton de connexion Google */
 .anki-lingo-flash-container #login-button.gsi-material-button {
     width: 100%;
     max-width: 100%;
     box-sizing: border-box;
 }
 
+/* Styles généraux pour les boutons */
 .anki-lingo-flash-container button:not(.gsi-material-button),
 .anki-lingo-flash-container .btn:not(.gsi-material-button) {
     background-color: var(--primary-color);
     color: white;
     border: none;
-    padding: 10px 20px;
+    padding: 8px 16px; /* Réduit de 10px 20px à 8px 16px */
     text-align: center;
     text-decoration: none;
     display: block;
@@ -334,6 +352,7 @@
     width: 100%;
 }
 
+/* Styles pour le conteneur de popup */
 #popup-container {
     min-width: 250px;
     min-height: auto;
@@ -352,17 +371,18 @@
     transform: scale(1.05);
 }
 
+/* Styles spécifiques pour certains boutons */
 .anki-lingo-flash-container #saveSettings:not(.gsi-material-button),
 .anki-lingo-flash-container #login-button:not(.gsi-material-button) {
     background-color: #45a049;
     color: white;
     border: none;
-    padding: 10px 20px;
+    padding: 8px 16px; /* Réduit de 10px 20px à 8px 16px */
     text-align: center;
     text-decoration: none;
     display: block !important;
-    font-size: 16px;
-    margin: 20px auto;
+    font-size: 14px; /* Réduit de 16px à 14px */
+    margin: 15px auto; /* Réduit de 20px à 15px */
     cursor: pointer;
     border-radius: 4px;
     transition: background-color 0.3s, transform 0.3s;
@@ -378,23 +398,23 @@
     transform: scale(1.05);
 }
 
+/* Styles pour le bouton de déconnexion */
 .anki-lingo-flash-container #logout-button:not(.gsi-material-button) {
     background-color: transparent;
     color: #5f6367;
     border: none;
-    padding: 10px 20px 10px 40px;
+    padding: 8px 16px 8px 36px; /* Ajusté pour l'icône */
     text-align: center;
     text-decoration: none;
     display: flex;
     align-items: center;
-    font-size: 16px;
-    margin: 20px auto;
+    font-size: 14px; /* Réduit de 16px à 14px */
+    margin: 15px auto; /* Réduit de 20px à 15px */
     cursor: pointer;
     border-radius: 4px;
     transition: background-color 0.3s, transform 0.3s;
     position: relative;
     justify-content: center;
-    align-items: center;
 }
 
 .anki-lingo-flash-container #logout-button:not(.gsi-material-button)::before {
@@ -403,8 +423,8 @@
     left: 10px;
     top: 50%;
     transform: translateY(-50%);
-    width: 24px;
-    height: 24px;
+    width: 20px; /* Réduit de 24px à 20px */
+    height: 20px; /* Réduit de 24px à 20px */
     background-image: url('icons/logout_logo.svg');
     background-size: contain;
     background-repeat: no-repeat;
@@ -415,26 +435,28 @@
     background-color: transparent;
 }
 
+/* Styles pour les boutons modaux */
 .anki-lingo-flash-container .modal-button:not(.gsi-material-button) {
     background-color: var(--primary-color);
     color: white;
     border: none;
-    padding: 10px 20px;
+    padding: 8px 16px; /* Réduit de 10px 20px à 8px 16px */
     text-align: center;
     text-decoration: none;
     display: inline-block;
-    font-size: 16px;
+    font-size: 14px; /* Réduit de 16px à 14px */
     border-radius: 4px;
     cursor: pointer;
     transition: background-color 0.3s, transform 0.3s;
     margin: 0;
-    width: 122px;
+    width: 110px; /* Réduit de 122px à 110px */
 }
 
 .anki-lingo-flash-container .modal-button:not(.gsi-material-button):hover {
     transform: scale(1.05);
 }
 
+/* Styles pour les sections et sous-sections */
 .anki-lingo-flash-container .section,
 .anki-lingo-flash-container .sub-section {
     text-align: center;
@@ -444,7 +466,7 @@
 .anki-lingo-flash-container .section h3,
 .anki-lingo-flash-container .sub-section h4 {
     margin: 0;
-    font-size: 18px;
+    font-size: 16px; /* Réduit de 18px à 16px */
 }
 
 .anki-lingo-flash-container .sub-section h4 {
@@ -458,9 +480,10 @@
     margin-top: 0;
     margin-bottom: 0;
     text-align: center;
-    min-height: 40px;
+    min-height: 35px; /* Réduit de 40px à 35px */
 }
 
+/* Styles pour les modaux */
 #anki-lingo-flash-anki-not-open-modal,
 #anki-lingo-flash-deck-selection-modal {
     position: fixed;
@@ -481,10 +504,10 @@
     background-color: rgba(255, 255, 255, 0.95);
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1), 0 1px 3px rgba(0, 0, 0, 0.08);
     border-radius: 12px;
-    padding: 24px;
-    max-width: 600px;
+    padding: 20px; /* Réduit de 24px à 20px */
+    max-width: 550px; /* Réduit de 600px à 550px */
     width: 90%;
-    max-height: 90vh;
+    max-height: 85vh; /* Réduit de 90vh à 85vh */
     overflow-y: auto;
 }
 
@@ -497,13 +520,13 @@
     top: 50%;
     transform: translate(-50%, -50%);
     width: 90%;
-    max-width: 600px;
-    max-height: 90vh;
+    max-width: 550px; /* Réduit de 600px à 550px */
+    max-height: 85vh; /* Réduit de 90vh à 85vh */
     background-color: var(--modal-background);
     color: var(--text-color);
     text-align: center;
     border-radius: 8px;
-    padding: 20px;
+    padding: 18px; /* Réduit de 20px à 18px */
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
     border: 1px solid rgba(0, 0, 0, 0.1);
     backdrop-filter: blur(4px);
@@ -528,6 +551,7 @@
     gap: 10px;
 }
 
+/* Styles pour les boutons spécifiques */
 .anki-lingo-flash-container #cancelButton:not(.gsi-material-button),
 .anki-lingo-flash-container #cancelReviewButton:not(.gsi-material-button) {
     background-color: #cccccc;
@@ -545,14 +569,15 @@
     visibility: visible;
     display: inline-block;
     width: auto;
-    margin-top: 10px;
-    max-width: 120px;
+    margin-top: 8px; /* Réduit de 10px à 8px */
+    max-width: 110px; /* Réduit de 120px à 110px */
 }
 
 .anki-lingo-flash-container #validateApiKey:not(.gsi-material-button):hover {
     background-color: #45a049;
 }
 
+/* Styles pour les options de crédits */
 .anki-lingo-flash-container #ownCreditsOption {
     display: block;
 }
@@ -569,6 +594,7 @@
     max-width: 100%;
 }
 
+/* Styles pour les entrées avec boutons */
 .anki-lingo-flash-container .input-with-button {
     display: flex;
     align-items: flex-start;
@@ -577,33 +603,35 @@
 
 .anki-lingo-flash-container .editable {
     flex-grow: 1;
-    margin-right: 10px;
-    width: calc(100% - 50px);
+    margin-right: 8px; /* Réduit de 10px à 8px */
+    width: calc(100% - 45px); /* Ajusté pour le bouton plus petit */
     padding: 5px;
-    margin-bottom: 10px;
+    margin-bottom: 8px; /* Réduit de 10px à 8px */
     border: 1px solid var(--border-color);
     border-radius: 4px;
-    font-size: 14px;
+    font-size: 13px; /* Réduit de 14px à 13px */
     resize: none;
     overflow-y: auto;
-    min-height: 20px;
-    max-height: 150px;
+    min-height: 18px; /* Réduit de 20px à 18px */
+    max-height: 140px; /* Réduit de 150px à 140px */
     transition: height 0.2s;
     box-sizing: border-box;
 }
 
 .anki-lingo-flash-container .spacer {
-    width: 40px;
-    height: 40px;
+    width: 35px; /* Réduit de 40px à 35px */
+    height: 35px; /* Réduit de 40px à 35px */
     flex-shrink: 0;
-    margin-left: 10px;
+    margin-left: 8px; /* Réduit de 10px à 8px */
 }
 
+/* Styles pour le bouton de régénération */
 #anki-lingo-flash-review-modal .regenerate-button:hover {
     transform: scale(1.1);
     background-color: transparent;
 }
 
+/* Styles pour le choix de modèle */
 .anki-lingo-flash-container #modelChoice {
     border: 1px solid #ccc;
     border-radius: 4px;
@@ -616,10 +644,11 @@
     outline: none;
 }
 
+/* Styles pour la clé API */
 .anki-lingo-flash-container #apiKey {
     height: auto;
     padding: 5px;
-    font-size: 16px;
+    font-size: 14px; /* Réduit de 16px à 14px */
     line-height: normal;
     box-sizing: border-box;
     background-color: white;
@@ -628,9 +657,10 @@
     width: 100%;
     color: var(--text-color);
     outline: none;
-    margin-bottom: 10px;
+    margin-bottom: 8px; /* Réduit de 10px à 8px */
 }
 
+/* Styles pour les sélections */
 .anki-lingo-flash-container select {
     appearance: auto;
     background-color: white;
@@ -638,7 +668,7 @@
     padding: 5px;
     border-radius: 4px;
     width: 100%;
-    font-size: 16px;
+    font-size: 14px; /* Réduit de 16px à 14px */
     color: var(--text-color);
     cursor: pointer;
     outline: none;
@@ -652,6 +682,7 @@
     border: 1px solid #ccc;
 }
 
+/* Styles responsives */
 @media screen and (max-width: 768px) {
     .anki-lingo-flash-container .editable {
         width: 100%;
@@ -670,7 +701,7 @@
     }
 
     .anki-lingo-flash-container .modal-content {
-        max-height: calc(80vh - 120px);
+        max-height: calc(80vh - 110px); /* Ajusté pour le nouveau padding */
     }
 }
 
@@ -680,7 +711,7 @@
     }
 
     .anki-lingo-flash-container .modal-content {
-        max-height: calc(95vh - 120px);
+        max-height: calc(95vh - 110px); /* Ajusté pour le nouveau padding */
     }
 
     .anki-lingo-flash-container .button-container {
@@ -691,11 +722,11 @@
 
 @media screen and (max-width: 480px) {
     .anki-lingo-flash-container .container {
-        padding: 10px;
+        padding: 8px; /* Réduit de 10px à 8px */
     }
 
     .anki-lingo-flash-container h1 {
-        font-size: 17px;
+        font-size: 16px; /* Réduit de 17px à 16px */
     }
 
     .anki-lingo-flash-container label,
@@ -712,9 +743,9 @@
     }
 
     .anki-lingo-flash-container .modal-button:not(.gsi-material-button) {
-        padding: 6px 12px;
+        padding: 6px 10px; /* Réduit de 6px 12px à 6px 10px */
         font-size: 12px;
-        width: 80px;
+        width: 75px; /* Réduit de 80px à 75px */
     }
 
     .anki-lingo-flash-container .button-container {
@@ -723,12 +754,12 @@
     }
 
     .anki-lingo-flash-container .modal-button:not(.gsi-material-button) {
-        margin-bottom: 10px;
+        margin-bottom: 8px; /* Réduit de 10px à 8px */
         width: 100%;
     }
 }
 
-/* Styles for elements that should be outside the container */
+/* Styles pour les éléments en dehors du conteneur */
 #toast-container {
     font-family: Arial, sans-serif;
     position: fixed;
@@ -737,7 +768,7 @@
     right: 20px;
     display: flex;
     flex-direction: column;
-    gap: 10px;
+    gap: 8px; /* Réduit de 10px à 8px */
 }
 
 .toast {
@@ -747,9 +778,9 @@
     color: #333;
     text-align: center;
     border-radius: 8px;
-    padding: 16px;
-    margin-top: 10px;
-    font-size: 16px;
+    padding: 14px; /* Réduit de 16px à 14px */
+    margin-top: 8px; /* Réduit de 10px à 8px */
+    font-size: 14px; /* Réduit de 16px à 14px */
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
     border: 1px solid rgba(0, 0, 0, 0.1);
     backdrop-filter: blur(4px);
@@ -764,21 +795,10 @@
 }
 
 @keyframes ellipsis {
-    0% {
-        content: "";
-    }
-
-    33% {
-        content: ".";
-    }
-
-    66% {
-        content: "..";
-    }
-
-    100% {
-        content: "...";
-    }
+    0% { content: ""; }
+    33% { content: "."; }
+    66% { content: ".."; }
+    100% { content: "..."; }
 }
 
 .toast .ellipsis::after {
@@ -789,6 +809,7 @@
     text-align: left;
 }
 
+/* Styles pour le modal de revue */
 #anki-lingo-flash-review-modal {
     position: fixed;
     top: 0;
@@ -807,10 +828,10 @@
     background-color: rgba(255, 255, 255, 0.95);
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1), 0 1px 3px rgba(0, 0, 0, 0.08);
     border-radius: 12px;
-    padding: 24px;
-    max-width: 600px;
+    padding: 20px; /* Réduit de 24px à 20px */
+    max-width: 550px; /* Réduit de 600px à 550px */
     width: 90%;
-    max-height: 300;
+    max-height: 80vh; /* Réduit de 300px à 80vh pour plus de flexibilité */
     overflow-y: auto;
 }
 
@@ -818,15 +839,15 @@
 #anki-lingo-flash-review-modal h3,
 #anki-lingo-flash-review-modal h4 {
     color: #333;
-    margin-bottom: 10px;
+    margin-bottom: 8px; /* Réduit de 10px à 8px */
 }
 
 #anki-lingo-flash-review-modal .modal-content {
-    margin-bottom: 20px;
+    margin-bottom: 15px; /* Réduit de 20px à 15px */
 }
 
 #anki-lingo-flash-review-modal .section {
-    margin-bottom: 15px;
+    margin-bottom: 12px; /* Réduit de 15px à 12px */
 }
 
 #anki-lingo-flash-review-modal .input-with-button {
@@ -836,17 +857,17 @@
 
 #anki-lingo-flash-review-modal .editable {
     flex-grow: 1;
-    margin-right: 10px;
+    margin-right: 8px; /* Réduit de 10px à 8px */
     padding: 5px;
     border: 1px solid #ccc;
     border-radius: 4px;
 }
 
 #anki-lingo-flash-review-modal .regenerate-button {
-    width: 30px;
-    height: 30px;
+    width: 28px; /* Réduit de 30px à 28px */
+    height: 28px; /* Réduit de 30px à 28px */
     background-color: transparent;
-    background-size: 20px 20px;
+    background-size: 18px 18px; /* Réduit de 20px à 18px */
     background-repeat: no-repeat;
     background-position: center;
     border: none;
@@ -856,17 +877,17 @@
     display: inline-block !important;
     visibility: visible !important;
     opacity: 1 !important;
-    margin-left: 10px;
+    margin-left: 8px; /* Réduit de 10px à 8px */
 }
 
 #anki-lingo-flash-review-modal .button-container {
     display: flex;
     justify-content: center;
-    gap: 10px;
+    gap: 8px; /* Réduit de 10px à 8px */
 }
 
 #anki-lingo-flash-review-modal .modal-button:not(.gsi-material-button) {
-    padding: 8px 16px;
+    padding: 8px 14px; /* Réduit de 8px 16px à 8px 14px */
     border: none;
     border-radius: 4px;
     cursor: pointer;
@@ -886,40 +907,39 @@
 
 #anki-lingo-flash-review-modal #cancelReviewButton:not(.gsi-material-button):hover,
 #anki-lingo-flash-review-modal #cancelButton:not(.gsi-material-button):hover {
-    background-color: #cccccc;
+    background-color: #bfbfbf;
 }
 
 #anki-lingo-flash-review-modal #validateButton:not(.gsi-material-button):hover,
 #anki-lingo-flash-review-modal #retryButton:not(.gsi-material-button):hover {
-    background-color: #45a049;
+    background-color: #3d8b41;
 }
 
 @media (max-width: 600px) {
-
     #anki-lingo-flash-review-modal #reviewModal,
     #anki-lingo-flash-review-modal #flashcardModal {
         width: 95%;
-        padding: 15px;
+        padding: 12px; /* Réduit de 15px à 12px */
     }
 
     #anki-lingo-flash-review-modal h2,
     #anki-lingo-flash-review-modal h2 {
-        font-size: 20px;
+        font-size: 18px; /* Réduit de 20px à 18px */
     }
 
     #anki-lingo-flash-review-modal h3,
     #anki-lingo-flash-review-modal h3 {
-        font-size: 16px;
+        font-size: 15px; /* Réduit de 16px à 15px */
     }
 
     #anki-lingo-flash-review-modal .editable {
-        font-size: 14px;
+        font-size: 13px; /* Réduit de 14px à 13px */
     }
 
     #anki-lingo-flash-review-modal .modal-button:not(.gsi-material-button),
     #anki-lingo-flash-review-modal .modal-button:not(.gsi-material-button) {
-        font-size: 14px;
-        padding: 8px 16px;
+        font-size: 13px; /* Réduit de 14px à 13px */
+        padding: 7px 12px; /* Réduit de 8px 16px à 7px 12px */
     }
 }
 
@@ -930,7 +950,6 @@
     text-align: center;
 }
 
-/* Pour s'assurer que le champ de saisie est également centré */
 .anki-lingo-flash-container #ownCreditsOption {
     display: flex;
     flex-direction: column;
@@ -964,10 +983,6 @@
     max-width: 100%;
     margin: 0 auto;
     display: block;
-}
-
-#ownCreditsOption,
-#user-info {
     text-align: center;
 }
 
@@ -979,31 +994,31 @@
 }
 
 .anki-lingo-flash-container .language-selection {
-    margin-top: 20px;
-    margin-bottom: 20px;
+    margin-top: 15px; /* Réduit de 20px à 15px */
+    margin-bottom: 15px; /* Réduit de 20px à 15px */
 }
 
 .anki-lingo-flash-container .language-selection label {
     display: block;
-    margin-bottom: 5px;
+    margin-bottom: 4px; /* Réduit de 5px à 4px */
 }
 
 .anki-lingo-flash-container .language-selection select {
     width: 100%;
     padding: 5px;
-    font-size: 16px;
+    font-size: 14px; /* Réduit de 16px à 14px */
 }
 
 #anki-lingo-flash-deck-selection-modal .form-group {
-    margin-bottom: 15px;
+    margin-bottom: 12px; /* Réduit de 15px à 12px */
 }
 
 #anki-lingo-flash-deck-selection-modal select {
     width: 100%;
-    padding: 10px;
+    padding: 8px; /* Réduit de 10px à 8px */
     border: 1px solid #ccc;
     border-radius: 4px;
-    font-size: 16px;
+    font-size: 14px; /* Réduit de 16px à 14px */
     box-sizing: border-box;
 }
 
@@ -1018,7 +1033,7 @@
 
 #anki-lingo-flash-review-modal .sub-section h4 {
     color: #888;
-    margin-bottom: 5px;
+    margin-bottom: 4px; /* Réduit de 5px à 4px */
 }
 
 #anki-lingo-flash-review-modal .modal-content {
@@ -1026,7 +1041,7 @@
     flex-direction: column;
     align-items: flex-start;
     width: 100%;
-    max-width: 600px;
+    max-width: 550px; /* Réduit de 600px à 550px */
     margin: 0 auto;
     text-align: left;
 }
@@ -1034,14 +1049,14 @@
 #anki-lingo-flash-review-modal h2 {
     text-align: center;
     width: 100%;
-    margin-bottom: 20px;
+    margin-bottom: 15px; /* Réduit de 20px à 15px */
 }
 
 #anki-lingo-flash-review-modal h3,
 #anki-lingo-flash-review-modal h4 {
     text-align: center;
     width: 100%;
-    margin-bottom: 10px;
+    margin-bottom: 8px; /* Réduit de 10px à 8px */
 }
 
 #anki-lingo-flash-review-modal .section,
@@ -1050,7 +1065,7 @@
     display: flex;
     flex-direction: column;
     align-items: flex-start;
-    margin-bottom: 15px;
+    margin-bottom: 12px; /* Réduit de 15px à 12px */
 }
 
 #anki-lingo-flash-review-modal .sub-section-content {
@@ -1067,64 +1082,62 @@
 }
 
 #anki-lingo-flash-review-modal textarea.editable:not(.rtl-language) {
-    width: calc(100% - 40px);
+    width: calc(100% - 35px); /* Ajusté pour le bouton plus petit */
     text-align: left;
     padding: 5px;
-    margin-bottom: 10px;
+    margin-bottom: 8px; /* Réduit de 10px à 8px */
 }
 
 #anki-lingo-flash-review-modal textarea.editable.rtl-language {
-    width: calc(100% - 40px);
+    width: calc(100% - 35px); /* Ajusté pour le bouton plus petit */
     text-align: right;
     padding: 5px;
-    margin-bottom: 10px;
+    margin-bottom: 8px; /* Réduit de 10px à 8px */
 }
 
 #anki-lingo-flash-review-modal .regenerate-button {
-    margin-left: 10px;
+    margin-left: 8px; /* Réduit de 10px à 8px */
 }
 
 #anki-lingo-flash-review-modal .button-container {
     display: flex;
-    justify-content: flex-center;
+    justify-content: center;
     width: 100%;
-    margin-top: 20px;
+    margin-top: 15px; /* Réduit de 20px à 15px */
 }
 
 #anki-lingo-flash-review-modal .modal-button:not(.gsi-material-button) {
-    margin-right: 10px;
+    margin-right: 8px; /* Réduit de 10px à 8px */
 }
 
-/* Ajoutez ces styles à la fin du fichier style.css */
-
 .anki-lingo-flash-container .sub-section-content {
-    margin-bottom: 15px;
+    margin-bottom: 12px; /* Réduit de 15px à 12px */
 }
 
 #anki-lingo-flash-review-modal .sub-section h4 {
     color: #555;
-    margin-bottom: 5px;
-    font-size: 16px;
+    margin-bottom: 4px; /* Réduit de 5px à 4px */
+    font-size: 15px; /* Réduit de 16px à 15px */
 }
 
 #anki-lingo-flash-review-modal textarea.editable {
-    width: calc(100% - 40px);
-    min-height: 60px;
+    width: calc(100% - 35px); /* Ajusté pour le bouton plus petit */
+    min-height: 55px; /* Réduit de 60px à 55px */
     resize: vertical;
 }
 
 #anki-lingo-flash-review-modal .regenerate-button {
     align-self: flex-start;
-    margin-top: 5px;
+    margin-top: 4px; /* Réduit de 5px à 4px */
 }
 
 @media screen and (max-width: 480px) {
     #anki-lingo-flash-review-modal .sub-section h4 {
-        font-size: 14px;
+        font-size: 13px; /* Réduit de 14px à 13px */
     }
 
     #anki-lingo-flash-review-modal textarea.editable {
-        font-size: 14px;
+        font-size: 13px; /* Réduit de 14px à 13px */
     }
 }
 
@@ -1133,13 +1146,13 @@
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    margin-bottom: 5px;
+    margin-bottom: 4px; /* Réduit de 5px à 4px */
 }
 
 .anki-lingo-flash-container .help-icon {
-    width: 14px;
-    height: 14px;
-    margin-left: 6px;
+    width: 13px; /* Réduit de 14px à 13px */
+    height: 13px; /* Réduit de 14px à 13px */
+    margin-left: 5px; /* Réduit de 6px à 5px */
     vertical-align: middle;
     cursor: pointer;
     position: relative;
@@ -1153,12 +1166,12 @@
 }
 
 .anki-lingo-flash-container .learning-goal-section {
-    margin-bottom: 20px;
+    margin-bottom: 15px; /* Réduit de 20px à 15px */
 }
 
 .anki-lingo-flash-container #learningGoal {
     width: 100%;
-    padding: 8px;
+    padding: 7px; /* Réduit de 8px à 7px */
     font-size: 13px;
     border: 1px solid #ccc;
     border-radius: 4px;
@@ -1169,15 +1182,154 @@
     background-color: #ffffff;
     border-radius: 8px;
     box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-    margin-bottom: 8px;
+    margin-bottom: 7px; /* Réduit de 8px à 7px */
     padding: 5px;
-  }
+}
 
 /* Style pour les sous-sections en forme de cartes */
 .sub-card {
     background-color: #f9f9f9;
     border-radius: 6px;
     box-shadow: 0 1px 3px rgba(0,0,0,0.08);
-    margin: 10px 0;
-    padding: 12px;
+    margin: 8px 0; /* Réduit de 10px à 8px */
+    padding: 10px; /* Réduit de 12px à 10px */
+}
+
+/* Réduire l'espace dans les sous-cartes */
+.sub-card {
+    padding: 8px;
+    margin: 5px 0;
+}
+
+/* Ajuster l'espacement du toggle switch */
+.toggle-switch {
+    margin-bottom: 8px; /* Réduit de 10px à 8px */
+}
+
+/* Réduire la taille du texte dans les sous-cartes si nécessaire */
+.sub-card label, .sub-card .toggle-label {
+    font-size: 13px; /* Réduit de 14px à 13px */
+}
+
+/* Ajuster la hauteur du toggle switch si nécessaire */
+.toggle-switch, .slider {
+    height: 26px; /* Réduit de 28px à 26px */
+}
+
+/* Ajuster la position du cercle du toggle switch */
+.slider:before {
+    height: 22px; /* Réduit de 24px à 22px */
+    width: 22px; /* Réduit de 24px à 22px */
+}
+
+/* Ajuster la position du texte dans le toggle switch */
+.toggle-label {
+    line-height: 26px; /* Réduit de 28px à 26px */
+}
+
+/* Réduire l'espace entre les éléments dans la sous-carte */
+.sub-card > * {
+    margin-bottom: 4px; /* Réduit de 5px à 4px */
+}
+
+/* Ajuster l'espacement du dernier élément de la sous-carte */
+.sub-card > *:last-child {
+    margin-bottom: 0;
+}
+
+/* Ajustements supplémentaires pour une meilleure harmonisation */
+.anki-lingo-flash-container h1,
+.anki-lingo-flash-container h2,
+.anki-lingo-flash-container h3,
+.anki-lingo-flash-container h4 {
+    margin-bottom: 8px; /* Uniformisé à 8px */
+}
+
+.anki-lingo-flash-container .form-group {
+    margin-bottom: 12px; /* Uniformisé à 12px */
+}
+
+.anki-lingo-flash-container input,
+.anki-lingo-flash-container select,
+.anki-lingo-flash-container textarea {
+    margin-bottom: 12px; /* Uniformisé à 12px */
+}
+
+.anki-lingo-flash-container button:not(.gsi-material-button),
+.anki-lingo-flash-container .btn:not(.gsi-material-button) {
+    margin: 8px auto; /* Réduit de 10px à 8px */
+}
+
+#anki-lingo-flash-review-modal .section,
+#anki-lingo-flash-review-modal .sub-section {
+    margin-bottom: 10px; /* Uniformisé à 10px */
+}
+
+#anki-lingo-flash-review-modal .editable {
+    margin-bottom: 6px; /* Réduit de 8px à 6px */
+}
+
+/* Ajustements pour les espaces entre les cartes */
+.card-section + .card-section {
+    margin-top: 10px; /* Espace entre les cartes principales */
+}
+
+.sub-card + .sub-card {
+    margin-top: 8px; /* Espace entre les sous-cartes */
+}
+
+/* Ajustements pour le modal de revue */
+#anki-lingo-flash-review-modal .modal-content {
+    padding: 15px; /* Réduit de 18px à 15px */
+}
+
+#anki-lingo-flash-review-modal .button-container {
+    padding-top: 8px; /* Réduit de 10px à 8px */
+}
+
+/* Ajustements pour les toasts */
+.toast {
+    padding: 12px; /* Réduit de 14px à 12px */
+    margin-top: 6px; /* Réduit de 8px à 6px */
+    font-size: 13px; /* Réduit de 14px à 13px */
+}
+
+/* Ajustements pour les modaux */
+#anki-lingo-flash-anki-not-open-modal #ankiNotOpenModal,
+#anki-lingo-flash-deck-selection-modal #flashcardModal,
+.anki-lingo-flash-container #reviewModal,
+.anki-lingo-flash-container #flashcardModal,
+.anki-lingo-flash-container #ankiNotOpenModal {
+    padding: 15px; /* Uniformisé à 15px */
+}
+
+/* Ajustements finaux pour garantir la cohérence */
+.anki-lingo-flash-container {
+    font-size: 14px; /* Taille de police de base */
+    line-height: 1.4; /* Hauteur de ligne pour une meilleure lisibilité */
+}
+
+.anki-lingo-flash-container * {
+    box-sizing: border-box;
+}
+
+/* Assurez-vous que tous les éléments interactifs ont une taille minimale pour une bonne ergonomie mobile */
+.anki-lingo-flash-container button,
+.anki-lingo-flash-container input,
+.anki-lingo-flash-container select,
+.anki-lingo-flash-container .toggle-switch {
+    min-height: 36px; /* Taille minimale pour une bonne interaction tactile */
+}
+
+/* Ajustez les marges et les paddings globaux pour un look plus compact */
+.anki-lingo-flash-container {
+    padding: 10px;
+}
+
+.anki-lingo-flash-container > * {
+    margin-bottom: 10px;
+}
+
+.anki-lingo-flash-container > *:last-child {
+    margin-bottom: 0;
 }
