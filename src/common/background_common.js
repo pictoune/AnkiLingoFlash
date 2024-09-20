@@ -528,7 +528,7 @@ async function callChatGPTAPI(userId, type, userMessage, language, apiKey = null
 
             try {
                 const learningGoal = result.learningGoal || "General language learning";
-                const conversation = await getOrCreateConversation(userId, type, language, learningGoal);
+                const conversation = await getOrCreateConversation(userId, type, learningGoal);
                 conversation.messages.push({ role: 'user', content: userMessage });
 
                 const url = result.isOwnCredits
