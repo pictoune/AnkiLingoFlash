@@ -1063,7 +1063,11 @@ if (window.hasRun === true) {
                 }
             } catch (error) {
                 console.log("Error calling ChatGPT API:", error);
-                showToast(chrome.i18n.getMessage("errorCreatingFlashcard"));
+                if (error.message.includes('HTTP error! status: 429')) {
+                    showToast(chrome.i18n.getMessage("rateLimitReached"));
+                } else {
+                    showToast(chrome.i18n.getMessage("errorCreatingFlashcard"));
+                }
             }
         }
     }

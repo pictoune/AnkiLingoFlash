@@ -764,6 +764,9 @@
   },
   "enterLearningGoal": {
     "message": "Enter your language learning goal:"
+},
+"rateLimitReached": {
+  "message": "OpenAI API rate limit reached. Please wait a moment before generating another flashcard."
 }
 }
 
