@@ -531,6 +531,9 @@ async function callChatGPTAPI(userId, type, userMessage, language, apiKey = null
                 const conversation = await getOrCreateConversation(userId, type, learningGoal);
                 conversation.messages.push({ role: 'user', content: userMessage });
 
+                const systemPrompt = conversation.messages[0].content;
+                console.log("System Prompt:", systemPrompt);
+
                 const url = result.isOwnCredits
                     ? 'https://api.openai.com/v1/chat/completions'
                     : 'https://anki-lingo-flash.piriouvictor.workers.dev/api/chat';
@@ -561,15 +564,15 @@ async function callChatGPTAPI(userId, type, userMessage, language, apiKey = null
                                     },
                                     example_1: {
                                         type: "string",
-                                        description: `First example sentence using the term or expression in the same language as the given term`
+                                        description: `First example sentence using the term or expression in the same language as the given term. Consider the learning goal: ${learningGoal}`
                                     },
                                     example_2: {
                                         type: "string",
-                                        description: `Second example sentence using the term or expression in the same language as the given term`
+                                        description: `Second example sentence using the term or expression in the same language as the given term. Consider the learning goal: ${learningGoal}`
                                     },
                                     example_3: {
                                         type: "string",
-                                        description: `Third example sentence using the term or expression in the same language as the given term`
+                                        description: `Third example sentence using the term or expression in the same language as the given term. Consider the learning goal: ${learningGoal}`
                                     },
                                     ...(includeMnemonic ? {
                                         mnemonic: {
@@ -595,15 +598,15 @@ async function callChatGPTAPI(userId, type, userMessage, language, apiKey = null
                                 properties: {
                                     example_1: {
                                         type: "string",
-                                        description: `First example sentence using the term in the same language as the given term`
+                                        description: `First example sentence using the term in the same language as the given term. Consider the learning goal: ${learningGoal}`
                                     },
                                     example_2: {
                                         type: "string",
-                                        description: `Second example sentence using the term in the same language as the given term`
+                                        description: `Second example sentence using the term in the same language as the given term. Consider the learning goal: ${learningGoal}`
                                     },
                                     example_3: {
                                         type: "string",
-                                        description: `Third example sentence using the term in the same language as the given term`
+                                        description: `Third example sentence using the term in the same language as the given term. Consider the learning goal: ${learningGoal}`
                                     }
                                 },
                                 required: ["example_1", "example_2", "example_3"],
