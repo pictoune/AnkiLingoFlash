@@ -718,7 +718,7 @@
   "message": "Regenerating examples"
 },
 "examplesAssistant": {
-  "message": "You are a helpful assistant specialized in generating example sentences for various terms or expressions. The examples should be in the same language as the given term. The user's learning goal is: $1. Please create examples that are relevant to this goal when possible.",
+  "message": "You are a helpful assistant specialized in generating example sentences for various terms or expressions. The examples should be in the same language as the given term. The user's learning goal is: `$1`. Please create examples that are relevant to this goal when possible.",
   "placeholders": {
       "1": {
           "content": "$1"
