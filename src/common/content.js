@@ -1432,7 +1432,7 @@ if (window.hasRun === true) {
                         chrome.storage.sync.set({ lastUsedDeck: selectedDeck });
                     })
                     .catch(error => {
-                        console.error("Error adding note:", error);
+                        console.log("Error adding note:", error);
                         showToast(chrome.i18n.getMessage("errorAddingFlashcard") + ": " + error.message);
                     });
             });
