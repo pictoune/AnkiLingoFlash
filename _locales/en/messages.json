@@ -769,12 +769,7 @@
   "message": "OpenAI API rate limit reached. Please wait a moment before generating another flashcard."
 },
 "updateNoticeTitle": {
-    "message": "AnkiLingoFlash has been updated to version $VERSION$",
-    "placeholders": {
-      "VERSION": {
-        "content": "$1"
-      }
-    }
+    "message": "AnkiLingoFlash has been updated!"
   },
   "updateNoticeChanges": {
     "message": "What's new in this version:"
