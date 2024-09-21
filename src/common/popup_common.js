@@ -55,12 +55,10 @@ function showUpdateNotice(version) {
     if (!notice) return;
 
     notice.style.display = 'block';
-    
-    // Mettre à jour le titre
+
+    // Update the title
     const titleElement = notice.querySelector('h3[data-i18n="updateNoticeTitle"]');
     if (titleElement) {
-        console.log("VERRSIONNNNNN:",version);
-
         titleElement.textContent = chrome.i18n.getMessage("updateNoticeTitle", [version]);
     }
 
@@ -89,13 +87,20 @@ function showUpdateNotice(version) {
     linksContainer.appendChild(link2);
     notice.appendChild(linksContainer);
 
-    // Now append the close button last
-    const closeButton = notice.querySelector('.close-notice');
-    if (closeButton) {
-        notice.appendChild(closeButton); // Ensure it appears after other content
-    }
+    // Create and add the close button
+    const closeButton = document.createElement('button');
+    closeButton.id = 'update-notice-close-button';
+    closeButton.classList.add('close-notice', 'custom-close-button');
+    closeButton.textContent = 'OK'; // Change the text of the button
+    closeButton.onclick = function() {
+        notice.style.display = 'none';
+        chrome.storage.sync.set({ showUpdateNotice: false });
+    };
 
-    // Appeler translateElements après avoir créé tous les éléments
+    // Append the close button after all the content
+    notice.appendChild(closeButton);
+
+    // Call translateElements after creating all elements to apply translations
     translateElements();
 }
 
