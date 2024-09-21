@@ -1333,3 +1333,62 @@
 .anki-lingo-flash-container > *:last-child {
     margin-bottom: 0;
 }
+
+.update-notice {
+    background-color: #f0f8ff;             /* Light blue background */
+    border: 1px solid #4a90e2;             /* Border matching the text color */
+    border-radius: 4px;                    /* Rounded corners */
+    padding: 15px;                         /* More padding for spacing */
+    margin-bottom: 20px;                   /* Increased margin below */
+    font-size: 14px;                       /* Standard font size */
+    position: relative;                    /* Ensure button or content is positioned correctly */
+    display: flex;                         /* Use flexbox for layout */
+    flex-direction: column;                /* Ensure content is stacked vertically */
+}
+
+.update-notice h3 {
+    color: #4a90e2;                        /* Blue color for the title */
+    margin-top: 0;                         /* Remove extra margin at the top */
+    text-align: center;                    /* Center align the title */
+}
+
+.update-notice ul {
+    padding-left: 20px;                    /* Indent list items */
+    margin: 10px 0;                        /* Space around the list */
+}
+
+.update-notice a {
+    color: #4a90e2;                        /* Link color matching the border */
+    text-decoration: none;                 /* No underline */
+    display: inline-block;                 /* Display inline but allow margins */
+    margin-top: 5px;                       /* Space between links */
+}
+
+.update-notice a:hover {
+    text-decoration: underline;            /* Underline on hover */
+}
+
+.custom-close-button {
+    background-color: #4caf50 !important;  /* Green background for success */
+    color: white !important;               /* White text */
+    border: none !important;               /* No borders */
+    border-radius: 5px !important;         /* Rounded corners */
+    padding: 10px 20px !important;         /* Proper padding for the button */
+    font-size: 16px !important;            /* Font size */
+    cursor: pointer !important;            /* Pointer cursor for interaction */
+    margin-top: 20px !important;           /* Space above the button */
+    display: block !important;             /* Block display */
+    width: 100px !important;               /* Fixed width for button */
+    text-align: center !important;         /* Center the text */
+    transition: background-color 0.3s ease;/* Smooth transition for hover effect */
+    align-self: center !important;         /* Center the button */
+}
+
+.custom-close-button:hover {
+    background-color: #45a049 !important;  /* Slightly darker green on hover */
+}
+
+.custom-close-button:focus {
+    outline: none !important;              /* Remove focus outline */
+    box-shadow: 0 0 6px rgba(0, 0, 0, 0.2) !important; /* Subtle shadow on focus */
+}

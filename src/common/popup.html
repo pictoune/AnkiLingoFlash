@@ -9,6 +9,13 @@
 
 <body>
     <div id="popup-container" class="anki-lingo-flash-container fixed-width-popup">
+        <div id="update-notice-container">
+            <div class="update-notice" style="display: none;">
+                <h3 data-i18n="updateNoticeTitle"></h3>
+                <!-- Le contenu sera ajouté dynamiquement par showUpdateNotice() -->
+                <button id="update-notice-close-button" class="close-notice custom-close-button">OK</button>
+            </div>
+        </div>
         <h1 data-i18n="settingsTitle"></h1>
 
         <div class="form-group card-section">

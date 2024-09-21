@@ -1249,7 +1249,7 @@ if (window.hasRun === true) {
                 return result;
             })
             .catch(error => {
-                console.error("Error in checkAndCreateModelBeforeAdding:", error);
+                console.log("Error in checkAndCreateModelBeforeAdding:", error);
                 throw error;
             });
     }

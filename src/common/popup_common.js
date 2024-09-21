@@ -1,33 +1,116 @@
 const DEV_MODE = false;
 
+const elementsToTranslate = [
+    { id: 'enterLearningGoal', key: 'enterLearningGoal' },
+    { id: 'settingsTitle', key: 'settingsTitle', html: true },
+    { id: 'aiModelToggle', key: 'aiModelToggle' },
+    { id: 'chooseLanguage', key: 'chooseLanguage', html: true },
+    { id: 'ownCreditsOrFreeTrial', key: 'ownCreditsOrFreeTrial', html: true },
+    { id: 'enterOpenAIKey', key: 'enterOpenAIKey' },
+    { id: 'validate', key: 'validate' },
+    { id: 'chooseChatGPTModel', key: 'chooseChatGPTModel' },
+    { id: 'pleaseSignIn', key: 'pleaseSignIn' },
+    { id: 'signInWithGoogle', key: 'signInWithGoogle' },
+    { id: 'notAvailableYet', key: 'notAvailableYet' },
+    { id: 'welcome', key: 'welcome' },
+    { id: 'loggedInMessage', key: 'loggedInMessage' },
+    { id: 'freeFlashcardsLeft', key: 'freeFlashcardsLeft' },
+    { id: 'signOut', key: 'signOut' },
+    { id: 'local', key: 'local' },
+    { id: 'remote', key: 'remote' },
+    { id: 'ownCredits', key: 'ownCredits' },
+    { id: 'freeTrial', key: 'freeTrial' },
+    { id: 'updateNoticeTitle', key: 'updateNoticeTitle' },
+    { id: 'updateNoticeChange1', key: 'updateNoticeChange1' },
+    { id: 'updateNoticeChange2', key: 'updateNoticeChange2' },
+    { id: 'updateNoticeChange3', key: 'updateNoticeChange3' },
+    { id: 'updateNoticeChange4', key: 'updateNoticeChange4' },
+    { id: 'installHyperTTS', key: 'installHyperTTS' },
+    { id: 'addPronunciationGuide', key: 'addPronunciationGuide' }
+];
+
+// Function to translate elements based on their data-i18n attribute
+function translateElements() {
+    elementsToTranslate.forEach(item => {
+      const elements = document.querySelectorAll(`[data-i18n="${item.key}"]`);
+      console.log(`Translating ${item.key}, found ${elements.length} elements`);
+      elements.forEach(element => {
+        const message = chrome.i18n.getMessage(item.key);
+        console.log(`Translation for ${item.key}: "${message}"`);
+            if (element.tagName === 'INPUT' || element.tagName === 'TEXTAREA') {
+                element.placeholder = message;
+            } else if (element.tagName === 'A') {
+                element.textContent = message;
+            } else if (item.html || message.includes('<')) {
+                element.innerHTML = message;
+            } else {
+                element.textContent = message;
+            }
+        });
+    });
+}
+
+function showUpdateNotice(version) {
+    const notice = document.querySelector('#update-notice-container .update-notice');
+    if (!notice) return;
+
+    notice.style.display = 'block';
+    
+    // Mettre à jour le titre
+    const titleElement = notice.querySelector('h3[data-i18n="updateNoticeTitle"]');
+    if (titleElement) {
+        console.log("VERRSIONNNNNN:",version);
+
+        titleElement.textContent = chrome.i18n.getMessage("updateNoticeTitle", [version]);
+    }
+
+    // Create and add the list of changes
+    const changesList = document.createElement('ul');
+    for (let i = 1; i <= 4; i++) {
+        const li = document.createElement('li');
+        li.setAttribute('data-i18n', `updateNoticeChange${i}`);
+        changesList.appendChild(li);
+    }
+    notice.appendChild(changesList);
+
+    // Create and add the links
+    const linksContainer = document.createElement('p');
+    const link1 = document.createElement('a');
+    link1.href = 'https://ankilingoflash.com/install-hyper-tts.html';
+    link1.target = '_blank';
+    link1.setAttribute('data-i18n', 'installHyperTTS');
+    linksContainer.appendChild(link1);
+    linksContainer.appendChild(document.createElement('br'));
+
+    const link2 = document.createElement('a');
+    link2.href = 'https://ankilingoflash.com/add-prononciation-guide.html';
+    link2.target = '_blank';
+    link2.setAttribute('data-i18n', 'addPronunciationGuide');
+    linksContainer.appendChild(link2);
+    notice.appendChild(linksContainer);
+
+    // Now append the close button last
+    const closeButton = notice.querySelector('.close-notice');
+    if (closeButton) {
+        notice.appendChild(closeButton); // Ensure it appears after other content
+    }
+
+    // Appeler translateElements après avoir créé tous les éléments
+    translateElements();
+}
+
 // Wait for the DOM to be fully loaded before executing the main function
 document.addEventListener('DOMContentLoaded', function () {
+    chrome.storage.sync.get(['showUpdateNotice', 'currentVersion'], function(result) {
+        if (result.showUpdateNotice && result.currentVersion && result.currentVersion.startsWith('0.4.')) {
+            showUpdateNotice(result.currentVersion);
+        }
+    });
+    
     const popupContainer = document.getElementById('popup-container');
     if (popupContainer) {
         popupContainer.classList.add('fixed-width-popup');
     }
-
-    const elementsToTranslate = [
-        { id: 'enterLearningGoal', key: 'enterLearningGoal' },
-        { id: 'settingsTitle', key: 'settingsTitle', html: true },
-        { id: 'aiModelToggle', key: 'aiModelToggle' },
-        { id: 'chooseLanguage', key: 'chooseLanguage', html: true },
-        { id: 'ownCreditsOrFreeTrial', key: 'ownCreditsOrFreeTrial', html: true },
-        { id: 'enterOpenAIKey', key: 'enterOpenAIKey' },
-        { id: 'validate', key: 'validate' },
-        { id: 'chooseChatGPTModel', key: 'chooseChatGPTModel' },
-        { id: 'pleaseSignIn', key: 'pleaseSignIn' },
-        { id: 'signInWithGoogle', key: 'signInWithGoogle' },
-        { id: 'notAvailableYet', key: 'notAvailableYet' },
-        { id: 'welcome', key: 'welcome' },
-        { id: 'loggedInMessage', key: 'loggedInMessage' },
-        { id: 'freeFlashcardsLeft', key: 'freeFlashcardsLeft' },
-        { id: 'signOut', key: 'signOut' },
-        { id: 'local', key: 'local' },
-        { id: 'remote', key: 'remote' },
-        { id: 'ownCredits', key: 'ownCredits' },
-        { id: 'freeTrial', key: 'freeTrial' }
-    ];
 
     loadLearningGoal();
 
@@ -49,23 +132,6 @@ document.addEventListener('DOMContentLoaded', function () {
         apiKeyHelp.addEventListener('click', function(e) {
         e.preventDefault(); // Empêche le comportement par défaut du clic
         chrome.tabs.create({ url: 'https://ankilingoflash.com/#pricing' });
-        });
-    }
-
-    // Function to translate elements based on their data-i18n attribute
-    function translateElements() {
-        elementsToTranslate.forEach(item => {
-            const elements = document.querySelectorAll(`[data-i18n="${item.key}"]`);
-            elements.forEach(element => {
-                const message = chrome.i18n.getMessage(item.key);
-                if (element.tagName === 'INPUT' || element.tagName === 'TEXTAREA') {
-                    element.placeholder = message;
-                } else if (item.html || message.includes('<')) {
-                    element.innerHTML = message;
-                } else {
-                    element.textContent = message;
-                }
-            });
         });
     }
 

@@ -387,6 +387,22 @@ chrome.runtime.onInstalled.addListener(async (details) => {
     // Open tutorial page on first install
     if (details.reason === 'install') {
         chrome.tabs.create({ url: 'https://ankilingoflash.com/quick-tutorial.html' });
+    } else if (details.reason === 'update') {
+        const currentVersion = chrome.runtime.getManifest().version;
+        
+        // Vérifiez si c'est une mise à jour vers 0.4.X
+        if (currentVersion.startsWith('0.4.')) {
+            chrome.storage.sync.get(['lastKnownVersion'], function(result) {
+                if (!result.lastKnownVersion || !result.lastKnownVersion.startsWith('0.4.')) {
+                    // C'est une mise à jour vers 0.4.X depuis une version inconnue ou antérieure
+                    chrome.storage.sync.set({ 
+                        showUpdateNotice: true, 
+                        currentVersion: currentVersion,
+                        lastKnownVersion: currentVersion
+                    });
+                }
+            });
+        }
     }
 });
 

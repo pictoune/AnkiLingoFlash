@@ -767,8 +767,38 @@
 },
 "rateLimitReached": {
   "message": "OpenAI API rate limit reached. Please wait a moment before generating another flashcard."
+},
+"updateNoticeTitle": {
+    "message": "AnkiLingoFlash has been updated to version $VERSION$",
+    "placeholders": {
+      "VERSION": {
+        "content": "$1"
+      }
+    }
+  },
+  "updateNoticeChanges": {
+    "message": "What's new in this version:"
+  },
+  "updateNoticeChange1": {
+    "message": "Each card now includes 3 example sentences tailored to the user's learning objective"
+  },
+  "updateNoticeChange2": {
+    "message": "Added support for HyperTTS, a new add-on for enhanced text-to-speech capabilities"
+  },
+  "updateNoticeChange3": {
+    "message": "Users can now disable mnemonic generation by default"
+  },
+  "updateNoticeChange4": {
+    "message": "Added the ability to generate a \"reverse card\" with a single click, enhancing bidirectional learning"
+  },
+  "installHyperTTS": {
+    "message": "1. Install HyperTTS add-on"
+  },
+  "addPronunciationGuide": {
+    "message": "2. Learn to add pronunciation guide to flashcards with HyperTTS"
+  }
 }
-}
+
 
 
 
