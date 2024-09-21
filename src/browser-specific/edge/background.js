@@ -57,11 +57,11 @@ chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
                     })
                 });
             } catch (error) {
-                console.error("Login error:", error);
+                console.log("Login error:", error);
                 sendResponse({ error: error.message });
             }
         }).catch(error => {
-            console.error("Auth token error:", error);
+            console.log("Auth token error:", error);
             sendResponse({ error: error.message });
         });
 
