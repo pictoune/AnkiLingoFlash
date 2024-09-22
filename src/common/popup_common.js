@@ -101,7 +101,7 @@ function showUpdateNotice(version) {
     closeButton.onclick = function() {
         notice.style.display = 'none';
         chrome.storage.sync.set({ showUpdateNotice: false });
-    };
+    }; 
 
     // Append the close button after all the content
     notice.appendChild(closeButton);
@@ -910,7 +910,7 @@ function initializePopup() {
     initializeToggleSwitches();
     addEventListeners();
     updateUserInfo();
-    updateOptionsVisibility();
+    updateOptionsVisibility(); 
     addModelChoiceListener();
 }
 
