@@ -29,7 +29,9 @@ const elementsToTranslate = [
     { id: 'addPronunciationGuide', key: 'addPronunciationGuide' }
 ];
 
-// Function to translate elements based on their data-i18n attribute
+/**
+ * Translates elements in the UI based on their data-i18n attribute.
+ */
 function translateElements() {
     elementsToTranslate.forEach(item => {
       const elements = document.querySelectorAll(`[data-i18n="${item.key}"]`);
@@ -50,6 +52,10 @@ function translateElements() {
     });
 }
 
+/**
+ * Shows an update notice with the latest version changes.
+ * @param {string} version - The current version of the extension.
+ */
 function showUpdateNotice(version) {
     const notice = document.querySelector('#update-notice-container .update-notice');
     if (!notice) return;
@@ -556,6 +562,10 @@ function updateLoginButton(container) {
     }
 }
 
+/**
+ * Checks the internet connection by making a request to a specific endpoint.
+ * @returns {Promise<boolean>} A promise that resolves to true if online, rejects with false otherwise.
+ */
 function checkInternetConnection() {
     return new Promise((resolve, reject) => {
       fetch('https://anki-lingo-flash.piriouvictor.workers.dev/api/check-connectivity')
@@ -823,7 +833,7 @@ function updateFlashcardCounter(count, remainingCards) {
 }
 
 /**
- * Update the visibility of various UI options based on user settings.
+ * Updates the visibility of various UI options based on user settings.
  */
 function updateOptionsVisibility() {
     chrome.storage.sync.get(['user', 'apiKeyValidated', 'choice', 'isOwnCredits', 'flashcardCount'], function (result) {
@@ -904,6 +914,9 @@ function initializePopup() {
     addModelChoiceListener();
 }
 
+/**
+ * Saves the current learning goal to storage when it changes.
+ */
 function saveLearningGoal() {
     const learningGoal = document.getElementById('learningGoal').value;
     chrome.storage.sync.set({ learningGoal: learningGoal }, function() {
@@ -911,6 +924,9 @@ function saveLearningGoal() {
     });
 }
 
+/**
+ * Loads the saved learning goal from storage and sets it in the UI.
+ */
 function loadLearningGoal() {
     chrome.storage.sync.get(['learningGoal'], function(result) {
         if (result.learningGoal) {
