@@ -936,4 +936,4 @@ function loadLearningGoal() {
 }
 
 // Event listener for when the DOM content is loaded
-document.addEventListener('DOMContentLoaded', initializePopup);
+document.addEventListener('DOMContentLoaded', initializePopup); 
