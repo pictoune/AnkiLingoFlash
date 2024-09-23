@@ -15,13 +15,13 @@ AnkiLingoFlash is a powerful browser extension that automates the creation of An
 - [License](#️-license)
 - [Acknowledgements](#-acknowledgements)
 
-## 💡 Why Choose AnkiLingoFlash?
-
-- **Enriched Flashcards**: Create comprehensive flashcards with a direct translation, a definition, a mnemonic, and a pronunciation guide.
+## 💡 Why Choose AnkiLingoFlash to build your Anki decks?
+ 
+- **Enriched Flashcards**: Create comprehensive flashcards with a direct translation and definition on the front, and the term to learn (with audio pronunciation), along with three example sentences and an optional mnemonic on the back.
 - **Seamless Anki Integration**: Generate and add cards to Anki directly from your browser, without typing and disrupting your daily routine.
 - **Personalised Learning**: Create personalised flashcard sets tailored to your interests, no more downloading uncertain quality decks.
 - **Distraction-Free**: No ads, just pure focus on your language learning journey.
-- **Flashcard Independence**: All flashcards created with AnkiLingoFlash remain in your Anki deck, even if you stop using the extension.
+- **Flashcard Independence**: All flashcards created with AnkiLingoFlash remain in your Anki deck, even if you stop using my extension.
 - **Affordable Learning**: Start with a generous free trial, then continue at minimal cost using your own AI credits - I don't charge any markup!
 
 Integrate AnkiLingoFlash into your daily browsing routine and watch your vocabulary grow day by day. 🌱
