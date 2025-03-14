@@ -177,9 +177,7 @@ If you're interested in tackling any of these improvements or have other ideas, 
 
 ## ⚖️ License
 
-This project is licensed under the [GNU Affero General Public License v3.0 (AGPL-3.0)](LICENSE).
-
-**Important:** Commercial use of this software is prohibited unless explicit permission is granted by the original author. Commercial use includes, but is not limited to, selling the software, incorporating it into a product or service that is sold, or using it in a commercial environment without proper licensing from the author.
+This project is licensed under the [MIT License](LICENSE).
 
 ## 🙏 Acknowledgements
 
